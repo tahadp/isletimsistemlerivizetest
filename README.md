@@ -32,9 +32,26 @@ python scripts/build_questions.py
 
 ## Yayın
 
+Canlı adres: https://isletimsistemleritest.tahatoprak.me/
+
 Depo: https://github.com/tahadp/isletimsistemlerivizetest
 
-GitHub Pages, `.github/workflows/pages.yml` ile `main` dalındaki kontroller geçtikten sonra `dist/` klasörünü yayımlar. Depo Pages ayarı GitHub Actions olmalıdır. Hedef adres: https://tahadp.github.io/isletimsistemlerivizetest/
+Sunucuda mevcut Python 3 ile çalışır; Docker, Nginx, paket kurulumu veya derleme gerekmez:
+
+```sh
+python3 scripts/serve.py
+```
+
+Yalnız `127.0.0.1:8088` dinlenir. Mevcut Cloudflare Tunnel, alan adını bu localhost adresine yönlendirir ve ziyaretçilere HTTPS sağlar. Sunucunun 80 portu kullanılmaz. `deployment/isletimsistemleritest.service` servisi makine yeniden açıldığında siteyi başlatır.
+
+Sunucu kaynak kopyası `/opt/isletimsistemlerivizetest` içindedir. GitHub güncellemesini yayımlamak için yetkili SSH oturumunda:
+
+```sh
+git -C /opt/isletimsistemlerivizetest pull --ff-only
+systemctl restart isletimsistemleritest
+```
+
+GitHub Actions yalnız veri/puanlama kontrollerini çalıştırır. Kalıcı veritabanı veya sunucuya kurulan Node.js bağımlılığı yoktur.
 
 ## İçerik güncelleme
 

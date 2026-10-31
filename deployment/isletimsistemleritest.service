@@ -1,0 +1,16 @@
+[Unit]
+Description=İşletim Sistemleri test sitesi
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/opt/isletimsistemlerivizetest
+ExecStart=/usr/bin/python3 /opt/isletimsistemlerivizetest/scripts/serve.py --port 8088
+Restart=on-failure
+NoNewPrivileges=true
+ProtectSystem=strict
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
