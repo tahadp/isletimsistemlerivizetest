@@ -1,0 +1,30 @@
+{
+  "u1-test-7": {
+    "acceptedAnswers": [
+      "B",
+      "C",
+      "D"
+    ],
+    "conflictNote": "Bu kaynak hatalıdır. Kitap anahtarı C, konu anlatımına göre doğru cevap D (IV. nesil) olarak verilmiştir. B ile C aynı seçenek metnini içerir. Puanlamada kaynak hatasından etkilenmemen için B, C ve D kabul edilir; öğrenilmesi gereken bilgi kişisel bilgisayar çağının IV. nesilde başlamasıdır. Kitap: basılı s. 22; PDF s. 29."
+  },
+  "u2-test-1": {
+    "acceptedAnswers": [
+      "A",
+      "E"
+    ],
+    "conflictNote": "Kitap anahtarı A. E seçeneği aynı çekirdek ve bağlantı yüzeyi tanımını yalnız dış sözcüğünü kullanmadan verir; yanlış bir özellik eklemez. Bu nedenle A ve E tam doğru kabul edilir. Kitap: basılı s. 29; PDF s. 36."
+  },
+  "u2-test-6": {
+    "acceptedAnswers": [
+      "A"
+    ],
+    "conflictNote": "Kitap anahtarı A (EPROM) olarak korunmuştur. Kitabın kenar tanımında ve elektrikle silme açıklamasında teknik karşılık EEPROM olur; EEPROM seçeneklerde bulunmuyor. Yeni seçenek eklenmedi. Bu terim çelişkisi nedeniyle kaynak anahtarıyla puanlanır. Kitap: basılı s. 29; PDF s. 36."
+  },
+  "u5-test-3": {
+    "acceptedAnswers": [
+      "A",
+      "D"
+    ],
+    "conflictNote": "Kitap anahtarı A (1982); aynı kitabın anlatımında 1982 duyuru, 1985 piyasaya çıkış yılıdır. Soru piyasaya girişi sorduğu için içerik cevabı D (1985). Kaynak hatasından etkilenmemen için A ve D kabul edilir. Kitap: basılı s. 92; PDF s. 99."
+  }
+}

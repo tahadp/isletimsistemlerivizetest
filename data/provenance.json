@@ -1,0 +1,70 @@
+{
+  "sourceBlocks": {
+    "path": "Dersler/3.Sinif/1.Donem/IsletimSistemleri/Yeni PDFler/_kaynaklar/enriched_blocks.json",
+    "sha256": "7e3529a3ff57c1ef4e45b51d5b48f2f4a9dc40816b1f6cf0c20f956ad0e7bbc6",
+    "encoding": "UTF-8"
+  },
+  "sourceBookPdf": {
+    "path": "Dersler/3.Sinif/1.Donem/IsletimSistemleri/isletim-sistemleri-kitap.pdf",
+    "sha256": "8bf4e0f299f07aa62c5de3120cff031e1b7e0461aa1b1feadcaacf62e59cfbe7",
+    "pageCount": 204,
+    "pageMapping": "Prompt matching after whitespace/punctuation removal and Unicode NFKC compatibility normalization."
+  },
+  "extractionRules": [
+    "Strip HTML tags and decode entities only; retain source wording.",
+    "Copy the five original answer choices verbatim.",
+    "Read the book answer from each Test N • Kitap anahtarı heading.",
+    "Include only the 50 Kendimizi Sınayalım multiple-choice questions.",
+    "The build script uses the bundled source snapshot; source PDFs and blocks are not needed to rebuild.",
+    "Merge optional data/answer-overrides.json entries by question id into dist/questions.json."
+  ],
+  "counts": {
+    "units": 5,
+    "tests": 50,
+    "options": 250
+  },
+  "providedPdfs": [
+    {
+      "filename": "Isletim-Sistemleri-Ilk-5-Unite-Butunlesik-Vize.pdf",
+      "sha256": "1681138ece5d70af106a74a74ff95835383c082529f72b5e13e7a7ce0a9b41f8"
+    },
+    {
+      "filename": "Isletim-Sistemleri-Unite-1-Detayli-Vize.pdf",
+      "sha256": "72e6b6c510c4dfaca7793c276689815750ecbf5bb05b8ae6aa64bb5d60a9153a"
+    },
+    {
+      "filename": "Isletim-Sistemleri-Unite-2-Detayli-Vize - 2026-10-31 14-57-52.pdf",
+      "sha256": "e951c7c24a64a11b3e748765e5c30c71cb504791d1f631f5582d90d4ccb26be2"
+    },
+    {
+      "filename": "Isletim-Sistemleri-Unite-2-Detayli-Vize.pdf",
+      "sha256": "8ba2c4e3d0fcef0b21b36ce4ab2bfbb4d58fffe14df087c7d629e7a69231a0f9"
+    },
+    {
+      "filename": "Isletim-Sistemleri-Unite-3-Detayli-Vize.pdf",
+      "sha256": "7b29923ca824a6a71499ec7c9007d43de86ab36315e7b15d813a1f6e3293e5e2"
+    },
+    {
+      "filename": "Isletim-Sistemleri-Unite-4-Detayli-Vize.pdf",
+      "sha256": "8061bf36f2a59b3a521ad4cafd71fc529deeaccee0ea7d3029e5e4b708865b89"
+    },
+    {
+      "filename": "Isletim-Sistemleri-Unite-5-Detayli-Vize.pdf",
+      "sha256": "7cf03999386b39731a76ed2561617b0be16169750481217d782798cef576f2a9"
+    }
+  ],
+  "review": {
+    "date": "2026-10-31",
+    "questionPromptsCompared": 50,
+    "optionsCompared": 250,
+    "against": "User-supplied unit PDFs; only PDF line wraps and compatibility ligatures normalized",
+    "mismatches": 0,
+    "scope": "50 test questions, no Sıra Sizde; integrated PDF duplicates excluded",
+    "reviewedOverrides": [
+      "u1-test-7",
+      "u2-test-1",
+      "u2-test-6",
+      "u5-test-3"
+    ]
+  }
+}

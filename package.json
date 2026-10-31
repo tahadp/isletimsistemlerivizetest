@@ -1,0 +1,13 @@
+{
+  "name": "isletim-sistemleri-vize-test",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "İşletim Sistemleri ilk beş ünite özgün soruları ve açıklamalı çözümleri",
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "test": "node --test",
+    "check": "node --check dist/app.js && node --test"
+  },
+  "engines": { "node": ">=22" }
+}

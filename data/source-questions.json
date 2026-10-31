@@ -1,0 +1,2027 @@
+{
+  "title": "İşletim Sistemleri",
+  "units": [
+    {
+      "id": 1,
+      "title": "İşletim Sistemlerine Giriş"
+    },
+    {
+      "id": 2,
+      "title": "İşletim Sistemleri Temel Kavramları"
+    },
+    {
+      "id": 3,
+      "title": "İşletim Sistemi Fonksiyonları"
+    },
+    {
+      "id": 4,
+      "title": "İşletim Sistemi Bileşenleri"
+    },
+    {
+      "id": 5,
+      "title": "Kişisel Bilgisayar İşletim Sistemleri"
+    }
+  ],
+  "questions": [
+    {
+      "id": "u1-test-1",
+      "unit": 1,
+      "number": 1,
+      "type": "test",
+      "promptHtml": "Von Neumann Mimarisi nedir?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "Bilgisayarın içyapısına ilişkin mimaridir."
+        },
+        {
+          "key": "B",
+          "textHtml": "Bir çeşit işletim sistemidir."
+        },
+        {
+          "key": "C",
+          "textHtml": "İşletim sistemlerinin temel bileşenidir."
+        },
+        {
+          "key": "D",
+          "textHtml": "Bilgisayarların dış özellikleridir."
+        },
+        {
+          "key": "E",
+          "textHtml": "Bilginin, saklanması ve depolanmasıdır."
+        }
+      ],
+      "acceptedAnswers": [
+        "A"
+      ],
+      "bookAnswer": "A",
+      "explanationHtml": "Von Neumann, veri ve programın bellekte tutulduğu bilgisayar iç mimarisidir; işletim sistemi türü değildir.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 31,
+        "bookPage": 24
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u1-test-2",
+      "unit": 1,
+      "number": 2,
+      "type": "test",
+      "promptHtml": "Aşağıdakilerden hangisi, işletim sisteminin tanımlarından biri değildir?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "Bir bilgisayar programıdır."
+        },
+        {
+          "key": "B",
+          "textHtml": "Çevre aygıtlarını kontrol eden dosyadır."
+        },
+        {
+          "key": "C",
+          "textHtml": "Alt-düzey bir yazılımdır."
+        },
+        {
+          "key": "D",
+          "textHtml": "Uygulama programlarını çalıştıran programdır."
+        },
+        {
+          "key": "E",
+          "textHtml": "Bir hizmet yazılımıdır"
+        }
+      ],
+      "acceptedAnswers": [
+        "B"
+      ],
+      "bookAnswer": "B",
+      "explanationHtml": "İşletim sistemi bir program/sistem yazılımıdır; çevre aygıtlarını kontrol eden tek bir dosya olarak tanımlanamaz.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 31,
+        "bookPage": 24
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u1-test-3",
+      "unit": 1,
+      "number": 3,
+      "type": "test",
+      "promptHtml": "İnsan-bilgisayar etkileşiminde aşağıdaki sıralamalardan hangisi, doğrudur?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "Kullanıcı- İşletim Sistemi-Uygulama- Donanım"
+        },
+        {
+          "key": "B",
+          "textHtml": "Uygulama-İşletim Sistemi-Donanım- Kullanıcı"
+        },
+        {
+          "key": "C",
+          "textHtml": "Kullanıcı-Uygulama-İşletim Sistemi-Donanım"
+        },
+        {
+          "key": "D",
+          "textHtml": "Uygulama-Donanım-Kullanıcı-İşletim Sistemi"
+        },
+        {
+          "key": "E",
+          "textHtml": "Donanım-Kullanıcı--İşletim Sistemi-Uygulama"
+        }
+      ],
+      "acceptedAnswers": [
+        "C"
+      ],
+      "bookAnswer": "C",
+      "explanationHtml": "Kullanıcı uygulamayı; uygulama işletim sisteminin hizmetlerini; işletim sistemi donanımı kullanır.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 31,
+        "bookPage": 24
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u1-test-4",
+      "unit": 1,
+      "number": 4,
+      "type": "test",
+      "promptHtml": "İlk transistör kaç yılında geliştirilmiştir?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "1944"
+        },
+        {
+          "key": "B",
+          "textHtml": "1945"
+        },
+        {
+          "key": "C",
+          "textHtml": "1946"
+        },
+        {
+          "key": "D",
+          "textHtml": "1947"
+        },
+        {
+          "key": "E",
+          "textHtml": "1948"
+        }
+      ],
+      "acceptedAnswers": [
+        "D"
+      ],
+      "bookAnswer": "D",
+      "explanationHtml": "Kitap ilk transistörü 1947 ve Bell Laboratuvarları ile eşleştirir.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 31,
+        "bookPage": 24
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u1-test-5",
+      "unit": 1,
+      "number": 5,
+      "type": "test",
+      "promptHtml": "Bilgisayarın, monitor programları kullanılarak, otomatik olarak birden fazla işin arka arkaya yapmasını sağlayan sisteme ne ad verilir?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "Çoklu Programlama"
+        },
+        {
+          "key": "B",
+          "textHtml": "Entegre Devre"
+        },
+        {
+          "key": "C",
+          "textHtml": "Vakum Tüpler"
+        },
+        {
+          "key": "D",
+          "textHtml": "Transistor"
+        },
+        {
+          "key": "E",
+          "textHtml": "Toplu İşlem"
+        }
+      ],
+      "acceptedAnswers": [
+        "E"
+      ],
+      "bookAnswer": "E",
+      "explanationHtml": "Monitör programının işleri otomatik arka arkaya yürütmesi toplu/yığın işlemdir. Çoklu programlama, birden fazla işin bellekte tutulması ve CPU paylaşımıdır.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 31,
+        "bookPage": 24
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u1-test-6",
+      "unit": 1,
+      "number": 6,
+      "type": "test",
+      "promptHtml": "III. Nesil İşletim Sistemlerinin en önemli özelliği aşağıdakilerden hangisidir?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "Bilgisayar tasarımcıları ve üreticileri birbirinden ayrıldı."
+        },
+        {
+          "key": "B",
+          "textHtml": "Bilgisayarların mimari yapıları değişti ve transistörlerin yerini entegre devreler aldı."
+        },
+        {
+          "key": "C",
+          "textHtml": "Bilgisayarlar, müşterilerin işlerini yapabilecekleri düzeye geldi."
+        },
+        {
+          "key": "D",
+          "textHtml": "Bilgisayarları, bütçesi büyük devlet daireleri satın aldı."
+        },
+        {
+          "key": "E",
+          "textHtml": "Programlar kartlara yazılıp buradan okutulması sağlandı."
+        }
+      ],
+      "acceptedAnswers": [
+        "B"
+      ],
+      "bookAnswer": "B",
+      "explanationHtml": "Üçüncü neslin temel donanım geçişi transistörden entegre devreyedir. Mesleki ayrışma ve büyük bütçeli müşteriler ikinci nesil bağlamındadır.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 31,
+        "bookPage": 24
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u1-test-7",
+      "unit": 1,
+      "number": 7,
+      "type": "test",
+      "promptHtml": "Kişisel Bilgisayar (Personal Computer-PC) çağı ne zaman başlamıştır?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "I. Nesil İşletim Sistemi Döneminde"
+        },
+        {
+          "key": "B",
+          "textHtml": "III. Nesil İşletim Sistemi Döneminde"
+        },
+        {
+          "key": "C",
+          "textHtml": "III. Nesil İşletim Sistemi Döneminde"
+        },
+        {
+          "key": "D",
+          "textHtml": "IV. Nesil İşletim Sistemi Döneminde"
+        },
+        {
+          "key": "E",
+          "textHtml": "V. Nesil İşletim Sistemi Döneminde"
+        }
+      ],
+      "acceptedAnswers": [
+        "C"
+      ],
+      "bookAnswer": "C",
+      "explanationHtml": "KAYNAK ANAHTARI HATASI: Kitap anahtarı c der; fakat c seçeneği III. nesildir ve b ile aynıdır. Ana metin kişisel bilgisayar çağını IV. nesil (1980-2014) diye açıklar. İçeriğe göre doğru seçenek d&#x27;dir. Kaynak seçenekleri değiştirilmemiştir.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 31,
+        "bookPage": 24
+      },
+      "conflictNote": "İçerik kontrolü: d • KAYNAK ANAHTARI HATASI"
+    },
+    {
+      "id": "u1-test-8",
+      "unit": 1,
+      "number": 8,
+      "type": "test",
+      "promptHtml": "Bir işletim sisteminin temelleri aşağıdakilerden hangisinde birlikte ve doğru olarak verilmiştir?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "Kesme istekleri, doğrudan bellek erişimi, Giriş/Çıkış adresleri"
+        },
+        {
+          "key": "B",
+          "textHtml": "Kullanıcı arabirimi, kesme istekleri, doğrudan bellek erişimi"
+        },
+        {
+          "key": "C",
+          "textHtml": "Yapı ve bileşenler, kullanıcı arabirimi, doğrudan bellek erişimi"
+        },
+        {
+          "key": "D",
+          "textHtml": "Sistem kaynakları, yapı ve bileşenler, işlevler"
+        },
+        {
+          "key": "E",
+          "textHtml": "Doğrudan bellek erişimi, işlevleri, Giriş/Çıkış adresleri"
+        }
+      ],
+      "acceptedAnswers": [
+        "D"
+      ],
+      "bookAnswer": "D",
+      "explanationHtml": "Üst sınıflama sistem kaynakları + yapı/bileşenler + işlevlerdir. IRQ/DMA/GÇ ise bunun içindeki sistem kaynakları alt grubudur.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 31,
+        "bookPage": 24
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u1-test-9",
+      "unit": 1,
+      "number": 9,
+      "type": "test",
+      "promptHtml": "Aşağıdakilerden hangisi görev yönetiminin sorumluluklarından biridir?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "Kaynakların ortak kullanımını kontrol etme"
+        },
+        {
+          "key": "B",
+          "textHtml": "Kaynakların güvenliğini sağlama"
+        },
+        {
+          "key": "C",
+          "textHtml": "Bilgisayar kaynaklarının hesabını tutma"
+        },
+        {
+          "key": "D",
+          "textHtml": "Kaynaklara ulaşımı yönetmede strateji belirle"
+        },
+        {
+          "key": "E",
+          "textHtml": "Kaynakları saklama"
+        }
+      ],
+      "acceptedAnswers": [
+        "A"
+      ],
+      "bookAnswer": "A",
+      "explanationHtml": "Görev yönetimi çalışan görevleri ve ortak kaynak kullanımını düzenler; güvenlik politikası veya dosya saklama farklı başlıklardır.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 31,
+        "bookPage": 24
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u1-test-10",
+      "unit": 1,
+      "number": 10,
+      "type": "test",
+      "promptHtml": "Aşağıdakilerden hangisi, işletim sisteminin temel işlevlerinden biri değildir?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "Bilgisayar Donanımını Kontrol Etme"
+        },
+        {
+          "key": "B",
+          "textHtml": "Yardımcı Programları Destekleme"
+        },
+        {
+          "key": "C",
+          "textHtml": "Uygulamaların Yönetimi"
+        },
+        {
+          "key": "D",
+          "textHtml": "Dosya ve Klasör Yönetimi"
+        },
+        {
+          "key": "E",
+          "textHtml": "Kütük Yönetimi"
+        }
+      ],
+      "acceptedAnswers": [
+        "E"
+      ],
+      "bookAnswer": "E",
+      "explanationHtml": "Ünitenin dört temel işlev listesi donanım kontrolü, yardımcı program desteği, uygulama yönetimi ve dosya/klasör yönetimidir. Kütük yönetimi gerçek sorumluluk olsa da bu listede ayrı beşinci başlık değildir.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 31,
+        "bookPage": 24
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u2-test-1",
+      "unit": 2,
+      "number": 1,
+      "type": "test",
+      "promptHtml": "Mikroişlemcilerle ilgili aşağıdaki ifadelerden hangisi doğrudur?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "Bir mikroişlemci, bütün işlemleri gerçekleştiren elektronik devrelerin bulunduğu işlemci çekirdeği ve çekirdek kısmın anakarta bağlantısını sağlayan dış yüzeyden oluşur."
+        },
+        {
+          "key": "B",
+          "textHtml": "Bir mikroişlemci, bazı işlemleri gerçekleştiren elektronik devrelerin bulunduğu işlemci çekirdeği ve çekirdek kısmın anakarta bağlantısını sağlayan dış yüzeyden oluşur"
+        },
+        {
+          "key": "C",
+          "textHtml": "Bir mikroişlemci, bütün işlemleri gerçekleştiren elektronik devrelerin bulunduğu işlemci çekirdeği ve çekirdek kısmın anakarta bağlantısını sağlayan iç yüzeyden oluşur"
+        },
+        {
+          "key": "D",
+          "textHtml": "Bir mikroişlemci, bazı işlemleri gerçekleştiren elektronik devrelerin bulunduğu işlemci çekirdeği ve çekirdek kısmın anakarta bağlantısını sağlayan iç yüzeyden oluşur"
+        },
+        {
+          "key": "E",
+          "textHtml": "Bir mikroişlemci, bütün işlemleri gerçekleştiren elektronik devrelerin bulunduğu işlemci çekirdeği ve çekirdek kısmın anakarta bağlantısını sağlayan yüzeyden oluşur."
+        }
+      ],
+      "acceptedAnswers": [
+        "A"
+      ],
+      "bookAnswer": "A",
+      "explanationHtml": "Kitabın mikroişlemci tanımı, elektronik işlemleri yürüten çekirdek ile anakarta bağlantıyı sağlayan dış yüzeyi birlikte içerir.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 55,
+        "bookPage": 48
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u2-test-2",
+      "unit": 2,
+      "number": 2,
+      "type": "test",
+      "promptHtml": "Aşağıdakilerden hangisi, işletim sisteminin çekirdek türlerinden biri değildir?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "Tek Parça Çekirdekler"
+        },
+        {
+          "key": "B",
+          "textHtml": "Makro Çekirdekler"
+        },
+        {
+          "key": "C",
+          "textHtml": "Mikro Çekirdekler"
+        },
+        {
+          "key": "D",
+          "textHtml": "Ekzo Çekirdekler"
+        },
+        {
+          "key": "E",
+          "textHtml": "Hibrid Çekirdekler"
+        }
+      ],
+      "acceptedAnswers": [
+        "B"
+      ],
+      "bookAnswer": "B",
+      "explanationHtml": "Bu ünitenin dörtlü sınıflaması monolitik, mikro, ekzo ve hibrittir. Makro çekirdek bu listede yoktur.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 55,
+        "bookPage": 48
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u2-test-3",
+      "unit": 2,
+      "number": 3,
+      "type": "test",
+      "promptHtml": "Aşağıdakilerden hangisi, monolatik çekirdek tabanlı işletim sisteminin özelliklerinden biri değildir?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "Modüler olarak tasarlanmışlardır."
+        },
+        {
+          "key": "B",
+          "textHtml": "Dağıtıklık özelliklerinin bu sistem mimarisi içinde gerçeklenmesi zordur."
+        },
+        {
+          "key": "C",
+          "textHtml": "Küçük bir mikroçekirdeği vardır."
+        },
+        {
+          "key": "D",
+          "textHtml": "Sistemdeki gerekli tüm önemli hizmetleri sunmaktadır."
+        },
+        {
+          "key": "E",
+          "textHtml": "Fonksiyonların tümü çekirdeğin içinde yönetilmektedir."
+        }
+      ],
+      "acceptedAnswers": [
+        "C"
+      ],
+      "bookAnswer": "C",
+      "explanationHtml": "Monolitik çekirdek çok sayıda temel hizmeti aynı çekirdek alanında taşır. “Küçük bir mikroçekirdeği vardır” başka bir mimarinin tanımıdır; modüler olabilmesi monolitikliği bozmaz.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 55,
+        "bookPage": 48
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u2-test-4",
+      "unit": 2,
+      "number": 4,
+      "type": "test",
+      "promptHtml": "Aşağıdakilerden hangisi, MIT Parallel ve Distributed Operating Systems Group tarafından geliştirilen çekirdektir?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "Tek Parça Çekirdekler"
+        },
+        {
+          "key": "B",
+          "textHtml": "Makro Çekirdekler"
+        },
+        {
+          "key": "C",
+          "textHtml": "Mikro Çekirdekler"
+        },
+        {
+          "key": "D",
+          "textHtml": "Ekzo Çekirdekler"
+        },
+        {
+          "key": "E",
+          "textHtml": "Hibrid Çekirdekler"
+        }
+      ],
+      "acceptedAnswers": [
+        "D"
+      ],
+      "bookAnswer": "D",
+      "explanationHtml": "Kitap MIT Parallel ve Distributed Operating Systems Group&#x27;u ekzo çekirdek geliştirme çalışmasıyla ilişkilendirir.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 55,
+        "bookPage": 48
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u2-test-5",
+      "unit": 2,
+      "number": 5,
+      "type": "test",
+      "promptHtml": "Aşağıdakilerden hangisi, programların kalıcı olarak durduğu ve sadece okunabilen bellek tipidir?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "Ön bellek"
+        },
+        {
+          "key": "B",
+          "textHtml": "RAM"
+        },
+        {
+          "key": "C",
+          "textHtml": "Flash bellek"
+        },
+        {
+          "key": "D",
+          "textHtml": "PROM"
+        },
+        {
+          "key": "E",
+          "textHtml": "ROM"
+        }
+      ],
+      "acceptedAnswers": [
+        "E"
+      ],
+      "bookAnswer": "E",
+      "explanationHtml": "Kalıcı ve salt okunur genel bellek tanımı ROM&#x27;dur. RAM/önbellek güç kaybında veriyi korumaz; PROM ise programlanabilir özel türdür.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 55,
+        "bookPage": 48
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u2-test-6",
+      "unit": 2,
+      "number": 6,
+      "type": "test",
+      "promptHtml": "Küçük boyuttaki verileri kalıcı olarak saklamak için bilgisayar veya diğer cihazlarda kullanılan bir yongaya ne ad verilir?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "EPROM"
+        },
+        {
+          "key": "B",
+          "textHtml": "PROM"
+        },
+        {
+          "key": "C",
+          "textHtml": "Dinamik RAM"
+        },
+        {
+          "key": "D",
+          "textHtml": "Duruk RAM"
+        },
+        {
+          "key": "E",
+          "textHtml": "Ön bellek"
+        }
+      ],
+      "acceptedAnswers": [
+        "A"
+      ],
+      "bookAnswer": "A",
+      "explanationHtml": "KAYNAK TERİM KARIŞIKLIĞI: Kitap anahtarı a/EPROM verir. Aynı kitabın kenar tanımı ve elektrikle yazma-silme açıklaması bu tanımı EEPROM için kullanır; EPROM UV ile silinir. EEPROM seçeneklerde yoktur. Sınav anahtarını a olarak bil; teknik karşılığın EEPROM olduğunu ayrı öğren.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 55,
+        "bookPage": 48
+      },
+      "conflictNote": "İçerik kontrolü: Seçeneklerde EEPROM yok • KAYNAK TERİM KARIŞIKLIĞI"
+    },
+    {
+      "id": "u2-test-7",
+      "unit": 2,
+      "number": 7,
+      "type": "test",
+      "promptHtml": "Aşağıdakilerden hangisi EEPROM belleğin özel bir uygulamasıdır?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "EPROM"
+        },
+        {
+          "key": "B",
+          "textHtml": "Flash Bellek"
+        },
+        {
+          "key": "C",
+          "textHtml": "Duruk RAM"
+        },
+        {
+          "key": "D",
+          "textHtml": "RAM"
+        },
+        {
+          "key": "E",
+          "textHtml": "PROM"
+        }
+      ],
+      "acceptedAnswers": [
+        "B"
+      ],
+      "bookAnswer": "B",
+      "explanationHtml": "Flash, kitabın karşılaştırmasında EEPROM&#x27;un bloklar hâlinde işlem yapan özel uygulamasıdır.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 55,
+        "bookPage": 48
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u2-test-8",
+      "unit": 2,
+      "number": 8,
+      "type": "test",
+      "promptHtml": "Akıllı kart işletim sistemleri, ilk olarak hangi ülkede geliştirilmiştir?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "İtalya"
+        },
+        {
+          "key": "B",
+          "textHtml": "Almanya"
+        },
+        {
+          "key": "C",
+          "textHtml": "Fransa"
+        },
+        {
+          "key": "D",
+          "textHtml": "Amerika"
+        },
+        {
+          "key": "E",
+          "textHtml": "Kanada"
+        }
+      ],
+      "acceptedAnswers": [
+        "C"
+      ],
+      "bookAnswer": "C",
+      "explanationHtml": "Kitabın tarih bilgisine göre ilk akıllı kart Fransa&#x27;da geliştirilmiştir (Michel Ugon/1979).",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 55,
+        "bookPage": 48
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u2-test-9",
+      "unit": 2,
+      "number": 9,
+      "type": "test",
+      "promptHtml": "Aşağıdaki işletim sistemlerinin hangisinde kullanıcılar, sistemde eş zamanlı olarak birden fazla işlem çalıştırabilirler?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "Gömülü İşletim Sistemleri"
+        },
+        {
+          "key": "B",
+          "textHtml": "Çoklu İşlemci İşletim Sistemleri"
+        },
+        {
+          "key": "C",
+          "textHtml": "Dağıtık İşletim Sistemleri"
+        },
+        {
+          "key": "D",
+          "textHtml": "Çoklu Görev İşletim Sistemleri"
+        },
+        {
+          "key": "E",
+          "textHtml": "Çoklu Kullanıcı İşletim Sistemleri"
+        }
+      ],
+      "acceptedAnswers": [
+        "D"
+      ],
+      "bookAnswer": "D",
+      "explanationHtml": "Kullanıcının birden fazla işlemi aynı anda ilerletebilmesi çoklu görevdir. Çoklu CPU, çoklu kullanıcı ve dağıtıklık başka ölçütlerdir.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 55,
+        "bookPage": 48
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u2-test-10",
+      "unit": 2,
+      "number": 10,
+      "type": "test",
+      "promptHtml": "Aşağıdakilerden hangisi televizyon, mikrodalga fırın, çamaşır makinesi ve cep telefonları için geliştirilmiş işletim sistemidir?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "Çoklu İşlemci İşletim Sistemleri"
+        },
+        {
+          "key": "B",
+          "textHtml": "Dağıtık İşletim Sistemleri"
+        },
+        {
+          "key": "C",
+          "textHtml": "Çoklu Görev İşletim Sistemleri"
+        },
+        {
+          "key": "D",
+          "textHtml": "Çoklu Kullanıcı İşletim Sistemleri"
+        },
+        {
+          "key": "E",
+          "textHtml": "Gömülü İşletim Sistemleri"
+        }
+      ],
+      "acceptedAnswers": [
+        "E"
+      ],
+      "bookAnswer": "E",
+      "explanationHtml": "TV ve beyaz eşya gibi özel amaçlı aygıtlar gömülü sistem örneğidir; güç/bellek/boyut sınırlamaları tipiktir.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 55,
+        "bookPage": 48
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u3-test-1",
+      "unit": 3,
+      "number": 1,
+      "type": "test",
+      "promptHtml": "Aşağıdakilerden hangisi bir işletim sisteminin yerine getirmesi gereken fonksiyonlardan biri değildir?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "Giriş/Çıkış işlemleri"
+        },
+        {
+          "key": "B",
+          "textHtml": "Program çalıştırma"
+        },
+        {
+          "key": "C",
+          "textHtml": "Masaüstü değiştirme"
+        },
+        {
+          "key": "D",
+          "textHtml": "Hata tespiti"
+        },
+        {
+          "key": "E",
+          "textHtml": "Program çalıştırma"
+        }
+      ],
+      "acceptedAnswers": [
+        "C"
+      ],
+      "bookAnswer": "C",
+      "explanationHtml": "Masaüstü görünümünü değiştirme bu bölümde sayılan temel zorunlu hizmetlerden değildir. Kaynak b ve e seçeneklerinde “Program çalıştırma” ifadesini tekrarlar; bu tekrar korunmuştur.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 77,
+        "bookPage": 70
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u3-test-2",
+      "unit": 3,
+      "number": 2,
+      "type": "test",
+      "promptHtml": "Ekran kartının sürücüsü aşağıdakilerden hangisine karşılık gelmektedir?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "Aygıt bağımsız birim"
+        },
+        {
+          "key": "B",
+          "textHtml": "Aygıt bağımlı birim"
+        },
+        {
+          "key": "C",
+          "textHtml": "Giriş/Çıkış birimi"
+        },
+        {
+          "key": "D",
+          "textHtml": "Bellek yönetim birimi"
+        },
+        {
+          "key": "E",
+          "textHtml": "İşlem yönetimi birimi"
+        }
+      ],
+      "acceptedAnswers": [
+        "B"
+      ],
+      "bookAnswer": "B",
+      "explanationHtml": "Aygıt sürücüsü, donanıma özgü aygıt bağımlı birimdir. Aygıt bağımsız bölüm ortak hizmeti sunar.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 77,
+        "bookPage": 70
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u3-test-3",
+      "unit": 3,
+      "number": 3,
+      "type": "test",
+      "promptHtml": "Aşağıdakilerden hangisinde verilen örnek donanım ve birim eşleştirmeler yanlıştır?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "Fare – Sadece veri girişi yapan girdi birimi"
+        },
+        {
+          "key": "B",
+          "textHtml": "Ekran – Sadece veri çıkışı yapan çıktı birimi"
+        },
+        {
+          "key": "C",
+          "textHtml": "Web kamerası –Veri giriş ve çıkışı yapan hem girdi hem çıktı birimi"
+        },
+        {
+          "key": "D",
+          "textHtml": "Modem - Sadece veri girişi yapan girdi birimi"
+        },
+        {
+          "key": "E",
+          "textHtml": "Yazıcı - Sadece veri çıkışı yapan çıktı birimi"
+        }
+      ],
+      "acceptedAnswers": [
+        "D"
+      ],
+      "bookAnswer": "D",
+      "explanationHtml": "Kitabın sınıflamasına göre d: modem yalnız girdi değildir, veri alır ve gönderir. Kitap web kamerasını çift yönlü grupta gösterir; pratikte kamera veri yakalama bakımından girdi olarak sınıflanabilir. Özgün sorunun beklenen anahtarı d&#x27;dir.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 77,
+        "bookPage": 70
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u3-test-4",
+      "unit": 3,
+      "number": 4,
+      "type": "test",
+      "promptHtml": "Bir işlem MİB’ de çalışırken bir G/Ç isteğinde bulunursa, bu işlemin durumu aşağıdakilerden hangisi olarak etiketlenir?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "Yeni"
+        },
+        {
+          "key": "B",
+          "textHtml": "Hazır"
+        },
+        {
+          "key": "C",
+          "textHtml": "Beklemede"
+        },
+        {
+          "key": "D",
+          "textHtml": "Çalışıyor"
+        },
+        {
+          "key": "E",
+          "textHtml": "Bitti"
+        }
+      ],
+      "acceptedAnswers": [
+        "C"
+      ],
+      "bookAnswer": "C",
+      "explanationHtml": "Çalışan işlem G/Ç isterse, olayın bitmesini beklediği için beklemede/bloke duruma geçer. G/Ç tamamlandığında hazır olur.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 77,
+        "bookPage": 70
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u3-test-5",
+      "unit": 3,
+      "number": 5,
+      "type": "test",
+      "promptHtml": "Kullanıcı kelime işlem programında bir dosyayı açmıştır. Bu dosyada herhangi bir metin seçerek bunu italik yapmıştır. Aşağıdakilerden hangisi bu programın açılması ve metnin kalın yapılması, sırasıyla ne olarak adlandırılır?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "Programın açılması: iş parçacığı; Metnin kalın yapılması: işlem"
+        },
+        {
+          "key": "B",
+          "textHtml": "Programın açılması: işlem, metninin kalın yapılması: iş parçacığı"
+        },
+        {
+          "key": "C",
+          "textHtml": "Programın açılması: işlem, metninin kalın yapılması: kesme isteği"
+        },
+        {
+          "key": "D",
+          "textHtml": "Programın açılması: kesme isteği, metnin kalın yapılması: işlem"
+        },
+        {
+          "key": "E",
+          "textHtml": "Programın açılması: iş parçacığı, metnin kalın yapılması: kesme isteği"
+        }
+      ],
+      "acceptedAnswers": [
+        "B"
+      ],
+      "bookAnswer": "B",
+      "explanationHtml": "Kitap programın çalışan örneğini işlem, örnekteki alt işi iş parçacığı diye açıklar. Soru italik/kalın ifadelerini karıştırır; program-işlem-thread ayrımı değişmez.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 77,
+        "bookPage": 70
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u3-test-6",
+      "unit": 3,
+      "number": 6,
+      "type": "test",
+      "promptHtml": "Başlangıç değeri 1 olan bir semafor üzerinde öncelikle 5 sinyal ve ardından 6 bekle işlemi yapıldığında; semaforun son değeri ne olur?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "0"
+        },
+        {
+          "key": "B",
+          "textHtml": "5"
+        },
+        {
+          "key": "C",
+          "textHtml": "6"
+        },
+        {
+          "key": "D",
+          "textHtml": "8"
+        },
+        {
+          "key": "E",
+          "textHtml": "11"
+        }
+      ],
+      "acceptedAnswers": [
+        "A"
+      ],
+      "bookAnswer": "A",
+      "explanationHtml": "1 + 5 signal - 6 başarılı wait = 0. Sıfıra ulaşınca bu modelde sonraki wait bekletir.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 77,
+        "bookPage": 70
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u3-test-7",
+      "unit": 3,
+      "number": 7,
+      "type": "test",
+      "promptHtml": "Bellek yönetimine ilişkin aşağıdaki ifadelerden hangisi yanlıştır?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "Taban kaydedicisi, en küçük geçerli fiziksel adresin değerini tutar."
+        },
+        {
+          "key": "B",
+          "textHtml": "Fiziksel bellek alanının eşit büyüklükteki bloklarına çerçeve denir."
+        },
+        {
+          "key": "C",
+          "textHtml": "Sayfalamada sabit uzunluktaki bloklar kullanılır."
+        },
+        {
+          "key": "D",
+          "textHtml": "Bölümlemede birbirinden farklı uzunlukta bloklar kullanılır."
+        },
+        {
+          "key": "E",
+          "textHtml": "Bölümleme ve sayfalama birlikte kullanılamaz."
+        }
+      ],
+      "acceptedAnswers": [
+        "E"
+      ],
+      "bookAnswer": "E",
+      "explanationHtml": "Bölümleme ve sayfalama birlikte kullanılabilir. Diğer seçenekler taban, çerçeve, sabit sayfa ve değişken bölüm tanımlarını doğru verir.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 77,
+        "bookPage": 70
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u3-test-8",
+      "unit": 3,
+      "number": 8,
+      "type": "test",
+      "promptHtml": "İşletim sistemi belleğe 24 KB’lık bir iş parçacığı yerleştirmek istemektedir. Bellekte boş olan alanlar aşağıda verilmektedir. İşletim sistemi 1 nolu alandan başlayarak tüm boş alanları taradıktan sonra bu iş parçacığını 4 nolu alana yerleştirirse, hangi stratejiyi seçerek belleğe yerleşim yapmıştır?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "İlk uyan"
+        },
+        {
+          "key": "B",
+          "textHtml": "En iyi uyan"
+        },
+        {
+          "key": "C",
+          "textHtml": "En son uyan"
+        },
+        {
+          "key": "D",
+          "textHtml": "En kötü uyan"
+        },
+        {
+          "key": "E",
+          "textHtml": "Son uyan"
+        }
+      ],
+      "acceptedAnswers": [
+        "D"
+      ],
+      "bookAnswer": "D",
+      "explanationHtml": "En büyük boşluk 60 KB&#x27;dır; tüm alanları tarayıp bunu seçmek worst-fit/en kötü uyandır. İlk ve en iyi uyan, 24 KB&#x27;lık ilk alana sığardı.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 77,
+        "bookPage": 70
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u3-test-9",
+      "unit": 3,
+      "number": 9,
+      "type": "test",
+      "promptHtml": "Aşadaki işletim sistemi ve dosya sistemi eşleştirmelerinden hangisi yanlıştır?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "Windows - UFS"
+        },
+        {
+          "key": "B",
+          "textHtml": "MAC OS – HFS+"
+        },
+        {
+          "key": "C",
+          "textHtml": "LİNUX – EXT4"
+        },
+        {
+          "key": "D",
+          "textHtml": "UNIX - UFS"
+        },
+        {
+          "key": "E",
+          "textHtml": "Windows - ReFS"
+        }
+      ],
+      "acceptedAnswers": [
+        "A"
+      ],
+      "bookAnswer": "A",
+      "explanationHtml": "UFS, kitabın tablosunda UNIX/BSD/Solaris ailesidir. Windows için FAT, NTFS ve ReFS verilir.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 77,
+        "bookPage": 70
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u3-test-10",
+      "unit": 3,
+      "number": 10,
+      "type": "test",
+      "promptHtml": "Microsoft Windows işletim; aşağıdaki dosya sistemlerinden hangisini kullanmaz?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "ReFS"
+        },
+        {
+          "key": "B",
+          "textHtml": "NTFS"
+        },
+        {
+          "key": "C",
+          "textHtml": "FAT16"
+        },
+        {
+          "key": "D",
+          "textHtml": "FAT32"
+        },
+        {
+          "key": "E",
+          "textHtml": "EXT2"
+        }
+      ],
+      "acceptedAnswers": [
+        "E"
+      ],
+      "bookAnswer": "E",
+      "explanationHtml": "EXT2 Linux ailesi örneğidir; verilen diğer dört sistem Windows tablosunda bulunur.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 77,
+        "bookPage": 70
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u4-test-1",
+      "unit": 4,
+      "number": 1,
+      "type": "test",
+      "promptHtml": "Aşağıdakilerden hangisi Von-Neumann mimarisinde ele alınan temel birimlerden biri değildir?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "Grafik arayüzü"
+        },
+        {
+          "key": "B",
+          "textHtml": "Kontrol birimi"
+        },
+        {
+          "key": "C",
+          "textHtml": "Aritmetik mantık birimi"
+        },
+        {
+          "key": "D",
+          "textHtml": "Veri yolu"
+        },
+        {
+          "key": "E",
+          "textHtml": "Bellek"
+        }
+      ],
+      "acceptedAnswers": [
+        "A"
+      ],
+      "bookAnswer": "A",
+      "explanationHtml": "Bellek, kontrol, ALU, veri yolu ve G/Ç mimarinin donanım bileşenleridir. Grafik arayüz işletim sistemi/kullanıcı etkileşimi düzeyindedir.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 95,
+        "bookPage": 88
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u4-test-2",
+      "unit": 4,
+      "number": 2,
+      "type": "test",
+      "promptHtml": "Von-Neumann mimarisinde, program yönergeleri ve verilerin belleğe gönderilmesi ve bellekten getirilmesinin yanında programdaki yönergelerin işletilmesinden sorumlu birim aşağıdakilerden hangisidir?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "Aritmetik ve mantık birimi"
+        },
+        {
+          "key": "B",
+          "textHtml": "Veri yolu"
+        },
+        {
+          "key": "C",
+          "textHtml": "Bellek"
+        },
+        {
+          "key": "D",
+          "textHtml": "Grarik arayüzü"
+        },
+        {
+          "key": "E",
+          "textHtml": "Kontrol birimi"
+        }
+      ],
+      "acceptedAnswers": [
+        "E"
+      ],
+      "bookAnswer": "E",
+      "explanationHtml": "Veri ve yönergelerin taşınmasını ve yürütme sırasını kontrol birimi düzenler. ALU aritmetik/mantık hesabını yapar.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 95,
+        "bookPage": 88
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u4-test-3",
+      "unit": 4,
+      "number": 3,
+      "type": "test",
+      "promptHtml": "Bilgisayar sisteminde, bir işlem anında, sistemin kullanıcı ya da çekirdek modunda olduğunu anlamak için hangi yapı kontrol edilir?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "Mod biti"
+        },
+        {
+          "key": "B",
+          "textHtml": "İşlemci modu"
+        },
+        {
+          "key": "C",
+          "textHtml": "Kesme modu"
+        },
+        {
+          "key": "D",
+          "textHtml": "Yakalama modu"
+        },
+        {
+          "key": "E",
+          "textHtml": "Çekirdek modu"
+        }
+      ],
+      "acceptedAnswers": [
+        "A"
+      ],
+      "bookAnswer": "A",
+      "explanationHtml": "Çalışma yetkisini göstermek için mod biti kontrol edilir. Kitap 0 çekirdek, 1 kullanıcı gösterimini kullanır.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 95,
+        "bookPage": 88
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u4-test-4",
+      "unit": 4,
+      "number": 4,
+      "type": "test",
+      "promptHtml": "İşletim sistemlerinde, donanım ya da yazılımlar tarafından bir olayın gerçekleştiğini bildirmek için yayınlanan ve işlemcinin acil dikkatini isteyen sinyallere ne ad verilir?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "Yakalama"
+        },
+        {
+          "key": "B",
+          "textHtml": "Kesme"
+        },
+        {
+          "key": "C",
+          "textHtml": "Bit"
+        },
+        {
+          "key": "D",
+          "textHtml": "Yönerge"
+        },
+        {
+          "key": "E",
+          "textHtml": "Merkezi işlem birimi"
+        }
+      ],
+      "acceptedAnswers": [
+        "B"
+      ],
+      "bookAnswer": "B",
+      "explanationHtml": "Olayı bildirip CPU&#x27;nun ilgisini isteyen sinyal kesmedir. Trap, yazılım hatası veya hizmet isteği bağlamında ayrı açıklanır.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 95,
+        "bookPage": 88
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u4-test-5",
+      "unit": 4,
+      "number": 5,
+      "type": "test",
+      "promptHtml": "Aşağıdakilerden hangisi basit yapılı bir işletim sistemi olarak sınıflanır?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "Linux"
+        },
+        {
+          "key": "B",
+          "textHtml": "Windows 7"
+        },
+        {
+          "key": "C",
+          "textHtml": "MAC OS X"
+        },
+        {
+          "key": "D",
+          "textHtml": "MS-DOS"
+        },
+        {
+          "key": "E",
+          "textHtml": "Android"
+        }
+      ],
+      "acceptedAnswers": [
+        "D"
+      ],
+      "bookAnswer": "D",
+      "explanationHtml": "MS-DOS kaynakta basit yapılı sistem örneğidir; sınırlı modülerlik ve koruma sorunları anlatılır.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 95,
+        "bookPage": 88
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u4-test-6",
+      "unit": 4,
+      "number": 6,
+      "type": "test",
+      "promptHtml": "Mikro çekirdek yaklaşımı ile üretilen ilk işletim sistemi aşağıdakilerden hangisidir?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "UNIX"
+        },
+        {
+          "key": "B",
+          "textHtml": "Mach"
+        },
+        {
+          "key": "C",
+          "textHtml": "Windows XP"
+        },
+        {
+          "key": "D",
+          "textHtml": "MAC OS X"
+        },
+        {
+          "key": "E",
+          "textHtml": "Android"
+        }
+      ],
+      "acceptedAnswers": [
+        "B"
+      ],
+      "bookAnswer": "B",
+      "explanationHtml": "Kitabın tarihsel mikro çekirdek örneği Mach&#x27;tir.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 95,
+        "bookPage": 88
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u4-test-7",
+      "unit": 4,
+      "number": 7,
+      "type": "test",
+      "promptHtml": "Aşağıdakilerden hangisi bir işletim sistemi katmanı olarak ele alınmaz?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "Çekirdek"
+        },
+        {
+          "key": "B",
+          "textHtml": "Kullanıcı arayüzü"
+        },
+        {
+          "key": "C",
+          "textHtml": "Mesajlaşma"
+        },
+        {
+          "key": "D",
+          "textHtml": "Dosya yönetim sistemi"
+        },
+        {
+          "key": "E",
+          "textHtml": "Bellek yönetim sistemi"
+        }
+      ],
+      "acceptedAnswers": [
+        "C"
+      ],
+      "bookAnswer": "C",
+      "explanationHtml": "Mesajlaşma, bu ünitenin beş katman listesinde ayrı katman değildir; mikro çekirdeğin hizmetler arası iletişim mekanizmasıdır.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 95,
+        "bookPage": 88
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u4-test-8",
+      "unit": 4,
+      "number": 8,
+      "type": "test",
+      "promptHtml": "Mikro çekirdek yaklaşımında performans düşüklüğü sorunu yaratan yapı aşağıdakilerden hangisidir?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "Hafıza yönetiminin güç olması"
+        },
+        {
+          "key": "B",
+          "textHtml": "Modül sayısının fazla olması"
+        },
+        {
+          "key": "C",
+          "textHtml": "Mesajlaşmanın çekirdek üzerinden gerçekleşmesi"
+        },
+        {
+          "key": "D",
+          "textHtml": "Dosya sisteminin yavaş olması"
+        },
+        {
+          "key": "E",
+          "textHtml": "Hata ayıklamanın zor olması"
+        }
+      ],
+      "acceptedAnswers": [
+        "C"
+      ],
+      "bookAnswer": "C",
+      "explanationHtml": "Hizmetler arası isteklerin çekirdek mesajlaşması ve alan geçişleri üzerinden yürütülmesi ek sistem yükü doğurur.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 95,
+        "bookPage": 88
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u4-test-9",
+      "unit": 4,
+      "number": 9,
+      "type": "test",
+      "promptHtml": "Bir işletim sistemi tarafından doğrudan yürütülebilecek dosya formatlarını belirleyen modüllere ne ad verilir?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "Giriş/Çıkış birimleri"
+        },
+        {
+          "key": "B",
+          "textHtml": "Bellek yönetimi"
+        },
+        {
+          "key": "C",
+          "textHtml": "Süreç yönetimi"
+        },
+        {
+          "key": "D",
+          "textHtml": "Yorumlayıcı"
+        },
+        {
+          "key": "E",
+          "textHtml": "Hat sürücüleri"
+        }
+      ],
+      "acceptedAnswers": [
+        "D"
+      ],
+      "bookAnswer": "D",
+      "explanationHtml": "Kaynağın beklediği modül yorumlayıcıdır: dosya biçimini tanıyıp uygun yürütme yolunu sağlar. Kaynaktaki uzantı örnekleri farklı türler içerebilir.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 95,
+        "bookPage": 88
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u4-test-10",
+      "unit": 4,
+      "number": 10,
+      "type": "test",
+      "promptHtml": "Dalvik sanal makine yapısı aşağıdaki işletim sistemlerinin hangisinde temel bir bileşendir?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "Windows"
+        },
+        {
+          "key": "B",
+          "textHtml": "MAC OS X"
+        },
+        {
+          "key": "C",
+          "textHtml": "iOS"
+        },
+        {
+          "key": "D",
+          "textHtml": "UNIX"
+        },
+        {
+          "key": "E",
+          "textHtml": "Android"
+        }
+      ],
+      "acceptedAnswers": [
+        "E"
+      ],
+      "bookAnswer": "E",
+      "explanationHtml": "Kitap Android yürütme ortamında Dalvik&#x27;i temel bileşen olarak açıklar. Bu sürüm döneminin anlatımıdır.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 95,
+        "bookPage": 88
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u5-test-1",
+      "unit": 5,
+      "number": 1,
+      "type": "test",
+      "promptHtml": "Aşağıdakilerden hangisi kapalı kaynak kodlu kişisel bilgisayar işletim sistemidir?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "Ubuntu"
+        },
+        {
+          "key": "B",
+          "textHtml": "MAC OS X"
+        },
+        {
+          "key": "C",
+          "textHtml": "Linux"
+        },
+        {
+          "key": "D",
+          "textHtml": "Pardus"
+        },
+        {
+          "key": "E",
+          "textHtml": "Debian"
+        }
+      ],
+      "acceptedAnswers": [
+        "B"
+      ],
+      "bookAnswer": "B",
+      "explanationHtml": "Mac OS X ürün bütünü kapalı kaynak sınıfındadır; Darwin gibi açık bileşenler içermesi bu genel sınıflamayı değiştirmez. Diğer seçenekler açık kaynak aile/dağıtım örnekleridir.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 126,
+        "bookPage": 119
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u5-test-2",
+      "unit": 5,
+      "number": 2,
+      "type": "test",
+      "promptHtml": "Dünyada en yaygın kullanılan işletim sistemi aşağıdakilerden hangisidir?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "Ubuntu"
+        },
+        {
+          "key": "B",
+          "textHtml": "MAC OS X"
+        },
+        {
+          "key": "C",
+          "textHtml": "Linux"
+        },
+        {
+          "key": "D",
+          "textHtml": "Windows"
+        },
+        {
+          "key": "E",
+          "textHtml": "Debian"
+        }
+      ],
+      "acceptedAnswers": [
+        "D"
+      ],
+      "bookAnswer": "D",
+      "explanationHtml": "Kaynağın kişisel bilgisayar/masaüstü bağlamındaki cevabı Windows&#x27;tur. Soru tüm aygıt türlerine ve her tarihe genellenmemelidir.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 126,
+        "bookPage": 119
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u5-test-3",
+      "unit": 5,
+      "number": 3,
+      "type": "test",
+      "promptHtml": "Windows işletim sistemi ilk kez hangi yıl piyasaya girmiştir?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "1982"
+        },
+        {
+          "key": "B",
+          "textHtml": "1983"
+        },
+        {
+          "key": "C",
+          "textHtml": "1984"
+        },
+        {
+          "key": "D",
+          "textHtml": "1985"
+        },
+        {
+          "key": "E",
+          "textHtml": "1986"
+        }
+      ],
+      "acceptedAnswers": [
+        "A"
+      ],
+      "bookAnswer": "A",
+      "explanationHtml": "KAYNAK TARİH ÇELİŞKİSİ: Anahtar a/1982 der. Aynı ünitenin ana metni ve özeti 1982&#x27;yi duyuru, 1985&#x27;i ilk piyasaya çıkış olarak ayırır. Soru “piyasaya girmiştir” dediğinden içeriğe göre d/1985 doğrudur. Kitabın verdiği anahtar ayrıca korunmuştur.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 126,
+        "bookPage": 119
+      },
+      "conflictNote": "İçerik kontrolü: d • KAYNAK TARİH ÇELİŞKİSİ"
+    },
+    {
+      "id": "u5-test-4",
+      "unit": 5,
+      "number": 4,
+      "type": "test",
+      "promptHtml": "Aşağıdakilerden hangisi Windows 10 işletim sisteminin özelliklerinden biri değildir?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "Mobil teknolojilerle uyumlu olması"
+        },
+        {
+          "key": "B",
+          "textHtml": "Dokunmatik-dostu olması"
+        },
+        {
+          "key": "C",
+          "textHtml": "Evrensel tasarım uygulama platformunu kullanması"
+        },
+        {
+          "key": "D",
+          "textHtml": "GNU lisans hakkına sahip olması"
+        },
+        {
+          "key": "E",
+          "textHtml": "Dört ayrı pencerede çalışabilmeyi desteklemesi"
+        }
+      ],
+      "acceptedAnswers": [
+        "D"
+      ],
+      "bookAnswer": "D",
+      "explanationHtml": "Windows kapalı kaynak bir Microsoft ürünüdür; GNU lisansı ona ait bir özellik değildir. Diğer seçenekler kitabın Windows 10 özellikleri arasındadır.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 126,
+        "bookPage": 119
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u5-test-5",
+      "unit": 5,
+      "number": 5,
+      "type": "test",
+      "promptHtml": "Windows 8 ile Windows 10 işletim sistemleri ilk açıldığında göze çarpan en temel fark aşağıdakilerden hangisidir?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "Arama özelliği"
+        },
+        {
+          "key": "B",
+          "textHtml": "Dosya gezgini"
+        },
+        {
+          "key": "C",
+          "textHtml": "Başlat menüsü"
+        },
+        {
+          "key": "D",
+          "textHtml": "Ağ ayarları"
+        },
+        {
+          "key": "E",
+          "textHtml": "Uygulamalar"
+        }
+      ],
+      "acceptedAnswers": [
+        "C"
+      ],
+      "bookAnswer": "C",
+      "explanationHtml": "Windows 10&#x27;da Başlat menüsünün geri gelmesi, Windows 8&#x27;in başlangıç ekranına göre öne çıkan farktır.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 126,
+        "bookPage": 119
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u5-test-6",
+      "unit": 5,
+      "number": 6,
+      "type": "test",
+      "promptHtml": "Windows 10 sürümü ile gelen yerleşik web tarayıcısı aşağıdakilerden hangisidir?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "Explorer"
+        },
+        {
+          "key": "B",
+          "textHtml": "Safari"
+        },
+        {
+          "key": "C",
+          "textHtml": "Chrome"
+        },
+        {
+          "key": "D",
+          "textHtml": "Firefox"
+        },
+        {
+          "key": "E",
+          "textHtml": "Edge"
+        }
+      ],
+      "acceptedAnswers": [
+        "E"
+      ],
+      "bookAnswer": "E",
+      "explanationHtml": "Kitaptaki Windows 10 ile gelen tarayıcı Microsoft Edge&#x27;dir.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 126,
+        "bookPage": 119
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u5-test-7",
+      "unit": 5,
+      "number": 7,
+      "type": "test",
+      "promptHtml": "MAC OS işletim sisteminin ilk sürümü hangi yılda piyasaya sunulmuştur?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "1982"
+        },
+        {
+          "key": "B",
+          "textHtml": "1983"
+        },
+        {
+          "key": "C",
+          "textHtml": "1984"
+        },
+        {
+          "key": "D",
+          "textHtml": "1985"
+        },
+        {
+          "key": "E",
+          "textHtml": "1986"
+        }
+      ],
+      "acceptedAnswers": [
+        "C"
+      ],
+      "bookAnswer": "C",
+      "explanationHtml": "İlk Macintosh/Mac OS 1984; OS X 10.0 ise 2001&#x27;dir. Soru ilk Mac OS&#x27;u sorar.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 126,
+        "bookPage": 119
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u5-test-8",
+      "unit": 5,
+      "number": 8,
+      "type": "test",
+      "promptHtml": "Aşağıdakilerden hangisi MAC OS X işletim sistemi özelliklerinden biri değildir?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "Macintosh bilgisayarlara kurulması"
+        },
+        {
+          "key": "B",
+          "textHtml": "Masaüstünde aşağıda DOCK çubuğunun olması"
+        },
+        {
+          "key": "C",
+          "textHtml": "Masaüstünde yukarıda LaunchPad aracının olması"
+        },
+        {
+          "key": "D",
+          "textHtml": "Arama için Spotlight aracının kullanılması"
+        },
+        {
+          "key": "E",
+          "textHtml": "Görüntülü ve Sesli görüşme için Facetime aracının kullanılması"
+        }
+      ],
+      "acceptedAnswers": [
+        "C"
+      ],
+      "bookAnswer": "C",
+      "explanationHtml": "Üstte menü çubuğu vardır. Launchpad uygulama listesi/başlatma ortamıdır; ekranın üst menü çubuğu değildir. Dock, Spotlight ve FaceTime görevleri diğer seçeneklerde doğru verilmiştir.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 126,
+        "bookPage": 119
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u5-test-9",
+      "unit": 5,
+      "number": 9,
+      "type": "test",
+      "promptHtml": "Ubuntu işletim sistemi hangi yıl piyasa girmiştir?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "2000"
+        },
+        {
+          "key": "B",
+          "textHtml": "2001"
+        },
+        {
+          "key": "C",
+          "textHtml": "2002"
+        },
+        {
+          "key": "D",
+          "textHtml": "2003"
+        },
+        {
+          "key": "E",
+          "textHtml": "2004"
+        }
+      ],
+      "acceptedAnswers": [
+        "E"
+      ],
+      "bookAnswer": "E",
+      "explanationHtml": "Ubuntu&#x27;nun başlangıç yılı 2004&#x27;tür.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 126,
+        "bookPage": 119
+      },
+      "conflictNote": null
+    },
+    {
+      "id": "u5-test-10",
+      "unit": 5,
+      "number": 10,
+      "type": "test",
+      "promptHtml": "Ubuntu işletim sisteminin en temel özelliği aşağıdakilerden hangisidir?",
+      "options": [
+        {
+          "key": "A",
+          "textHtml": "Açık kaynak kodlu olması"
+        },
+        {
+          "key": "B",
+          "textHtml": "Mac bilgisayarlara kurulması"
+        },
+        {
+          "key": "C",
+          "textHtml": "Microsoft lisansına sahip olması"
+        },
+        {
+          "key": "D",
+          "textHtml": "Edge tarayıcıyı kullanması"
+        },
+        {
+          "key": "E",
+          "textHtml": "Ofis paketi olarak Microsoft Office’i standart olarak kullanması"
+        }
+      ],
+      "acceptedAnswers": [
+        "A"
+      ],
+      "bookAnswer": "A",
+      "explanationHtml": "Ubuntu&#x27;nun ayırt edici kaynak özelliği açık kaynak olmasıdır; Edge/Microsoft lisansı veya varsayılan MS Office ile tanımlanmaz.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 126,
+        "bookPage": 119
+      },
+      "conflictNote": null
+    }
+  ]
+}
