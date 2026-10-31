@@ -1,8 +1,10 @@
 import { classifyOption, gradeAnswer, gradePendingAnswers, restoreSession, summarizePendingAnswers, summarizeSession } from "./quiz-core.js";
 import {
   HISTORY_LIMIT,
+  removeHistoryEntry,
   createHistoryEntry,
   ensureHistoryIdentity,
+  shouldRecordHistory,
   sanitizeHistory,
   upsertHistoryEntry
 } from "./history-core.js";
@@ -174,12 +176,48 @@ import {
       date.textContent = dateFormat.format(new Date(entry.startedAt));
       const details = document.createElement("p");
       details.textContent = entry.total + " soru · " + entry.correct + " doğru · " + entry.incorrect + " yanlış · " + entry.unanswered + " boş";
+      const removeButton = document.createElement("button");
+      removeButton.type = "button";
+      removeButton.className = "button secondary history-delete-button";
+      removeButton.textContent = "Sil";
+      removeButton.setAttribute("aria-label", "Bu kaydı sil: " + entry.unit + ", " + date.textContent);
+      removeButton.addEventListener("click", () => deleteHistoryEntry(entry.id));
       heading.append(unit, date);
-      item.append(heading, details);
+      item.append(heading, details, removeButton);
       ui.historyList.append(item);
     }
   }
 
+  function deleteHistoryEntry(entryId) {
+    const entry = historyEntries.find((item) => item.id === entryId);
+    if (!entry || !window.confirm("“" + entry.unit + "” geçmiş kaydı silinsin mi?")) return;
+    const matchesActiveSession = Boolean(session && session.historyId === entryId);
+    const previousSuppressed = matchesActiveSession ? session.historySuppressed : false;
+    const previousDeleted = matchesActiveSession ? session.historyDeleted : false;
+    if (matchesActiveSession) {
+      session.historyDeleted = true;
+      if (!saveSession()) {
+        session.historyDeleted = previousDeleted;
+        session.historySuppressed = previousSuppressed;
+        return;
+      }
+    }
+
+    const remaining = removeHistoryEntry(historyEntries, entryId);
+    if (!writeHistory(remaining)) {
+      if (matchesActiveSession) {
+        session.historyDeleted = previousDeleted;
+        session.historySuppressed = previousSuppressed;
+        saveSession();
+      }
+      return;
+    }
+    historyLimitNotice = false;
+    clearStorageNotice();
+    updateHistoryView();
+    if (historyEntries.length) ui.clearHistory.focus();
+    else byId("history-heading").focus();
+  }
   function updateHome() {
     const count = filteredQuestions().length;
     ui.questionTotal.textContent = count + " soru";
@@ -215,6 +253,7 @@ import {
       historyId: createId(),
       startedAt: new Date().toISOString(),
       historySuppressed: false,
+      noHistory: Boolean(config.noHistory),
       config: { unit: config.unit || "all", shuffle: Boolean(config.shuffle) }
     };
     saveSession();
@@ -248,7 +287,8 @@ import {
   }
 
   function recordHistory() {
-    if (!session || session.historySuppressed) return false;
+    if (!session) return false;
+    if (!shouldRecordHistory(session)) return true;
     session = ensureHistoryIdentity(session, createId);
     const existing = historyEntries.some((entry) => entry.id === session.historyId);
     const entry = createHistoryEntry(session, historyUnit());
@@ -451,7 +491,7 @@ import {
     ui.endWarning.classList.add("hidden");
     const correct = gradeAnswer(question, selected.value);
     session.answers[question.id] = { selected: selected.value, checked: true, correct };
-    session.historySuppressed = false;
+    if (!session.noHistory && !session.historyDeleted) session.historySuppressed = false;
     session = ensureHistoryIdentity(session, createId);
     const sessionSaved = saveSession();
     const historySaved = recordHistory();
@@ -528,7 +568,7 @@ import {
         return record && record.checked && !record.correct;
       })
       .map((id) => questionById.get(id));
-    if (wrong.length) beginSession(wrong, { unit: session.config.unit, shuffle: false });
+    if (wrong.length) beginSession(wrong, { unit: session.config.unit, shuffle: false, noHistory: true });
   }
 
   function returnToFirstUnansweredOrStart() {
@@ -557,7 +597,7 @@ import {
       populateUnits();
       session = loadSavedSession();
       historyEntries = loadHistory();
-      if (session && !session.historySuppressed && completedCount() > 0 && !historyEntries.some((entry) => entry.id === session.historyId)) {
+      if (session && shouldRecordHistory(session) && completedCount() > 0 && !historyEntries.some((entry) => entry.id === session.historyId)) {
         recordHistory();
       }
       updateHome();

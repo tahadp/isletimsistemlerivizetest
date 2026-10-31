@@ -76,6 +76,8 @@ export function restoreSession(saved, questionsById) {
     historyId: typeof saved.historyId === "string" && saved.historyId ? saved.historyId : null,
     startedAt: typeof saved.startedAt === "string" ? saved.startedAt : null,
     historySuppressed: Boolean(saved.historySuppressed),
+    noHistory: Boolean(saved.noHistory),
+    historyDeleted: Boolean(saved.historyDeleted),
     originalIds,
     config: {
       unit: typeof config.unit === "string" || typeof config.unit === "number" ? String(config.unit) : "all",

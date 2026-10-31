@@ -3,9 +3,11 @@ import assert from "node:assert/strict";
 import { restoreSession } from "../dist/quiz-core.js";
 import {
   HISTORY_LIMIT,
+  removeHistoryEntry,
   createHistoryEntry,
   ensureHistoryIdentity,
   sanitizeHistory,
+  shouldRecordHistory,
   upsertHistoryEntry
 } from "../dist/history-core.js";
 
@@ -89,4 +91,47 @@ test("restoring a v1 active session keeps its history ID and clear suppression f
   assert.equal(restored.historyId, "attempt-persistent");
   assert.equal(restored.historySuppressed, true);
   assert.equal(restored.answers.q1.correct, false);
+});
+test("retry sessions never write history, including after restoring persisted mode", () => {
+  assert.equal(shouldRecordHistory({ historyId: "retry-1", noHistory: true }), false);
+  assert.equal(shouldRecordHistory({ historyId: "attempt-1", historySuppressed: true }), false);
+  assert.equal(shouldRecordHistory({ historyId: "attempt-1", historyDeleted: true }), false);
+  assert.equal(shouldRecordHistory({ historyId: "attempt-1" }), true);
+
+  const question = { id: "q1", type: "test", options: [{ key: "A" }, { key: "B" }], acceptedAnswers: ["A"] };
+  const retry = restoreSession({
+    questionIds: ["q1"],
+    answers: { q1: { selected: "B", checked: true, correct: false } },
+    historyId: "retry-1",
+    noHistory: true
+  }, new Map([["q1", question]]));
+
+  assert.equal(retry.noHistory, true);
+  assert.equal(shouldRecordHistory(retry), false);
+});
+test("deleting one history entry leaves other records and suppresses its active session", () => {
+  const entries = [
+    { id: "attempt-1", startedAt: savedAt, updatedAt: savedAt, unit: "Ünite 1", total: 2, correct: 1, incorrect: 1, unanswered: 0 },
+    { id: "attempt-2", startedAt: savedAt, updatedAt: savedAt, unit: "Ünite 2", total: 1, correct: 1, incorrect: 0, unanswered: 0 }
+  ];
+  const remaining = removeHistoryEntry(entries, "attempt-1");
+  assert.deepEqual(remaining.map((entry) => entry.id), ["attempt-2"]);
+  assert.equal(removeHistoryEntry(remaining, "attempt-1").length, 1);
+
+  const activeSession = { historyId: "attempt-1", historyDeleted: true };
+  assert.equal(shouldRecordHistory(activeSession), false);
+});
+test("a deleted active attempt remains excluded after reload and later answers", () => {
+  const question = { id: "q1", type: "test", options: [{ key: "A" }, { key: "B" }], acceptedAnswers: ["A"] };
+  const restored = restoreSession({
+    questionIds: ["q1"],
+    answers: { q1: { selected: "B", checked: true, correct: false } },
+    historyId: "deleted-attempt",
+    historyDeleted: true
+  }, new Map([["q1", question]]));
+
+  assert.equal(restored.historyDeleted, true);
+  assert.equal(shouldRecordHistory(restored), false);
+  const afterAnotherAnswer = { ...restored, historySuppressed: false };
+  assert.equal(shouldRecordHistory(afterAnotherAnswer), false);
 });

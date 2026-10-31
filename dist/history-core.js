@@ -81,3 +81,11 @@ export function upsertHistoryEntry(entries, entry, limit = HISTORY_LIMIT) {
     .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))
     .slice(0, Math.min(HISTORY_LIMIT, Math.max(0, limit)));
 }
+
+export function shouldRecordHistory(session) {
+  return Boolean(session && !session.noHistory && !session.historySuppressed && !session.historyDeleted);
+}
+export function removeHistoryEntry(entries, entryId) {
+  if (typeof entryId !== "string" || !entryId) return sanitizeHistory(entries);
+  return sanitizeHistory(entries).filter((entry) => entry.id !== entryId);
+}
