@@ -10,7 +10,17 @@ ExecStart=/usr/bin/python3 /opt/isletimsistemlerivizetest/scripts/serve.py --por
 Restart=on-failure
 NoNewPrivileges=true
 ProtectSystem=strict
+ProtectHome=true
 PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+CapabilityBoundingSet=
+AmbientCapabilities=
+RestrictAddressFamilies=AF_INET
+TasksMax=64
 
 [Install]
 WantedBy=multi-user.target

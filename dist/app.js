@@ -1,48 +1,129 @@
-import { gradeAnswer, restoreSession, summarizeSession } from "./quiz-core.js";
-"use strict";
+import { classifyOption, gradeAnswer, gradePendingAnswers, restoreSession, summarizePendingAnswers, summarizeSession } from "./quiz-core.js";
+import {
+  HISTORY_LIMIT,
+  createHistoryEntry,
+  ensureHistoryIdentity,
+  sanitizeHistory,
+  upsertHistoryEntry
+} from "./history-core.js";
 
 (() => {
-  const STORAGE_KEY = "is-soru-cozum-session-v1";
+  const SESSION_KEY = "is-soru-cozum-session-v1";
+  const HISTORY_KEY = "is-soru-cozum-history-v1";
   const byId = (id) => document.getElementById(id);
   const views = ["loading-view", "home-view", "quiz-view", "results-view", "error-view"];
   const ui = {
-    homeButton: byId("home-button"), unitFilter: byId("unit-filter"), shuffle: byId("shuffle"),
-    start: byId("start-button"), resume: byId("resume-button"), questionTotal: byId("question-total"),
-    filterHint: byId("filter-hint"), quizUnit: byId("quiz-unit"), progressText: byId("progress-text"),
-    progressFill: byId("progress-fill"), progressTrack: document.querySelector(".progress-track"), questionNumber: byId("question-number"), questionStatus: byId("question-status"),
+    app: byId("app"), loading: byId("loading-view"), homeButton: byId("home-button"),
+    unitFilter: byId("unit-filter"), shuffle: byId("shuffle"), start: byId("start-button"),
+    resume: byId("resume-button"), questionTotal: byId("question-total"), filterHint: byId("filter-hint"),
+    quizUnit: byId("quiz-unit"), progressText: byId("progress-text"), progressTrack: byId("progress-track"),
+    questionNumber: byId("question-number"), questionStatus: byId("question-status"),
     prompt: byId("question-prompt"), options: byId("options-list"), feedback: byId("feedback"),
     check: byId("check-button"), previous: byId("previous-button"), next: byId("next-button"),
+    endWarning: byId("end-warning"), endWarningText: byId("end-warning-text"),
+    finishAnyway: byId("finish-anyway-button"), returnToIncomplete: byId("return-to-incomplete-button"),
+    questionNav: byId("question-nav"), wrongReviewNav: byId("wrong-review-nav"),
+    wrongReviewPrevious: byId("wrong-review-previous"), wrongReviewNext: byId("wrong-review-next"),
+    wrongReviewReturn: byId("wrong-review-return"), wrongReviewPosition: byId("wrong-review-position"),
+    wrongReviewSection: byId("wrong-review-section"), wrongReviewList: byId("wrong-review-list"),
     solvedCount: byId("solved-count"), resultSummary: byId("result-summary"), resultStats: byId("result-stats"),
-    retry: byId("retry-button"), review: byId("review-button"), newRound: byId("new-round-button"), error: byId("error-view")
+    retry: byId("retry-button"), review: byId("review-button"), newRound: byId("new-round-button"),
+    historySection: byId("history-section"), historyTotals: byId("history-totals"),
+    historyEmpty: byId("history-empty"), historyList: byId("history-list"),
+    clearHistory: byId("clear-history-button"), storageNotice: byId("storage-notice"), error: byId("error-view")
   };
 
   let data;
   let questionById = new Map();
   let session = null;
   let unitsById = new Map();
+  let historyEntries = [];
+  let historyLimitNotice = false;
+  let wrongReviewIds = [];
+  let wrongReviewIndex = 0;
+  let reviewMode = false;
 
   function showView(viewId) {
     for (const id of views) byId(id).classList.toggle("hidden", id !== viewId);
     ui.homeButton.classList.toggle("hidden", viewId === "home-view" || viewId === "loading-view" || viewId === "error-view");
   }
 
+  function showStorageNotice(message) {
+    if (!ui.storageNotice) return;
+    ui.storageNotice.textContent = message;
+    ui.storageNotice.classList.toggle("hidden", !message);
+  }
+
+  function clearStorageNotice() {
+    if (!historyLimitNotice) showStorageNotice("");
+  }
+
+  function createId() {
+    if (globalThis.crypto && typeof globalThis.crypto.randomUUID === "function") return globalThis.crypto.randomUUID();
+    return "session-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2);
+  }
+
   function loadSavedSession() {
     try {
-      return restoreSession(JSON.parse(localStorage.getItem(STORAGE_KEY) || "null"), questionById);
+      const stored = localStorage.getItem(SESSION_KEY);
+      if (!stored) return null;
+      const restored = restoreSession(JSON.parse(stored), questionById);
+      if (!restored) return null;
+      const migrated = ensureHistoryIdentity(restored, createId);
+      if (migrated.historyId !== restored.historyId || migrated.startedAt !== restored.startedAt) {
+        session = migrated;
+        saveSession();
+      }
+      return migrated;
     } catch {
+      showStorageNotice("Bu tarayıcıdaki oturum okunamadı; yeni cevaplar kaydedilmeyebilir.");
       return null;
     }
   }
 
   function saveSession() {
-    if (!session) return;
+    if (!session) return false;
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(session));
+      localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+      return true;
     } catch {
-      // The quiz remains usable when browser storage is unavailable.
+      showStorageNotice("Oturum bu tarayıcıya kaydedilemedi.");
+      return false;
     }
   }
 
+  function loadHistory() {
+    try {
+      const stored = localStorage.getItem(HISTORY_KEY);
+      if (!stored) return [];
+      const parsed = JSON.parse(stored);
+      const cleaned = sanitizeHistory(parsed);
+      if (!Array.isArray(parsed)) {
+        showStorageNotice("Geçmiş verisi okunamadı; yeni kayıtlar bu tarayıcıda tutulabilir.");
+      } else if (cleaned.length !== parsed.length) {
+        try {
+          localStorage.setItem(HISTORY_KEY, JSON.stringify(cleaned));
+        } catch {
+          showStorageNotice("Geçmiş temizlendi ancak bu tarayıcıya yazılamadı.");
+        }
+      }
+      return cleaned;
+    } catch {
+      showStorageNotice("Geçmiş verisi okunamadı; yeni kayıtlar bu tarayıcıda tutulabilir.");
+      return [];
+    }
+  }
+
+  function writeHistory(nextEntries) {
+    try {
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(nextEntries));
+      historyEntries = nextEntries;
+      return true;
+    } catch {
+      showStorageNotice("Geçmiş bu tarayıcıya kaydedilemedi.");
+      return false;
+    }
+  }
   function populateUnits() {
     const units = Array.isArray(data.units) ? data.units.slice().sort((a, b) => Number(a.id) - Number(b.id)) : [];
     unitsById = new Map(units.map((unit) => [Number(unit.id), unit]));
@@ -59,6 +140,46 @@ import { gradeAnswer, restoreSession, summarizeSession } from "./quiz-core.js";
     return data.questions.filter((question) => question.type === "test" && (selectedUnit === "all" || String(question.unit) === selectedUnit));
   }
 
+  function updateHistoryView() {
+    if (!ui.historySection) return;
+    ui.historyList.replaceChildren();
+    const totals = historyEntries.reduce((result, entry) => {
+      result.sessions += 1;
+      result.correct += entry.correct;
+      result.incorrect += entry.incorrect;
+      result.unanswered += entry.unanswered;
+      return result;
+    }, { sessions: 0, correct: 0, incorrect: 0, unanswered: 0 });
+
+    const totalLine = document.createElement("p");
+    totalLine.className = "history-totals-line";
+    totalLine.textContent = totals.sessions + " oturum · " + totals.correct + " doğru · " + totals.incorrect + " yanlış · " + totals.unanswered + " boş";
+    ui.historyTotals.replaceChildren(totalLine);
+    ui.historyEmpty.classList.toggle("hidden", historyEntries.length > 0);
+    ui.clearHistory.disabled = historyEntries.length === 0;
+
+    const dateFormat = new Intl.DateTimeFormat("tr-TR", {
+      dateStyle: "short",
+      timeStyle: "short"
+    });
+    for (const entry of historyEntries) {
+      const item = document.createElement("li");
+      item.className = "history-item";
+      const heading = document.createElement("div");
+      heading.className = "history-item-heading";
+      const unit = document.createElement("strong");
+      unit.textContent = entry.unit;
+      const date = document.createElement("time");
+      date.dateTime = entry.startedAt;
+      date.textContent = dateFormat.format(new Date(entry.startedAt));
+      const details = document.createElement("p");
+      details.textContent = entry.total + " soru · " + entry.correct + " doğru · " + entry.incorrect + " yanlış · " + entry.unanswered + " boş";
+      heading.append(unit, date);
+      item.append(heading, details);
+      ui.historyList.append(item);
+    }
+  }
+
   function updateHome() {
     const count = filteredQuestions().length;
     ui.questionTotal.textContent = count + " soru";
@@ -66,7 +187,8 @@ import { gradeAnswer, restoreSession, summarizeSession } from "./quiz-core.js";
     ui.start.classList.toggle("is-disabled", count === 0);
     ui.filterHint.textContent = count ? "" : "Bu ünite için test sorusu bulunmuyor.";
     ui.resume.classList.toggle("hidden", !session);
-    ui.resume.textContent = session && session.status === "complete" ? "Son oturumu incele" : "Kaldığım yerden devam et";
+    ui.resume.textContent = session && session.status === "complete" ? "Son oturumu incele" : "Devam et";
+    updateHistoryView();
   }
 
   function mix(items) {
@@ -79,6 +201,9 @@ import { gradeAnswer, restoreSession, summarizeSession } from "./quiz-core.js";
   }
 
   function beginSession(questions, config) {
+    reviewMode = false;
+    wrongReviewIds = [];
+    wrongReviewIndex = 0;
     const questionIds = questions.map((question) => question.id);
     if (!questionIds.length) return;
     session = {
@@ -87,6 +212,9 @@ import { gradeAnswer, restoreSession, summarizeSession } from "./quiz-core.js";
       index: 0,
       answers: {},
       status: "active",
+      historyId: createId(),
+      startedAt: new Date().toISOString(),
+      historySuppressed: false,
       config: { unit: config.unit || "all", shuffle: Boolean(config.shuffle) }
     };
     saveSession();
@@ -96,12 +224,19 @@ import { gradeAnswer, restoreSession, summarizeSession } from "./quiz-core.js";
   }
 
   function currentQuestion() {
-    return questionById.get(session.questionIds[session.index]);
+    const questionId = reviewMode ? wrongReviewIds[wrongReviewIndex] : session.questionIds[session.index];
+    return questionById.get(questionId);
   }
-
   function unitTitle(question) {
     const unit = unitsById.get(Number(question.unit));
     return unit ? unit.title : "Ünite " + question.unit;
+  }
+
+  function historyUnit() {
+    const configUnit = session && session.config ? String(session.config.unit) : "all";
+    if (configUnit === "all") return "Tüm üniteler";
+    const unit = unitsById.get(Number(configUnit));
+    return unit ? unit.title : "Ünite " + configUnit;
   }
 
   function answerRecord(question) {
@@ -109,29 +244,50 @@ import { gradeAnswer, restoreSession, summarizeSession } from "./quiz-core.js";
   }
 
   function completedCount() {
-    return session.questionIds.reduce((total, id) => {
-      const record = session.answers[id];
-      return total + (record && record.checked ? 1 : 0);
-    }, 0);
+    return summarizeSession(session.questionIds, session.answers).completed;
+  }
+
+  function recordHistory() {
+    if (!session || session.historySuppressed) return false;
+    session = ensureHistoryIdentity(session, createId);
+    const existing = historyEntries.some((entry) => entry.id === session.historyId);
+    const entry = createHistoryEntry(session, historyUnit());
+    const nextEntries = upsertHistoryEntry(historyEntries, entry);
+    const isAtLimit = !existing && historyEntries.length >= HISTORY_LIMIT;
+    if (!writeHistory(nextEntries)) return false;
+    if (isAtLimit) {
+      historyLimitNotice = true;
+      showStorageNotice("Geçmişte en fazla 200 oturum tutulur; en eski kayıtlar kaldırılır.");
+    }
+    updateHistoryView();
+    return true;
   }
 
   function renderQuestion() {
     const question = currentQuestion();
     if (!question) return;
+    ui.endWarning.classList.add("hidden");
     const record = answerRecord(question);
-    const total = session.questionIds.length;
-    ui.quizUnit.textContent = unitTitle(question);
-    ui.questionNumber.textContent = "SORU " + (question.number || session.index + 1);
-    ui.prompt.textContent = question.prompt;
+    const total = reviewMode ? wrongReviewIds.length : session.questionIds.length;
+    const position = reviewMode ? wrongReviewIndex : session.index;
     const done = completedCount();
-    ui.progressText.textContent = done + " / " + total;
-    ui.progressFill.style.width = ((done / total) * 100) + "%";
-    ui.progressTrack.setAttribute("aria-valuemax", String(total));
-    ui.progressTrack.setAttribute("aria-valuenow", String(done));
-    ui.solvedCount.textContent = done + " / " + total + " kontrol edildi";
+    ui.quizUnit.textContent = unitTitle(question);
+    ui.questionNumber.textContent = "Soru " + (question.number || session.index + 1);
+    ui.prompt.textContent = question.prompt;
+    ui.progressText.textContent = reviewMode
+      ? "Yanlış " + (position + 1) + " / " + total
+      : done + " / " + total;
+    ui.progressTrack.max = total;
+    ui.progressTrack.value = reviewMode ? position + 1 : done;
+    ui.solvedCount.textContent = done + " / " + session.questionIds.length + " kontrol edildi";
+    ui.questionNav.classList.toggle("hidden", reviewMode);
+    ui.wrongReviewNav.classList.toggle("hidden", !reviewMode);
     ui.previous.disabled = session.index === 0;
     ui.previous.classList.toggle("is-disabled", session.index === 0);
-    ui.next.textContent = session.index === total - 1 ? "Sonuçları gör ✓" : "Sonraki →";
+    ui.next.textContent = session.index === session.questionIds.length - 1 ? "Sonuçlar" : "Sonraki";
+    ui.wrongReviewPosition.textContent = "Yanlış " + (wrongReviewIndex + 1) + " / " + wrongReviewIds.length;
+    ui.wrongReviewPrevious.disabled = wrongReviewIndex === 0;
+    ui.wrongReviewNext.disabled = wrongReviewIndex === wrongReviewIds.length - 1;
     ui.options.replaceChildren();
     const legend = document.createElement("legend");
     legend.className = "sr-only";
@@ -139,7 +295,6 @@ import { gradeAnswer, restoreSession, summarizeSession } from "./quiz-core.js";
     ui.options.append(legend);
 
     const chosen = record.selected;
-    const acceptedAnswers = record.checked && Array.isArray(question.acceptedAnswers) ? question.acceptedAnswers : [];
     for (const option of (Array.isArray(question.options) ? question.options : [])) {
       const label = document.createElement("label");
       label.className = "option";
@@ -157,43 +312,53 @@ import { gradeAnswer, restoreSession, summarizeSession } from "./quiz-core.js";
       copy.textContent = option.text;
       label.append(radio, key, copy);
 
-      if (record.checked && acceptedAnswers.includes(option.key)) {
+      const optionState = classifyOption(question, option.key, chosen, Boolean(record.checked));
+      if (optionState === "selected-correct") {
         label.classList.add("is-correct");
-        const marker = document.createElement("span");
-        marker.className = "answer-marker";
-        marker.textContent = "✓ Kabul edilen cevap";
-        copy.append(marker);
-      } else if (record.checked && chosen === option.key) {
+        addOptionMarker(copy, "Doğru cevap", "correct");
+      } else if (optionState === "selected-wrong") {
         label.classList.add("is-wrong");
+        addOptionMarker(copy, "Yanlış", "wrong");
+      } else if (optionState === "accepted-alternative") {
+        label.classList.add("is-accepted");
+        addOptionMarker(copy, "Kabul edilen cevap", "accepted");
       }
 
       radio.addEventListener("change", () => {
-        if (record.checked) return;
+        if (record.checked || reviewMode) return;
+        ui.endWarning.classList.add("hidden");
         session.answers[question.id] = { ...record, selected: radio.value, checked: false };
         saveSession();
       });
       ui.options.append(label);
     }
 
-    ui.feedback.classList.toggle("hidden", !record.checked);
+    ui.feedback.className = "feedback hidden";
+    ui.feedback.replaceChildren();
     ui.check.classList.toggle("hidden", Boolean(record.checked));
     ui.questionStatus.className = "status-pill";
-    ui.questionStatus.textContent = "Yanıt bekleniyor";
+    ui.questionStatus.textContent = record.checked ? (record.correct ? "Doğru" : "Yanlış") : "";
     if (record.checked) {
-      const isCorrect = Boolean(record.correct);
-      ui.questionStatus.classList.add(isCorrect ? "correct" : "incorrect");
-      ui.questionStatus.textContent = isCorrect ? "Doğru" : "Tekrar bak";
+      ui.questionStatus.classList.add(record.correct ? "correct" : "incorrect");
       renderFeedback(question);
-    } else {
-      ui.feedback.replaceChildren();
     }
+  }
+  function addOptionMarker(optionText, text, state) {
+    const marker = document.createElement("span");
+    marker.className = "answer-marker " + state;
+    marker.textContent = text;
+    optionText.append(marker);
   }
 
   function renderFeedback(question) {
     const record = answerRecord(question);
+    const isCorrect = gradeAnswer(question, record.selected);
+    ui.feedback.className = "feedback " + (isCorrect ? "is-correct" : "is-incorrect");
     ui.feedback.replaceChildren();
+
     const heading = document.createElement("strong");
-    heading.textContent = record.correct ? "Doğru yanıt." : "Bu seçim doğru değil.";
+    heading.className = "feedback-heading " + (isCorrect ? "is-correct" : "is-incorrect");
+    heading.textContent = isCorrect ? "Doğru." : "Yanlış.";
     ui.feedback.append(heading);
 
     const accepted = Array.isArray(question.acceptedAnswers) ? question.acceptedAnswers : [];
@@ -202,7 +367,7 @@ import { gradeAnswer, restoreSession, summarizeSession } from "./quiz-core.js";
       return option ? key + " — " + option.text : key;
     });
     const answerLine = document.createElement("span");
-    answerLine.textContent = "Kabul edilen yanıt" + (accepted.length > 1 ? "lar" : "") + ": " + acceptedText.join(" · ");
+    answerLine.textContent = "Kabul edilen cevap" + (accepted.length > 1 ? "lar" : "") + ": " + acceptedText.join(" · ");
     ui.feedback.append(answerLine);
 
     if (question.bookAnswer) {
@@ -218,8 +383,8 @@ import { gradeAnswer, restoreSession, summarizeSession } from "./quiz-core.js";
     }
     if (question.explanation) {
       const explanation = document.createElement("p");
+      explanation.className = "feedback-explanation";
       explanation.textContent = question.explanation;
-      explanation.style.margin = "8px 0 0";
       ui.feedback.append(explanation);
     }
     if (question.source && question.source.title) {
@@ -228,32 +393,120 @@ import { gradeAnswer, restoreSession, summarizeSession } from "./quiz-core.js";
       source.textContent = question.source.title + " · PDF s. " + question.source.pdfPage + (question.source.bookPage ? " · Kitap s. " + question.source.bookPage : "");
       ui.feedback.append(source);
     }
+    ui.feedback.classList.remove("hidden");
+  }
+
+  function updateWrongReviewList(questionIds) {
+    ui.wrongReviewList.replaceChildren();
+    ui.wrongReviewSection.classList.toggle("hidden", questionIds.length === 0);
+    for (const questionId of questionIds) {
+      const question = questionById.get(questionId);
+      if (!question) continue;
+      const item = document.createElement("li");
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "wrong-review-item";
+      const prompt = String(question.prompt || "").replace(/\s+/g, " ").trim();
+      button.textContent = unitTitle(question) + " · Soru " + (question.number || "") + " · " + (prompt.length > 105 ? prompt.slice(0, 102) + "…" : prompt);
+      button.addEventListener("click", () => openWrongReview(questionId));
+      item.append(button);
+      ui.wrongReviewList.append(item);
+    }
+  }
+
+  function openWrongReview(questionId) {
+    if (!session) return;
+    wrongReviewIds = summarizeSession(session.questionIds, session.answers).wrongIds;
+    wrongReviewIndex = wrongReviewIds.indexOf(questionId);
+    if (wrongReviewIndex < 0) return;
+    reviewMode = true;
+    showView("quiz-view");
+    renderQuestion();
+    ui.prompt.focus();
+  }
+
+  function moveWrongReview(direction) {
+    const nextIndex = wrongReviewIndex + direction;
+    if (nextIndex < 0 || nextIndex >= wrongReviewIds.length) return;
+    wrongReviewIndex = nextIndex;
+    renderQuestion();
+    ui.prompt.focus();
+  }
+
+  function returnToResults() {
+    reviewMode = false;
+    showView("results-view");
+    byId("results-heading").focus();
   }
 
   function checkAnswer() {
     const question = currentQuestion();
     const selected = ui.options.querySelector('input[type="radio"]:checked');
     if (!selected) {
-      ui.feedback.replaceChildren();
-      ui.feedback.textContent = "Devam etmeden önce bir seçenek işaretle.";
-      ui.feedback.classList.remove("hidden");
+      ui.endWarning.classList.add("hidden");
+      ui.feedback.className = "feedback is-info";
+      ui.feedback.textContent = "Bir cevap seç.";
       return;
     }
+    ui.endWarning.classList.add("hidden");
     const correct = gradeAnswer(question, selected.value);
     session.answers[question.id] = { selected: selected.value, checked: true, correct };
-    saveSession();
+    session.historySuppressed = false;
+    session = ensureHistoryIdentity(session, createId);
+    const sessionSaved = saveSession();
+    const historySaved = recordHistory();
+    if (sessionSaved && historySaved && !historyLimitNotice) clearStorageNotice();
     renderQuestion();
   }
 
   function finishSession() {
+    const { pendingIds, blankIds } = summarizePendingAnswers(session.questionIds, session.answers);
+    if (pendingIds.length || blankIds.length) {
+      const messages = [];
+      if (pendingIds.length) {
+        messages.push(pendingIds.length + " işaretli yanıt kontrol edilmedi. Bitir seçeneği bunları otomatik değerlendirecek.");
+      }
+      if (blankIds.length) {
+        messages.push(blankIds.length + " soru boş bırakıldı ve boş kalacak.");
+      }
+      ui.endWarningText.textContent = messages.join(" ");
+      ui.returnToIncomplete.textContent = blankIds.length
+        ? "Boşlara dön (" + blankIds.length + ")"
+        : "İşaretli yanıtlara dön (" + pendingIds.length + ")";
+      ui.endWarning.classList.remove("hidden");
+      ui.finishAnyway.disabled = false;
+      ui.finishAnyway.focus();
+      return;
+    }
+    finalizeSession();
+  }
+
+  function returnToIncomplete() {
+    const { pendingIds, blankIds } = summarizePendingAnswers(session.questionIds, session.answers);
+    const targetId = blankIds[0] || pendingIds[0];
+    if (!targetId) return;
+    session.index = session.questionIds.indexOf(targetId);
+    ui.endWarning.classList.add("hidden");
+    saveSession();
+    renderQuestion();
+    ui.prompt.focus();
+  }
+
+  function finalizeSession() {
+    ui.finishAnyway.disabled = true;
+    const graded = gradePendingAnswers(session.questionIds, session.answers, questionById);
+    session.answers = graded.answers;
     const summary = summarizeSession(session.questionIds, session.answers);
     session.status = summary.unanswered === 0 ? "complete" : "active";
-    saveSession();
+    const sessionSaved = saveSession();
+    const historySaved = recordHistory();
+    if (sessionSaved && historySaved && !historyLimitNotice) clearStorageNotice();
+    ui.endWarning.classList.add("hidden");
     showView("results-view");
     byId("results-heading").focus();
     ui.resultSummary.textContent = summary.unanswered
-      ? summary.total + " soruluk turda " + summary.completed + " soruyu kontrol ettin. Kalan sorular oturumunda duruyor; ana sayfadan devam edebilirsin."
-      : summary.total + " soruluk turu tamamladın. Yanlışlarını tekrar çözerek konuları pekiştirebilirsin.";
+      ? summary.total + " soruluk tur tamamlandı. " + summary.unanswered + " soru boş kaldı."
+      : summary.total + " soruluk tur tamamlandı.";
     ui.resultStats.replaceChildren();
     for (const [value, label] of [[summary.correct, "Doğru"], [summary.incorrect, "Yanlış"], [summary.unanswered, "Boş"]]) {
       const stat = document.createElement("div");
@@ -265,6 +518,7 @@ import { gradeAnswer, restoreSession, summarizeSession } from "./quiz-core.js";
       stat.append(amount, caption);
       ui.resultStats.append(stat);
     }
+    updateWrongReviewList(summary.wrongIds);
     ui.retry.classList.toggle("hidden", summary.wrongIds.length === 0);
   }
   function retryWrong() {
@@ -277,16 +531,35 @@ import { gradeAnswer, restoreSession, summarizeSession } from "./quiz-core.js";
     if (wrong.length) beginSession(wrong, { unit: session.config.unit, shuffle: false });
   }
 
+  function returnToFirstUnansweredOrStart() {
+    if (!session) return;
+    reviewMode = false;
+    const firstUnanswered = session.questionIds.findIndex((id) => !session.answers[id] || !session.answers[id].checked);
+    session.index = firstUnanswered >= 0 ? firstUnanswered : 0;
+    session.status = "active";
+    saveSession();
+    showView("quiz-view");
+    renderQuestion();
+    ui.prompt.focus();
+  }
+
   async function init() {
     try {
+      if (ui.storageNotice && ui.storageNotice.parentElement) {
+        ui.app.insertBefore(ui.storageNotice, ui.loading.nextSibling);
+      }
       const response = await fetch("./questions.json", { cache: "no-store" });
-      if (!response.ok) throw new Error("Sorular yüklenemedi (HTTP " + response.status + ").");
+      if (!response.ok) throw new Error("HTTP " + response.status);
       data = await response.json();
       if (!Array.isArray(data.questions) || !Array.isArray(data.units)) throw new Error("Soru dosyasının biçimi beklenen yapıyla uyuşmuyor.");
       data.questions = data.questions.filter((question) => question && question.type === "test" && question.id);
       questionById = new Map(data.questions.map((question) => [question.id, question]));
       populateUnits();
       session = loadSavedSession();
+      historyEntries = loadHistory();
+      if (session && !session.historySuppressed && completedCount() > 0 && !historyEntries.some((entry) => entry.id === session.historyId)) {
+        recordHistory();
+      }
       updateHome();
       showView("home-view");
 
@@ -296,27 +569,20 @@ import { gradeAnswer, restoreSession, summarizeSession } from "./quiz-core.js";
         const ordered = ui.shuffle.checked ? mix(questions) : questions;
         beginSession(ordered, { unit: ui.unitFilter.value, shuffle: ui.shuffle.checked });
       });
-      ui.resume.addEventListener("click", () => {
-        if (!session) return;
-        const firstUnanswered = session.questionIds.findIndex((id) => !session.answers[id] || !session.answers[id].checked);
-        session.index = firstUnanswered >= 0 ? firstUnanswered : Math.min(session.index, session.questionIds.length - 1);
-        session.status = "active";
+      ui.resume.addEventListener("click", returnToFirstUnansweredOrStart);
+      ui.homeButton.addEventListener("click", () => { reviewMode = false; updateHome(); showView("home-view"); });
+      ui.check.addEventListener("click", checkAnswer);
+      ui.finishAnyway.addEventListener("click", finalizeSession);
+      ui.returnToIncomplete.addEventListener("click", returnToIncomplete);
+      ui.previous.addEventListener("click", () => {
+        if (reviewMode || session.index === 0) return;
+        session.index -= 1;
         saveSession();
-        showView("quiz-view");
         renderQuestion();
         ui.prompt.focus();
       });
-      ui.homeButton.addEventListener("click", () => { updateHome(); showView("home-view"); });
-      ui.check.addEventListener("click", checkAnswer);
-      ui.previous.addEventListener("click", () => {
-        if (session.index > 0) {
-          session.index -= 1;
-          saveSession();
-          renderQuestion();
-          ui.prompt.focus();
-        }
-      });
       ui.next.addEventListener("click", () => {
+        if (reviewMode) return;
         if (session.index < session.questionIds.length - 1) {
           session.index += 1;
           saveSession();
@@ -327,16 +593,10 @@ import { gradeAnswer, restoreSession, summarizeSession } from "./quiz-core.js";
         }
       });
       ui.retry.addEventListener("click", retryWrong);
-      ui.review.addEventListener("click", () => {
-        if (!session) return;
-        const firstUnanswered = session.questionIds.findIndex((id) => !session.answers[id] || !session.answers[id].checked);
-        session.index = firstUnanswered >= 0 ? firstUnanswered : 0;
-        session.status = "active";
-        saveSession();
-        showView("quiz-view");
-        renderQuestion();
-        ui.prompt.focus();
-      });
+      ui.wrongReviewPrevious.addEventListener("click", () => moveWrongReview(-1));
+      ui.wrongReviewNext.addEventListener("click", () => moveWrongReview(1));
+      ui.wrongReviewReturn.addEventListener("click", returnToResults);
+      ui.review.addEventListener("click", returnToFirstUnansweredOrStart);
       ui.newRound.addEventListener("click", () => {
         ui.unitFilter.value = session && session.config ? session.config.unit : "all";
         ui.shuffle.checked = Boolean(session && session.config && session.config.shuffle);
@@ -344,8 +604,20 @@ import { gradeAnswer, restoreSession, summarizeSession } from "./quiz-core.js";
         showView("home-view");
         ui.start.focus();
       });
-    } catch (error) {
-      ui.error.textContent = "Sorular yüklenemedi. İnternet bağlantını kontrol edip sayfayı yenile.";
+      ui.clearHistory.addEventListener("click", () => {
+        if (historyEntries.length && !window.confirm("Geçmişi silmek istiyor musun?")) return;
+        if (!writeHistory([])) return;
+        historyLimitNotice = false;
+        let sessionSaved = true;
+        if (session) {
+          session.historySuppressed = true;
+          sessionSaved = saveSession();
+        }
+        if (sessionSaved) clearStorageNotice();
+        updateHistoryView();
+      });
+    } catch {
+      ui.error.textContent = "Sorular yüklenemedi. Bağlantını kontrol edip sayfayı yenile.";
       showView("error-view");
     }
   }

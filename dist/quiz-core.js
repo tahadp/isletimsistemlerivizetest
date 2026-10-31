@@ -3,6 +3,12 @@ export function gradeAnswer(question, selectedKey) {
   return Boolean(selectedKey) && acceptedAnswers.includes(selectedKey);
 }
 
+export function classifyOption(question, optionKey, selectedKey, checked) {
+  if (!checked) return "neutral";
+  const accepted = Array.isArray(question && question.acceptedAnswers) && question.acceptedAnswers.includes(optionKey);
+  if (optionKey === selectedKey) return accepted ? "selected-correct" : "selected-wrong";
+  return accepted ? "accepted-alternative" : "neutral";
+}
 export function summarizeSession(questionIds, answers = {}) {
   const ids = Array.isArray(questionIds) ? questionIds : [];
   let completed = 0;
@@ -67,10 +73,43 @@ export function restoreSession(saved, questionsById) {
     index,
     answers,
     status: saved.status === "complete" ? "complete" : "active",
+    historyId: typeof saved.historyId === "string" && saved.historyId ? saved.historyId : null,
+    startedAt: typeof saved.startedAt === "string" ? saved.startedAt : null,
+    historySuppressed: Boolean(saved.historySuppressed),
     originalIds,
     config: {
       unit: typeof config.unit === "string" || typeof config.unit === "number" ? String(config.unit) : "all",
       shuffle: Boolean(config.shuffle)
     }
   };
+}
+export function summarizePendingAnswers(questionIds, answers = {}) {
+  const pendingIds = [];
+  const blankIds = [];
+  for (const id of Array.isArray(questionIds) ? questionIds : []) {
+    const record = answers && answers[id];
+    if (!record || !record.selected) blankIds.push(id);
+    else if (!record.checked) pendingIds.push(id);
+  }
+  return { pendingIds, blankIds };
+}
+
+export function gradePendingAnswers(questionIds, answers = {}, questionsById) {
+  const nextAnswers = { ...(answers && typeof answers === "object" ? answers : {}) };
+  const gradedIds = [];
+  for (const id of Array.isArray(questionIds) ? questionIds : []) {
+    const record = nextAnswers[id];
+    if (!record || !record.selected || record.checked) continue;
+    const question = questionsById && typeof questionsById.get === "function"
+      ? questionsById.get(id)
+      : questionsById && questionsById[id];
+    if (!question) continue;
+    nextAnswers[id] = {
+      ...record,
+      checked: true,
+      correct: gradeAnswer(question, record.selected)
+    };
+    gradedIds.push(id);
+  }
+  return { answers: nextAnswers, gradedIds };
 }

@@ -1,22 +1,37 @@
 # İşletim Sistemleri Vize Testi
 
-İlk beş üniteden **50 özgün çoktan seçmeli soru, 250 seçenek**. Sıra Sizde soruları dahil değildir.
-
-Telefon ve masaüstünde çalışan, bağımlılıksız statik site. Ünite seçimi, karışık sıra, çözümden sonra açıklamalar, sonuç ve yanlışları tekrar çözme. İlerleme yalnız ziyaretçinin tarayıcısında saklanır; hesap veya ortak sunucu kaydı yoktur.
+İlk beş üniteden **50 özgün çoktan seçmeli soru, 250 seçenek**. Sıra Sizde soruları dahil değildir. Telefonda ve masaüstünde çalışır; ünite seçimi, karışık sıra, açıklamalı yanıtlar ve yanlışları tekrar çözme özellikleri vardır. Tamamlanan testlerde yanlış soruları listeden açıp özgün yanıt ve açıklamayla, yalnız yanlışlar arasında gezerek inceleyebilirsiniz.
 
 ## Çalıştırma
 
-Node.js 22 veya üstü ile:
+Python 3 ile proje kök dizininde yerel sunucuyu başlatın:
 
 ```sh
-npm start
+python scripts/serve.py --port 4173
 ```
 
 Tarayıcıda http://127.0.0.1:4173 adresini açın. Dosyayı çift tıklamak yerine HTTP sunucusu kullanın.
 
+Node.js 22 yalnızca kontroller için gerekir:
+
 ```sh
 npm run check
 ```
+
+Python 3 ile sunucu güvenlik kontrolleri:
+
+```sh
+python -m unittest discover -s tests -p server_security_test.py -v
+```
+Uygulama PHP kullanmaz; yerel çalışma için Docker veya Nginx gerekmez.
+
+## Kayıt ve sonuçlar
+
+Aktif test oturumu ve geçmiş yalnızca bu tarayıcının `localStorage` alanında saklanır. Geçmiş en fazla 200 kaydı tutar. Her kayıt `startedAt`, `updatedAt`, `unit`, `total`, `correct`, `incorrect`, `unanswered` ve `status` alanlarını içerir. “Geçmişi sil” geçmiş kayıtlarını temizler; aktif test oturumunu silmez.
+
+Test sonuçları ağ üzerinden gönderilmez. Uygulama soru verisini `questions.json` dosyasından GET isteğiyle yükler; sonuçlar için POST veya telemetri isteği yapmaz. Tarayıcı depolaması kullanılamadığında veya kayıtlı veri bozuk olduğunda uygulama çalışmaya devam eder ve bir uyarı gösterir.
+
+Yanıt kontrolünde doğru seçilen kabul edilmiş yanıt yeşil gösterilir. Yanlış seçilen yanıt kırmızı, diğer kabul edilen seçenekler nötr görünür.
 
 ## Kaynak ve cevap politikası
 

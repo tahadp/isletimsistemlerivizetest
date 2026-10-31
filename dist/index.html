@@ -4,54 +4,56 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f5f7f2">
-  <meta name="description" content="İşletim Sistemleri ilk beş ünite: 50 özgün test sorusu, açıklamalı cevaplar ve yanlışları tekrar çözme. Telefona uygun, ücretsiz çalışma alanı.">
-  <title>İşletim Sistemleri · Soru Çözüm</title>
+  <meta name="description" content="İşletim Sistemleri testlerini ünite seçerek veya karışık sırayla çöz.">
+  <title>İşletim Sistemleri</title>
   <link rel="stylesheet" href="./styles.css">
   <script type="module" src="./app.js"></script>
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="./" aria-label="Ana sayfa"><span class="brand-mark" aria-hidden="true">İS</span><span>İşletim Sistemleri <small>SORU ÇÖZÜM ALANI</small></span></a>
-    <button id="home-button" class="text-button hidden" type="button">← Ana sayfa</button>
+    <a class="brand" href="./" aria-label="Ana sayfa"><span class="brand-mark" aria-hidden="true">İS</span><span>İşletim Sistemleri</span></a>
+    <button id="home-button" class="text-button hidden" type="button">Ana sayfa</button>
   </header>
   <main id="app" class="shell" aria-live="off">
+    <p id="storage-notice" class="storage-notice hidden" role="status"></p>
     <section id="loading-view" class="loading-card" aria-live="polite">Sorular yükleniyor…</section>
-    <section id="home-view" class="hidden">
-      <div class="hero">
-        <div class="hero-copy"><p class="eyebrow">DERSİNİ PEKİŞTİR</p><h1>Konuları kendi hızında<br><span>çöz, kontrol et, öğren.</span></h1><p class="hero-intro">İşletim Sistemleri sorularını konu konu çalış. İlerlemen bu cihazda otomatik saklanır.</p></div>
-        <div class="hero-stamp" aria-hidden="true"><span>OS</span><i>01 — 05</i></div>
-      </div>
+    <section id="home-view" class="hidden" aria-labelledby="setup-heading">
+      <h1 class="page-title">İşletim Sistemleri</h1>
       <section class="setup-card" aria-labelledby="setup-heading">
-        <div class="section-heading"><div><p class="eyebrow">YENİ ÇALIŞMA</p><h2 id="setup-heading">Nasıl çalışmak istersin?</h2></div><span id="question-total" class="subtle"></span></div>
+        <div class="section-heading"><div><h2 id="setup-heading">Test seç</h2></div><span id="question-total" class="subtle"></span></div>
         <div class="filters"><label class="field-label" for="unit-filter">Ünite</label><select id="unit-filter" class="select-control"><option value="all">Tüm üniteler</option></select></div>
-        <label class="check-label shuffle-label"><input type="checkbox" id="shuffle"><span>Karışık sırayla başla</span></label>
-        <div class="setup-actions"><button id="start-button" class="button primary" type="button">Çalışmaya başla <span aria-hidden="true">→</span></button><button id="resume-button" class="button secondary hidden" type="button">Kaldığım yerden devam et</button></div>
+        <label class="check-label shuffle-label"><input type="checkbox" id="shuffle"><span>Karışık sırayla</span></label>
+        <div class="setup-actions"><button id="start-button" class="button primary" type="button">Başla</button><button id="resume-button" class="button secondary hidden" type="button">Devam et</button></div>
         <p id="filter-hint" class="hint" aria-live="polite"></p>
       </section>
-      <p class="privacy-note"><span aria-hidden="true">◷</span> Giriş yapman gerekmez. Çalışman yalnızca bu tarayıcıda saklanır.</p>
+      <p class="privacy-note">Sonuçlar bu tarayıcıda saklanır.</p>
+      <section id="history-section" class="history-section" aria-labelledby="history-heading">
+        <div class="section-heading history-heading-row"><h2 id="history-heading">Geçmiş</h2><button id="clear-history-button" class="button secondary" type="button">Geçmişi sil</button></div>
+        <div id="history-totals"></div>
+        <p id="history-empty">Henüz kayıt yok.</p>
+        <ol id="history-list"></ol>
+      </section>
     </section>
     <section id="quiz-view" class="hidden" aria-labelledby="question-prompt">
       <div class="quiz-toolbar">
         <div><p id="quiz-unit" class="eyebrow"></p></div>
-        <div class="progress-block"><div class="progress-label"><span>İlerleme</span><span id="progress-text"></span></div><div class="progress-track" role="progressbar" aria-label="Kontrol edilen soru sayısı" aria-valuemin="0" aria-valuemax="50" aria-valuenow="0"><span id="progress-fill"></span></div></div>
+        <div class="progress-block"><div class="progress-label"><span>İlerleme</span><span id="progress-text"></span></div><progress id="progress-track" class="progress-track" aria-label="Kontrol edilen soru sayısı" max="50" value="0"></progress></div>
       </div>
       <article class="question-card">
         <div class="question-meta"><span id="question-number"></span><span id="question-status" class="status-pill"></span></div>
         <h1 id="question-prompt" tabindex="-1"></h1>
         <fieldset id="options-list" class="options-list"><legend class="sr-only">Cevap seçenekleri</legend></fieldset>
         <div id="feedback" class="feedback hidden" aria-live="polite"></div>
-        <button id="check-button" class="button primary check-button" type="button">Cevabı kontrol et <span aria-hidden="true">→</span></button>
+        <button id="check-button" class="button primary check-button" type="button">Kontrol et</button>
+        <div id="end-warning" class="end-warning hidden" role="status" aria-live="polite"><p id="end-warning-text"></p><div class="end-warning-actions"><button id="finish-anyway-button" class="button primary" type="button">Bitir</button><button id="return-to-incomplete-button" class="button secondary" type="button">Boşlara dön</button></div></div>
       </article>
-      <nav class="question-nav" aria-label="Soru gezinme"><button id="previous-button" class="button secondary" type="button">← Önceki</button><span id="solved-count" class="subtle"></span><button id="next-button" class="button primary" type="button">Sonraki <span aria-hidden="true">→</span></button></nav>
+      <nav id="question-nav" class="question-nav" aria-label="Soru gezinme"><button id="previous-button" class="button secondary" type="button">Önceki</button><span id="solved-count" class="subtle"></span><button id="next-button" class="button primary" type="button">Sonraki</button></nav>
+      <nav id="wrong-review-nav" class="question-nav hidden" aria-label="Yanlış sorular arasında gezinme"><button id="wrong-review-previous" class="button secondary" type="button">Önceki yanlış</button><span id="wrong-review-position" class="subtle"></span><button id="wrong-review-next" class="button secondary" type="button">Sonraki yanlış</button><button id="wrong-review-return" class="button primary" type="button">Sonuçlara dön</button></nav>
     </section>
     <section id="results-view" class="hidden">
-      <div class="results-card"><div class="result-icon" aria-hidden="true">✓</div><p class="eyebrow">ÇALIŞMA TAMAMLANDI</p><h1 id="results-heading" tabindex="-1">Güzel ilerleme.</h1><p id="result-summary" class="result-summary"></p><div id="result-stats" class="result-stats"></div><div class="result-actions"><button id="review-button" class="button secondary" type="button">Cevapları incele / Boşları tamamla <span aria-hidden="true">↗</span></button><button id="retry-button" class="button secondary hidden" type="button">Yanlışları tekrar çöz <span aria-hidden="true">↻</span></button><button id="new-round-button" class="button primary" type="button">Yeni tur başlat <span aria-hidden="true">→</span></button></div></div>
+      <div class="results-card"><h1 id="results-heading" tabindex="-1">Sonuçlar</h1><p id="result-summary" class="result-summary"></p><div id="result-stats" class="result-stats"></div><section id="wrong-review-section" class="wrong-review-section hidden" aria-labelledby="wrong-review-heading"><h2 id="wrong-review-heading">Yanlış sorular</h2><ol id="wrong-review-list" class="wrong-review-list"></ol></section><div class="result-actions"><button id="review-button" class="button secondary" type="button">Yanıtları incele</button><button id="retry-button" class="button secondary hidden" type="button">Yanlışları tekrar çöz</button><button id="new-round-button" class="button primary" type="button">Yeni test</button></div></div>
     </section>
     <section id="error-view" class="loading-card error-card hidden" role="alert"></section>
   </main>
-  <footer class="footer"><span>İşletim Sistemleri</span><span>Öğrenme yolculuğun sana ait.</span></footer>
 </body>
 </html>
-
-
-
