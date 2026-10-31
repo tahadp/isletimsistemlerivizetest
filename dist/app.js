@@ -124,7 +124,7 @@ import { gradeAnswer, restoreSession, summarizeSession } from "./quiz-core.js";
     ui.questionNumber.textContent = "SORU " + (question.number || session.index + 1);
     ui.prompt.textContent = question.prompt;
     const done = completedCount();
-    ui.progressText.textContent = done + " / " + total + " kontrol edildi";
+    ui.progressText.textContent = done + " / " + total;
     ui.progressFill.style.width = ((done / total) * 100) + "%";
     ui.progressTrack.setAttribute("aria-valuemax", String(total));
     ui.progressTrack.setAttribute("aria-valuenow", String(done));
