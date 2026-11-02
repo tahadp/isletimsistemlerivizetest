@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { gradeAnswer, restoreSession, summarizeSession } from '../dist/quiz-core.js';
+import { gradeAnswer, restoreSession, shuffleOptionKeys, summarizeSession } from '../dist/quiz-core.js';
 const readJson = async (name) => JSON.parse((await readFile(new URL(name, import.meta.url), 'utf8')).replace(/^\uFEFF/, ''));
 const data = await readJson('../dist/questions.json');
 const questions = data.questions;
@@ -47,6 +47,30 @@ test('Reviewed source conflicts preserve book keys and accept supported alternat
   assert.deepEqual(byId.get('u5-test-3').acceptedAnswers, ['A','D']);
   for (const id of ['u1-test-7','u2-test-1','u2-test-6','u5-test-3']) assert.ok(byId.get(id).conflictNote);
   assert.deepEqual(byId.get('u3-test-3').acceptedAnswers, ['D']);
+});
+
+test('Option shuffling changes only display order and saved order survives restore', () => {
+  const question = byId.get('u1-test-7');
+  const shuffled = shuffleOptionKeys(question.options, () => 0);
+  assert.deepEqual(shuffled, ['B', 'C', 'D', 'E', 'A']);
+  assert.deepEqual(new Set(shuffled), new Set(question.options.map((option) => option.key)));
+  assert.equal(gradeAnswer(question, 'D'), question.acceptedAnswers.includes('D'));
+  const restored = restoreSession({
+    questionIds: [question.id], optionOrders: { [question.id]: shuffled },
+    config: { shuffle: true, shuffleOptions: true }
+  }, byId);
+  assert.deepEqual(restored.optionOrders[question.id], shuffled);
+  assert.equal(restored.config.shuffle, true);
+  assert.equal(restored.config.shuffleOptions, true);
+});
+
+test('Invalid or missing stored option orders fall back to source order', () => {
+  const question = byId.get('u2-test-1');
+  const restored = restoreSession({
+    questionIds: [question.id], optionOrders: { [question.id]: ['A', 'A'] }
+  }, byId);
+  assert.deepEqual(restored.optionOrders[question.id], question.options.map((option) => option.key));
+  assert.equal(restored.config.shuffleOptions, false);
 });
 
 test('Scores separate checked wrong, unchecked and correct, including alternatives', () => {

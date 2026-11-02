@@ -16,6 +16,20 @@ export function classifyQuestionMapItem(question, record = {}) {
   return gradeAnswer(question, record.selected) ? "correct" : "incorrect";
 }
 
+export function shuffleOptionKeys(options, random = Math.random) {
+  const keys = Array.isArray(options) ? options.map((option) => option.key) : [];
+  for (let i = keys.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(random() * (i + 1));
+    [keys[i], keys[j]] = [keys[j], keys[i]];
+  }
+  return keys;
+}
+
+function restoreOptionOrder(savedOrder, options) {
+  const keys = Array.isArray(options) ? options.map((option) => option.key) : [];
+  if (!Array.isArray(savedOrder) || savedOrder.length !== keys.length || new Set(savedOrder).size !== keys.length || savedOrder.some((key) => !keys.includes(key))) return keys;
+  return savedOrder.slice();
+}
 export function summarizeSession(questionIds, answers = {}) {
   const ids = Array.isArray(questionIds) ? questionIds : [];
   let completed = 0;
@@ -85,6 +99,11 @@ export function restoreSession(saved, questionsById) {
   const config = saved.config && typeof saved.config === "object" && !Array.isArray(saved.config)
     ? saved.config
     : {};
+  const sourceOptionOrders = saved.optionOrders && typeof saved.optionOrders === "object" && !Array.isArray(saved.optionOrders)
+    ? saved.optionOrders
+    : {};
+  const optionOrders = {};
+  for (const id of questionIds) optionOrders[id] = restoreOptionOrder(sourceOptionOrders[id], questionsById.get(id).options);
 
   return {
     questionIds,
@@ -97,9 +116,11 @@ export function restoreSession(saved, questionsById) {
     noHistory: Boolean(saved.noHistory),
     historyDeleted: Boolean(saved.historyDeleted),
     originalIds,
+    optionOrders,
     config: {
       unit: typeof config.unit === "string" || typeof config.unit === "number" ? String(config.unit) : "all",
-      shuffle: Boolean(config.shuffle)
+      shuffle: Boolean(config.shuffle),
+      shuffleOptions: Boolean(config.shuffleOptions)
     }
   };
 }

@@ -1,4 +1,4 @@
-import { classifyOption, classifyQuestionMapItem, confirmFreshStart, gradeAnswer, gradePendingAnswers, restoreSession, summarizePendingAnswers, summarizeSession } from "./quiz-core.js";
+import { classifyOption, classifyQuestionMapItem, confirmFreshStart, gradeAnswer, gradePendingAnswers, restoreSession, shuffleOptionKeys, summarizePendingAnswers, summarizeSession } from "./quiz-core.js";
 import {
   HISTORY_LIMIT,
   removeHistoryEntry,
@@ -16,7 +16,7 @@ import {
   const views = ["loading-view", "home-view", "quiz-view", "results-view", "error-view"];
   const ui = {
     app: byId("app"), loading: byId("loading-view"), homeButton: byId("home-button"),
-    unitFilter: byId("unit-filter"), shuffle: byId("shuffle"), start: byId("start-button"),
+    unitFilter: byId("unit-filter"), shuffle: byId("shuffle"), shuffleOptions: byId("shuffle-options"), start: byId("start-button"),
     resume: byId("resume-button"), questionTotal: byId("question-total"), filterHint: byId("filter-hint"),
     quizUnit: byId("quiz-unit"), progressText: byId("progress-text"), progressTrack: byId("progress-track"),
     questionNumber: byId("question-number"), questionStatus: byId("question-status"),
@@ -248,6 +248,11 @@ import {
     session = {
       questionIds,
       originalIds: questionIds.slice(),
+      optionOrders: Object.fromEntries(questions.map((question) => [question.id,
+        config.optionOrders && Array.isArray(config.optionOrders[question.id])
+          ? config.optionOrders[question.id].slice()
+          : config.shuffleOptions ? shuffleOptionKeys(question.options) : question.options.map((option) => option.key)
+      ])),
       index: 0,
       answers: {},
       status: "active",
@@ -255,7 +260,7 @@ import {
       startedAt: new Date().toISOString(),
       historySuppressed: false,
       noHistory: Boolean(config.noHistory),
-      config: { unit: config.unit || "all", shuffle: Boolean(config.shuffle) }
+      config: { unit: config.unit || "all", shuffle: Boolean(config.shuffle), shuffleOptions: Boolean(config.shuffleOptions) }
     };
     saveSession();
     renderQuestion();
@@ -338,7 +343,11 @@ import {
     ui.options.append(legend);
 
     const chosen = record.selected;
-    for (const option of (Array.isArray(question.options) ? question.options : [])) {
+    const options = Array.isArray(question.options) ? question.options : [];
+    const order = session.optionOrders && session.optionOrders[question.id];
+    const optionByKey = new Map(options.map((option) => [option.key, option]));
+    const renderedOptions = Array.isArray(order) ? order.map((key) => optionByKey.get(key)).filter(Boolean) : options;
+    for (const option of renderedOptions) {
       const label = document.createElement("label");
       label.className = "option";
       const radio = document.createElement("input");
@@ -604,7 +613,7 @@ import {
         return record && record.checked && !record.correct;
       })
       .map((id) => questionById.get(id));
-    if (wrong.length) beginSession(wrong, { unit: session.config.unit, shuffle: false, noHistory: true });
+    if (wrong.length) beginSession(wrong, { unit: session.config.unit, shuffle: false, shuffleOptions: session.config.shuffleOptions, optionOrders: session.optionOrders, noHistory: true });
   }
 
   function returnToFirstUnansweredOrStart() {
@@ -644,7 +653,7 @@ import {
         confirmFreshStart(session, () => window.confirm("Devam eden oturumdaki cevaplanmamış sorular kaybolacak. Yeni teste başlamak istiyor musun?"), () => {
           const questions = filteredQuestions();
           const ordered = ui.shuffle.checked ? mix(questions) : questions;
-          beginSession(ordered, { unit: ui.unitFilter.value, shuffle: ui.shuffle.checked });
+          beginSession(ordered, { unit: ui.unitFilter.value, shuffle: ui.shuffle.checked, shuffleOptions: ui.shuffleOptions.checked });
         });
       });
       ui.resume.addEventListener("click", returnToFirstUnansweredOrStart);
@@ -678,6 +687,7 @@ import {
       ui.newRound.addEventListener("click", () => {
         ui.unitFilter.value = session && session.config ? session.config.unit : "all";
         ui.shuffle.checked = Boolean(session && session.config && session.config.shuffle);
+        ui.shuffleOptions.checked = Boolean(session && session.config && session.config.shuffleOptions);
         updateHome();
         showView("home-view");
         ui.start.focus();
