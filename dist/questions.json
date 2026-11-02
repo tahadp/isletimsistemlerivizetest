@@ -1087,7 +1087,7 @@
       "unit": 3,
       "number": 8,
       "type": "test",
-      "prompt": "İşletim sistemi belleğe 24 KB’lık bir iş parçacığı yerleştirmek istemektedir. Bellekte boş olan alanlar aşağıda verilmektedir. İşletim sistemi 1 nolu alandan başlayarak tüm boş alanları taradıktan sonra bu iş parçacığını 4 nolu alana yerleştirirse, hangi stratejiyi seçerek belleğe yerleşim yapmıştır?",
+      "prompt": "İşletim sistemi belleğe 24 KB’lık bir iş parçacığı yerleştirmek istemektedir. Bellekte boş olan alanlar aşağıda verilmektedir. İşletim sistemi 1 nolu alandan başlayarak tüm boş alanları taradıktan sonra bu iş parçacığını 4 nolu alana yerleştirirse, hangi stratejiyi seçerek belleğe yerleşim yapmıştır?\nBoş alan no: 1 2 3 4\nBu alanın boyutu: 24 KB 32 KB 40 KB 60 KB",
       "options": [
         {
           "key": "A",
@@ -1959,7 +1959,7 @@
         },
         {
           "key": "C",
-          "text": "Microsoft lisansına sahip olması"
+          "text": "Microsof lisansına sahip olması"
         },
         {
           "key": "D",
@@ -1967,7 +1967,7 @@
         },
         {
           "key": "E",
-          "text": "Ofis paketi olarak Microsoft Office’i standart olarak kullanması"
+          "text": "Ofis paketi olarak Microsof Office’i standart olarak kullanması"
         }
       ],
       "acceptedAnswers": [
