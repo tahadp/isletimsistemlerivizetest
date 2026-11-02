@@ -1,4 +1,4 @@
-import { classifyOption, classifyQuestionMapItem, confirmFreshStart, gradeAnswer, gradePendingAnswers, restoreSession, shuffleOptionKeys, summarizePendingAnswers, summarizeSession } from "./quiz-core.js";
+import { classifyOption, classifyQuestionMapItem, confirmFreshStart, describeQuestionMapItem, gradeAnswer, gradePendingAnswers, restoreSession, shuffleOptionKeys, summarizePendingAnswers, summarizeSession } from "./quiz-core.js";
 import {
   HISTORY_LIMIT,
   removeHistoryEntry,
@@ -404,19 +404,13 @@ import {
       const question = questionById.get(questionId);
       if (!question) return;
       const state = classifyQuestionMapItem(question, session.answers[questionId]);
-      const stateLabels = {
-        blank: "boş",
-        pending: "işaretli, kontrol edilmedi",
-        correct: "doğru",
-        incorrect: "yanlış"
-      };
       const item = document.createElement("li");
       const button = document.createElement("button");
-      const questionNumber = question.number || index + 1;
+      const description = describeQuestionMapItem(index, unitTitle(question), question.number, state);
       button.type = "button";
       button.className = "question-map-item map-status-" + state;
-      button.textContent = String(questionNumber);
-      button.setAttribute("aria-label", "Soru " + questionNumber + ": " + stateLabels[state]);
+      button.textContent = description.displayNumber;
+      button.setAttribute("aria-label", description.accessibleLabel);
       if (index === session.index) button.setAttribute("aria-current", "step");
       button.addEventListener("click", () => {
         session.index = index;

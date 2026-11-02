@@ -30,6 +30,21 @@ function restoreOptionOrder(savedOrder, options) {
   if (!Array.isArray(savedOrder) || savedOrder.length !== keys.length || new Set(savedOrder).size !== keys.length || savedOrder.some((key) => !keys.includes(key))) return keys;
   return savedOrder.slice();
 }
+export function describeQuestionMapItem(position, unitTitle, sourceNumber, state) {
+  const stateLabels = {
+    blank: "boş",
+    pending: "işaretli, kontrol edilmedi",
+    correct: "doğru",
+    incorrect: "yanlış"
+  };
+  const displayNumber = String(Number.isInteger(position) && position >= 0 ? position + 1 : 1);
+  const source = sourceNumber ? ", " + unitTitle + ", soru numarası " + sourceNumber : ", " + unitTitle;
+  return {
+    displayNumber,
+    accessibleLabel: "Soru " + displayNumber + source + ": " + (stateLabels[state] || "durumu bilinmiyor")
+  };
+}
+
 export function summarizeSession(questionIds, answers = {}) {
   const ids = Array.isArray(questionIds) ? questionIds : [];
   let completed = 0;
