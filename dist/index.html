@@ -35,6 +35,21 @@
         <ol id="history-list"></ol>
       </section>
     </section>
+    <section id="history-review-view" class="hidden" aria-labelledby="history-review-heading">
+      <div class="history-review-card">
+        <div class="section-heading"><h1 id="history-review-heading" tabindex="-1">Geçmiş oturumu</h1><button id="history-review-back" class="button secondary" type="button">Geçmişe dön</button></div>
+        <p id="history-review-summary" class="history-review-summary"></p>
+        <p id="history-review-message" class="history-review-message hidden" role="status"></p>
+        <div id="history-review-detail" class="hidden">
+          <nav id="history-review-wrong-nav" class="question-nav history-review-nav" aria-label="Geçmiş oturumdaki yanlış sorular">
+            <button id="history-review-previous-wrong" class="button secondary" type="button">Önceki yanlış</button>
+            <span id="history-review-wrong-position" class="subtle"></span>
+            <button id="history-review-next-wrong" class="button secondary" type="button">Sonraki yanlış</button>
+          </nav>
+          <ol id="history-review-question-list" class="history-review-question-list"></ol>
+        </div>
+      </div>
+    </section>
     <section id="quiz-view" class="hidden" aria-labelledby="question-prompt">
       <div class="quiz-toolbar">
         <div><p id="quiz-unit" class="eyebrow"></p></div>

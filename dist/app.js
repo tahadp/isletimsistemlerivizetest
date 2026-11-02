@@ -1,9 +1,11 @@
 import { classifyOption, classifyQuestionMapItem, confirmFreshStart, describeQuestionMapItem, gradeAnswer, gradePendingAnswers, restoreSession, shuffleOptionKeys, summarizePendingAnswers, summarizeSession } from "./quiz-core.js";
 import {
   HISTORY_LIMIT,
+  canRevealHistoryAnswer,
   removeHistoryEntry,
   createHistoryEntry,
   ensureHistoryIdentity,
+  resolveHistoryQuestions,
   shouldRecordHistory,
   sanitizeHistory,
   upsertHistoryEntry
@@ -13,7 +15,7 @@ import {
   const SESSION_KEY = "is-soru-cozum-session-v1";
   const HISTORY_KEY = "is-soru-cozum-history-v1";
   const byId = (id) => document.getElementById(id);
-  const views = ["loading-view", "home-view", "quiz-view", "results-view", "error-view"];
+  const views = ["loading-view", "home-view", "quiz-view", "results-view", "history-review-view", "error-view"];
   const ui = {
     app: byId("app"), loading: byId("loading-view"), homeButton: byId("home-button"),
     unitFilter: byId("unit-filter"), shuffle: byId("shuffle"), shuffleOptions: byId("shuffle-options"), start: byId("start-button"),
@@ -33,7 +35,14 @@ import {
     retry: byId("retry-button"), review: byId("review-button"), newRound: byId("new-round-button"),
     historySection: byId("history-section"), historyTotals: byId("history-totals"),
     historyEmpty: byId("history-empty"), historyList: byId("history-list"),
-    clearHistory: byId("clear-history-button"), storageNotice: byId("storage-notice"), error: byId("error-view")
+    clearHistory: byId("clear-history-button"),
+    historyReviewHeading: byId("history-review-heading"), historyReviewSummary: byId("history-review-summary"),
+    historyReviewMessage: byId("history-review-message"), historyReviewDetail: byId("history-review-detail"),
+    historyReviewList: byId("history-review-question-list"), historyReviewBack: byId("history-review-back"),
+    historyReviewPreviousWrong: byId("history-review-previous-wrong"),
+    historyReviewNextWrong: byId("history-review-next-wrong"),
+    historyReviewWrongPosition: byId("history-review-wrong-position"),
+    storageNotice: byId("storage-notice"), error: byId("error-view")
   };
 
   let data;
@@ -45,6 +54,9 @@ import {
   let wrongReviewIds = [];
   let wrongReviewIndex = 0;
   let reviewMode = false;
+  let historyReviewEntry = null;
+  let historyReviewWrongIds = [];
+  let historyReviewWrongIndex = 0;
 
   function showView(viewId) {
     for (const id of views) byId(id).classList.toggle("hidden", id !== viewId);
@@ -103,7 +115,7 @@ import {
       const cleaned = sanitizeHistory(parsed);
       if (!Array.isArray(parsed)) {
         showStorageNotice("Geçmiş verisi okunamadı; yeni kayıtlar bu tarayıcıda tutulabilir.");
-      } else if (cleaned.length !== parsed.length) {
+      } else if (JSON.stringify(cleaned) !== JSON.stringify(parsed)) {
         try {
           localStorage.setItem(HISTORY_KEY, JSON.stringify(cleaned));
         } catch {
@@ -177,6 +189,12 @@ import {
       date.textContent = dateFormat.format(new Date(entry.startedAt));
       const details = document.createElement("p");
       details.textContent = entry.total + " soru · " + entry.correct + " doğru · " + entry.incorrect + " yanlış · " + entry.unanswered + " boş";
+      const openButton = document.createElement("button");
+      openButton.type = "button";
+      openButton.className = "button secondary history-open-button";
+      openButton.textContent = "İncele";
+      openButton.setAttribute("aria-label", "Bu oturumun sorularını incele: " + entry.unit + ", " + date.textContent);
+      openButton.addEventListener("click", () => openHistoryEntry(entry.id));
       const removeButton = document.createElement("button");
       removeButton.type = "button";
       removeButton.className = "button secondary history-delete-button";
@@ -184,9 +202,141 @@ import {
       removeButton.setAttribute("aria-label", "Bu kaydı sil: " + entry.unit + ", " + date.textContent);
       removeButton.addEventListener("click", () => deleteHistoryEntry(entry.id));
       heading.append(unit, date);
-      item.append(heading, details, removeButton);
+      item.append(heading, details, openButton, removeButton);
       ui.historyList.append(item);
     }
+  }
+
+  function openHistoryEntry(entryId) {
+    const entry = historyEntries.find((item) => item.id === entryId);
+    if (!entry) return;
+    let answers;
+    if (session && session.historyId === entry.id) {
+      const current = createHistoryEntry(session, historyUnit(), undefined, questionById);
+      answers = current && current.questions ? current.questions : null;
+      historyReviewEntry = current || { ...entry };
+    } else {
+      answers = resolveHistoryQuestions(entry, null, questionById);
+      historyReviewEntry = { ...entry, ...(answers ? { questions: answers } : {}) };
+    }
+    historyReviewWrongIds = answers
+      ? answers.filter((answer) => answer.checked && answer.correct === false).map((answer) => answer.id)
+      : [];
+    historyReviewWrongIndex = 0;
+    renderHistoryReview();
+    showView("history-review-view");
+    if (historyReviewWrongIds.length) focusHistoryWrong(0);
+    else ui.historyReviewHeading.focus();
+  }
+
+  function historyAnswerStatus(answer) {
+    if (!answer.checked) return answer.selected ? "Kontrol edilmedi" : "Boş";
+    return answer.correct ? "Doğru" : "Yanlış";
+  }
+
+  function renderHistoryReview() {
+    const entry = historyReviewEntry;
+    if (!entry) return;
+    ui.historyReviewSummary.textContent = entry.unit + " · " + entry.total + " soru · " + entry.correct + " doğru · " + entry.incorrect + " yanlış · " + entry.unanswered + " boş";
+    ui.historyReviewList.replaceChildren();
+    const answers = Array.isArray(entry.questions) ? entry.questions : null;
+    ui.historyReviewDetail.classList.toggle("hidden", !answers);
+    ui.historyReviewMessage.classList.toggle("hidden", Boolean(answers));
+    if (!answers) {
+      ui.historyReviewMessage.textContent = "Bu eski kayıt yalnızca toplam sonuçları içeriyor; soru yanıtları kaydedilmediği için ayrıntılar gösterilemiyor.";
+      ui.historyReviewWrongPosition.textContent = "";
+      ui.historyReviewPreviousWrong.disabled = true;
+      ui.historyReviewNextWrong.disabled = true;
+      return;
+    }
+
+    ui.historyReviewMessage.textContent = "";
+    const orderedAnswers = entry.questions;
+    historyReviewWrongIds = orderedAnswers
+      .filter((answer) => answer.checked && answer.correct === false)
+      .map((answer) => answer.id);
+    for (let index = 0; index < orderedAnswers.length; index += 1) {
+      const answer = orderedAnswers[index];
+      const question = questionById.get(answer.id);
+      const item = document.createElement("li");
+      item.className = "history-review-question";
+      item.id = "history-review-question-" + (index + 1);
+      item.tabIndex = -1;
+      if (answer.checked && answer.correct === false) item.classList.add("is-wrong");
+      if (answer.checked && answer.correct === true) item.classList.add("is-correct");
+
+      const heading = document.createElement("h3");
+      heading.textContent = "Soru " + (question ? question.number : index + 1) + " · " + historyAnswerStatus(answer);
+      item.append(heading);
+      if (!question) {
+        const missing = document.createElement("p");
+        missing.textContent = "Bu sorunun metni mevcut soru dosyasında bulunmuyor.";
+        item.append(missing);
+        ui.historyReviewList.append(item);
+        continue;
+      }
+
+      const prompt = document.createElement("p");
+      prompt.className = "history-review-prompt";
+      prompt.textContent = question.prompt;
+      const optionText = (key) => {
+        const option = (question.options || []).find((candidate) => candidate.key === key);
+        return option ? key + " — " + option.text : key;
+      };
+      const selected = document.createElement("p");
+      selected.textContent = answer.selected ? "Seçimin: " + optionText(answer.selected) : "Yanıt: boş";
+      item.append(prompt, selected);
+      if (canRevealHistoryAnswer(answer) && Array.isArray(question.acceptedAnswers) && question.acceptedAnswers.length) {
+        const accepted = document.createElement("p");
+        accepted.textContent = "Kabul edilen: " + question.acceptedAnswers.map(optionText).join(" · ");
+        item.append(accepted);
+      }
+      if (canRevealHistoryAnswer(answer) && question.explanation) {
+        const explanation = document.createElement("p");
+        explanation.className = "history-review-explanation";
+        explanation.textContent = question.explanation;
+        item.append(explanation);
+      }
+      if (question.source && question.source.title) {
+        const source = document.createElement("p");
+        source.className = "history-review-source";
+        source.textContent = question.source.title + " · PDF s. " + question.source.pdfPage + (question.source.bookPage ? " · Kitap s. " + question.source.bookPage : "");
+        item.append(source);
+      }
+      ui.historyReviewList.append(item);
+    }
+
+    ui.historyReviewWrongPosition.textContent = historyReviewWrongIds.length
+      ? "Yanlış " + (historyReviewWrongIndex + 1) + " / " + historyReviewWrongIds.length
+      : "Yanlış soru yok";
+    ui.historyReviewPreviousWrong.disabled = historyReviewWrongIndex <= 0;
+    ui.historyReviewNextWrong.disabled = historyReviewWrongIndex >= historyReviewWrongIds.length - 1;
+  }
+
+  function moveHistoryReviewWrong(direction) {
+    const nextIndex = historyReviewWrongIndex + direction;
+    if (nextIndex < 0 || nextIndex >= historyReviewWrongIds.length) return;
+    historyReviewWrongIndex = nextIndex;
+    renderHistoryReview();
+    focusHistoryWrong(nextIndex);
+  }
+
+  function focusHistoryWrong(wrongIndex) {
+    const answerIndex = historyReviewEntry.questions.findIndex((answer) => answer.id === historyReviewWrongIds[wrongIndex]);
+    const target = byId("history-review-question-" + (answerIndex + 1));
+    if (target) {
+      target.scrollIntoView({ block: "nearest" });
+      target.focus();
+    }
+  }
+
+  function closeHistoryReview() {
+    historyReviewEntry = null;
+    historyReviewWrongIds = [];
+    historyReviewWrongIndex = 0;
+    updateHome();
+    showView("home-view");
+    byId("history-heading").focus();
   }
 
   function deleteHistoryEntry(entryId) {
@@ -297,7 +447,8 @@ import {
     if (!shouldRecordHistory(session)) return true;
     session = ensureHistoryIdentity(session, createId);
     const existing = historyEntries.some((entry) => entry.id === session.historyId);
-    const entry = createHistoryEntry(session, historyUnit());
+    if (!existing && completedCount() === 0) return true;
+    const entry = createHistoryEntry(session, historyUnit(), undefined, questionById);
     const nextEntries = upsertHistoryEntry(historyEntries, entry);
     const isAtLimit = !existing && historyEntries.length >= HISTORY_LIMIT;
     if (!writeHistory(nextEntries)) return false;
@@ -382,6 +533,7 @@ import {
         session.answers[question.id] = { ...record, selected: radio.value, checked: false };
         saveSession();
         renderQuestionMap();
+        recordHistory();
       });
       ui.options.append(label);
     }
@@ -698,6 +850,9 @@ import {
         if (sessionSaved) clearStorageNotice();
         updateHistoryView();
       });
+      ui.historyReviewBack.addEventListener("click", closeHistoryReview);
+      ui.historyReviewPreviousWrong.addEventListener("click", () => moveHistoryReviewWrong(-1));
+      ui.historyReviewNextWrong.addEventListener("click", () => moveHistoryReviewWrong(1));
     } catch {
       ui.error.textContent = "Sorular yüklenemedi. Bağlantını kontrol edip sayfayı yenile.";
       showView("error-view");

@@ -1,6 +1,6 @@
 # İşletim Sistemleri Vize Testi
 
-İlk beş üniteden **50 özgün çoktan seçmeli soru, 250 seçenek**. Sıra Sizde soruları dahil değildir. Telefonda ve masaüstünde çalışır; ünite seçimi, karışık sıra, açıklamalı yanıtlar ve yanlışları tekrar çözme özellikleri vardır. Tamamlanan testlerde yanlış soruları listeden açıp özgün yanıt ve açıklamayla, yalnız yanlışlar arasında gezerek inceleyebilirsiniz.
+İlk beş üniteden **50 özgün çoktan seçmeli soru, 250 seçenek**. Sıra Sizde soruları dahil değildir. Telefonda ve masaüstünde çalışır; ünite seçimi, karışık sıra, açıklamalı yanıtlar ve yanlışları tekrar çözme özellikleri vardır. Geçmişten eski oturumları salt okunur inceleyebilir, soruları görebilir ve yanlış sorular arasında gezebilirsiniz. Kabul edilen yanıtlar ve açıklama, yalnız kontrol edilmiş sorularda görünür.
 
 ## Çalıştırma
 
@@ -27,7 +27,9 @@ Uygulama PHP kullanmaz; yerel çalışma için Docker veya Nginx gerekmez.
 
 ## Kayıt ve sonuçlar
 
-Aktif test oturumu ve geçmiş yalnızca bu tarayıcının `localStorage` alanında saklanır. Geçmiş en fazla 200 kaydı tutar. Her kayıt `startedAt`, `updatedAt`, `unit`, `total`, `correct`, `incorrect`, `unanswered` ve `status` alanlarını içerir. “Geçmişi sil” geçmiş kayıtlarını temizler; aktif test oturumunu silmez.
+Aktif test oturumu ve geçmiş yalnızca bu tarayıcının `localStorage` alanında saklanır. Geçmiş en fazla 200 kaydı tutar. Her kayıt `startedAt`, `updatedAt`, `unit`, `total`, `correct`, `incorrect`, `unanswered` ve `status` alanlarıyla birlikte her soru için ID, seçilen seçenek, kontrol edilme durumu ve doğru/yanlış bilgisini saklar. Geçmişten bir oturumu açmak kayıtları değiştirmez. “Geçmişi sil” geçmiş kayıtlarını temizler; aktif test oturumunu silmez.
+
+Eski sürümden kalan yalnızca toplam sonuç içeren kayıtların soru ayrıntısı yoktur. Böyle bir kayıt ancak aynı kimlikli geçerli oturum hâlâ varsa ayrıntılı açılır; aksi durumda uygulama soru yanıtlarının kaydedilmediğini bildirir.
 
 Test sonuçları ağ üzerinden gönderilmez. Uygulama soru verisini `questions.json` dosyasından GET isteğiyle yükler; sonuçlar için POST veya telemetri isteği yapmaz. Tarayıcı depolaması kullanılamadığında veya kayıtlı veri bozuk olduğunda uygulama çalışmaya devam eder ve bir uyarı gösterir.
 
