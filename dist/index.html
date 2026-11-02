@@ -48,6 +48,16 @@
         <div id="end-warning" class="end-warning hidden" role="status" aria-live="polite"><p id="end-warning-text"></p><div class="end-warning-actions"><button id="finish-anyway-button" class="button primary" type="button">Bitir</button><button id="return-to-incomplete-button" class="button secondary" type="button">Boşlara dön</button></div></div>
       </article>
       <nav id="question-nav" class="question-nav" aria-label="Soru gezinme"><button id="previous-button" class="button secondary" type="button">Önceki</button><span id="solved-count" class="subtle"></span><button id="next-button" class="button primary" type="button">Sonraki</button></nav>
+      <section id="question-map" class="question-map" aria-labelledby="question-map-heading">
+        <h2 id="question-map-heading">Sorular</h2>
+        <ul class="question-map-legend" aria-label="Soru durumları">
+          <li><span class="map-legend-mark map-status-blank" aria-hidden="true"></span>Boş</li>
+          <li><span class="map-legend-mark map-status-pending" aria-hidden="true"></span>İşaretli, kontrol edilmedi</li>
+          <li><span class="map-legend-mark map-status-correct" aria-hidden="true"></span>Doğru</li>
+          <li><span class="map-legend-mark map-status-incorrect" aria-hidden="true"></span>Yanlış</li>
+        </ul>
+        <ol id="question-map-list" class="question-map-list" aria-label="Sorulara git"></ol>
+      </section>
       <nav id="wrong-review-nav" class="question-nav hidden" aria-label="Yanlış sorular arasında gezinme"><button id="wrong-review-previous" class="button secondary" type="button">Önceki yanlış</button><span id="wrong-review-position" class="subtle"></span><button id="wrong-review-next" class="button secondary" type="button">Sonraki yanlış</button><button id="wrong-review-return" class="button primary" type="button">Sonuçlara dön</button></nav>
     </section>
     <section id="results-view" class="hidden">

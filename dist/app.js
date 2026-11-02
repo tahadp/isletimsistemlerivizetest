@@ -1,4 +1,4 @@
-import { classifyOption, confirmFreshStart, gradeAnswer, gradePendingAnswers, restoreSession, summarizePendingAnswers, summarizeSession } from "./quiz-core.js";
+import { classifyOption, classifyQuestionMapItem, confirmFreshStart, gradeAnswer, gradePendingAnswers, restoreSession, summarizePendingAnswers, summarizeSession } from "./quiz-core.js";
 import {
   HISTORY_LIMIT,
   removeHistoryEntry,
@@ -24,7 +24,8 @@ import {
     check: byId("check-button"), previous: byId("previous-button"), next: byId("next-button"),
     endWarning: byId("end-warning"), endWarningText: byId("end-warning-text"),
     finishAnyway: byId("finish-anyway-button"), returnToIncomplete: byId("return-to-incomplete-button"),
-    questionNav: byId("question-nav"), wrongReviewNav: byId("wrong-review-nav"),
+    questionNav: byId("question-nav"), questionMap: byId("question-map"), questionMapList: byId("question-map-list"),
+    wrongReviewNav: byId("wrong-review-nav"),
     wrongReviewPrevious: byId("wrong-review-previous"), wrongReviewNext: byId("wrong-review-next"),
     wrongReviewReturn: byId("wrong-review-return"), wrongReviewPosition: byId("wrong-review-position"),
     wrongReviewSection: byId("wrong-review-section"), wrongReviewList: byId("wrong-review-list"),
@@ -321,6 +322,7 @@ import {
     ui.progressTrack.value = reviewMode ? position + 1 : done;
     ui.solvedCount.textContent = done + " / " + session.questionIds.length + " kontrol edildi";
     ui.questionNav.classList.toggle("hidden", reviewMode);
+    ui.questionMap.classList.toggle("hidden", reviewMode);
     ui.wrongReviewNav.classList.toggle("hidden", !reviewMode);
     ui.previous.disabled = session.index === 0;
     ui.previous.classList.toggle("is-disabled", session.index === 0);
@@ -328,6 +330,7 @@ import {
     ui.wrongReviewPosition.textContent = "Yanlış " + (wrongReviewIndex + 1) + " / " + wrongReviewIds.length;
     ui.wrongReviewPrevious.disabled = wrongReviewIndex === 0;
     ui.wrongReviewNext.disabled = wrongReviewIndex === wrongReviewIds.length - 1;
+    renderQuestionMap();
     ui.options.replaceChildren();
     const legend = document.createElement("legend");
     legend.className = "sr-only";
@@ -369,6 +372,7 @@ import {
         ui.endWarning.classList.add("hidden");
         session.answers[question.id] = { ...record, selected: radio.value, checked: false };
         saveSession();
+        renderQuestionMap();
       });
       ui.options.append(label);
     }
@@ -382,6 +386,38 @@ import {
       ui.questionStatus.classList.add(record.correct ? "correct" : "incorrect");
       renderFeedback(question);
     }
+  }
+
+  function renderQuestionMap() {
+    if (!session || reviewMode || !ui.questionMapList) return;
+    ui.questionMapList.replaceChildren();
+    session.questionIds.forEach((questionId, index) => {
+      const question = questionById.get(questionId);
+      if (!question) return;
+      const state = classifyQuestionMapItem(question, session.answers[questionId]);
+      const stateLabels = {
+        blank: "boş",
+        pending: "işaretli, kontrol edilmedi",
+        correct: "doğru",
+        incorrect: "yanlış"
+      };
+      const item = document.createElement("li");
+      const button = document.createElement("button");
+      const questionNumber = question.number || index + 1;
+      button.type = "button";
+      button.className = "question-map-item map-status-" + state;
+      button.textContent = String(questionNumber);
+      button.setAttribute("aria-label", "Soru " + questionNumber + ": " + stateLabels[state]);
+      if (index === session.index) button.setAttribute("aria-current", "step");
+      button.addEventListener("click", () => {
+        session.index = index;
+        saveSession();
+        renderQuestion();
+        ui.prompt.focus();
+      });
+      item.append(button);
+      ui.questionMapList.append(item);
+    });
   }
   function addOptionMarker(optionText, text, state) {
     const marker = document.createElement("span");

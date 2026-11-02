@@ -9,6 +9,13 @@ export function classifyOption(question, optionKey, selectedKey, checked) {
   if (optionKey === selectedKey) return accepted ? "selected-correct" : "selected-wrong";
   return accepted ? "accepted-alternative" : "neutral";
 }
+
+export function classifyQuestionMapItem(question, record = {}) {
+  if (!record || !record.selected) return "blank";
+  if (!record.checked) return "pending";
+  return gradeAnswer(question, record.selected) ? "correct" : "incorrect";
+}
+
 export function summarizeSession(questionIds, answers = {}) {
   const ids = Array.isArray(questionIds) ? questionIds : [];
   let completed = 0;
