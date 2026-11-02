@@ -33,6 +33,17 @@ export function summarizeSession(questionIds, answers = {}) {
   };
 }
 
+export function hasUnfinishedQuestions(session) {
+  if (!session || session.status !== "active" || !Array.isArray(session.questionIds)) return false;
+  return summarizeSession(session.questionIds, session.answers).completed < session.questionIds.length;
+}
+
+export function confirmFreshStart(session, confirmStart, startFresh) {
+  if (hasUnfinishedQuestions(session) && !confirmStart()) return false;
+  startFresh();
+  return true;
+}
+
 export function restoreSession(saved, questionsById) {
   if (!saved || !Array.isArray(saved.questionIds) || saved.questionIds.length === 0) return null;
 

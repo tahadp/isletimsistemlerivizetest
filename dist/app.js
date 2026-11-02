@@ -1,4 +1,4 @@
-import { classifyOption, gradeAnswer, gradePendingAnswers, restoreSession, summarizePendingAnswers, summarizeSession } from "./quiz-core.js";
+import { classifyOption, confirmFreshStart, gradeAnswer, gradePendingAnswers, restoreSession, summarizePendingAnswers, summarizeSession } from "./quiz-core.js";
 import {
   HISTORY_LIMIT,
   removeHistoryEntry,
@@ -605,9 +605,11 @@ import {
 
       ui.unitFilter.addEventListener("change", updateHome);
       ui.start.addEventListener("click", () => {
-        const questions = filteredQuestions();
-        const ordered = ui.shuffle.checked ? mix(questions) : questions;
-        beginSession(ordered, { unit: ui.unitFilter.value, shuffle: ui.shuffle.checked });
+        confirmFreshStart(session, () => window.confirm("Devam eden oturumdaki cevaplanmamış sorular kaybolacak. Yeni teste başlamak istiyor musun?"), () => {
+          const questions = filteredQuestions();
+          const ordered = ui.shuffle.checked ? mix(questions) : questions;
+          beginSession(ordered, { unit: ui.unitFilter.value, shuffle: ui.shuffle.checked });
+        });
       });
       ui.resume.addEventListener("click", returnToFirstUnansweredOrStart);
       ui.homeButton.addEventListener("click", () => { reviewMode = false; updateHome(); showView("home-view"); });

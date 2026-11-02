@@ -2,9 +2,53 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {
   gradePendingAnswers,
+  confirmFreshStart,
   summarizePendingAnswers,
   summarizeSession
 } from "../dist/quiz-core.js";
+
+test("starting a new test preserves unfinished active and retry sessions on cancel", () => {
+  const activeSession = {
+    status: "active",
+    questionIds: ["q1", "q2"],
+    answers: { q1: { selected: "A", checked: true, correct: true } }
+  };
+  const activeSnapshot = structuredClone(activeSession);
+  const history = [{ id: "existing" }];
+  let replacementStarted = false;
+  assert.equal(confirmFreshStart(activeSession, () => false, () => { replacementStarted = true; history.length = 0; }), false);
+  assert.deepEqual(activeSession, activeSnapshot);
+  assert.deepEqual(history, [{ id: "existing" }]);
+  assert.equal(replacementStarted, false);
+
+  const retrySession = {
+    status: "active",
+    noHistory: true,
+    questionIds: ["q1", "q2"],
+    answers: { q1: { selected: "A", checked: true, correct: false } }
+  };
+  assert.equal(confirmFreshStart(retrySession, () => false, () => { replacementStarted = true; }), false);
+  assert.equal(replacementStarted, false);
+});
+
+test("completed sessions need no warning and confirmed starts replace unfinished sessions", () => {
+  let confirmations = 0;
+  let starts = 0;
+  assert.equal(confirmFreshStart({ status: "complete", questionIds: ["q1"], answers: {} }, () => { confirmations += 1; return false; }, () => { starts += 1; }), true);
+  assert.equal(confirmations, 0);
+  assert.equal(starts, 1);
+  assert.equal(confirmFreshStart({ status: "active", questionIds: ["q1", "q2"], answers: {} }, () => { confirmations += 1; return true; }, () => { starts += 1; }), true);
+  assert.equal(confirmations, 1);
+  assert.equal(starts, 2);
+});
+
+test("fully answered active session needs no warning", () => {
+  assert.equal(confirmFreshStart({
+    status: "active",
+    questionIds: ["q1"],
+    answers: { q1: { selected: "A", checked: true, correct: true } }
+  }, () => false, () => {}), true);
+});
 
 test("selected unchecked answers are pending, while unanswered questions are truly blank", () => {
   const result = summarizePendingAnswers(["q1", "q2", "q3"], {
