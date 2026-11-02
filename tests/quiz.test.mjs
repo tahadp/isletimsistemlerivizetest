@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { gradeAnswer, restoreSession, shuffleOptionKeys, summarizeSession } from '../dist/quiz-core.js';
+import { gradeAnswer, restoreSession, sessionShufflePreferences, shuffleOptionKeys, summarizeSession } from '../dist/quiz-core.js';
 const readJson = async (name) => JSON.parse((await readFile(new URL(name, import.meta.url), 'utf8')).replace(/^\uFEFF/, ''));
 const data = await readJson('../dist/questions.json');
 const questions = data.questions;
@@ -62,6 +62,24 @@ test('Option shuffling changes only display order and saved order survives resto
   assert.deepEqual(restored.optionOrders[question.id], shuffled);
   assert.equal(restored.config.shuffle, true);
   assert.equal(restored.config.shuffleOptions, true);
+  assert.deepEqual(sessionShufflePreferences(restored), { shuffle: true, shuffleOptions: true });
+  assert.deepEqual(restored.optionOrders[question.id], shuffled);
+});
+
+test('Restored home shuffle controls reflect legacy and saved session preferences', () => {
+  assert.deepEqual(sessionShufflePreferences(null), { shuffle: false, shuffleOptions: false });
+  const legacy = restoreSession({ questionIds: ['u5-test-7'], config: { shuffle: true } }, byId);
+  assert.deepEqual(sessionShufflePreferences(legacy), { shuffle: true, shuffleOptions: false });
+  const saved = restoreSession({ questionIds: ['u5-test-7'], config: { shuffle: true, shuffleOptions: true } }, byId);
+  assert.deepEqual(sessionShufflePreferences(saved), { shuffle: true, shuffleOptions: true });
+});
+
+test('Enabled option shuffle never silently returns the original order', () => {
+  const question = byId.get('u5-test-7');
+  const original = question.options.map((option) => option.key);
+  const shuffled = shuffleOptionKeys(question.options, () => 0.999999);
+  assert.deepEqual(new Set(shuffled), new Set(original));
+  assert.notDeepEqual(shuffled, original);
 });
 
 test('Invalid or missing stored option orders fall back to source order', () => {

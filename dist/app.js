@@ -1,4 +1,4 @@
-import { classifyOption, classifyQuestionMapItem, confirmFreshStart, describeQuestionMapItem, filterQuestionsByUnits, formatUnitSelection, gradeAnswer, gradePendingAnswers, restoreSession, shuffleOptionKeys, summarizePendingAnswers, summarizeSession } from "./quiz-core.js";
+import { classifyOption, classifyQuestionMapItem, confirmFreshStart, describeQuestionMapItem, filterQuestionsByUnits, formatUnitSelection, gradeAnswer, gradePendingAnswers, restoreSession, sessionShufflePreferences, shuffleOptionKeys, summarizePendingAnswers, summarizeSession } from "./quiz-core.js";
 import {
   HISTORY_LIMIT,
   canRevealHistoryAnswer,
@@ -818,6 +818,9 @@ import {
       questionById = new Map(data.questions.map((question) => [question.id, question]));
       populateUnits();
       session = loadSavedSession();
+      const shufflePreferences = sessionShufflePreferences(session);
+      ui.shuffle.checked = shufflePreferences.shuffle;
+      ui.shuffleOptions.checked = shufflePreferences.shuffleOptions;
       if (session && session.config && Array.isArray(session.config.units)) setSelectedUnits(session.config.units);
       historyEntries = loadHistory();
       if (session && shouldRecordHistory(session) && completedCount() > 0 && !historyEntries.some((entry) => entry.id === session.historyId)) {
@@ -879,8 +882,9 @@ import {
             ? [String(session.config.unit)]
             : data.units.map((unit) => String(unit.id));
         setSelectedUnits(units);
-        ui.shuffle.checked = Boolean(session && session.config && session.config.shuffle);
-        ui.shuffleOptions.checked = Boolean(session && session.config && session.config.shuffleOptions);
+        const shufflePreferences = sessionShufflePreferences(session);
+        ui.shuffle.checked = shufflePreferences.shuffle;
+        ui.shuffleOptions.checked = shufflePreferences.shuffleOptions;
         updateHome();
         showView("home-view");
         ui.start.focus();

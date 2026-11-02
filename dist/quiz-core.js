@@ -22,7 +22,16 @@ export function shuffleOptionKeys(options, random = Math.random) {
     const j = Math.floor(random() * (i + 1));
     [keys[i], keys[j]] = [keys[j], keys[i]];
   }
+  // An enabled shuffle should be visible; avoid returning the source sequence by chance.
+  if (keys.length > 1 && keys.every((key, index) => key === options[index].key)) {
+    [keys[0], keys[1]] = [keys[1], keys[0]];
+  }
   return keys;
+}
+
+export function sessionShufflePreferences(session) {
+  const config = session && session.config && typeof session.config === "object" ? session.config : {};
+  return { shuffle: Boolean(config.shuffle), shuffleOptions: Boolean(config.shuffleOptions) };
 }
 
 function restoreOptionOrder(savedOrder, options) {
