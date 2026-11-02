@@ -61,6 +61,20 @@ export function filterQuestionsByUnits(questions, unitIds) {
     : [];
 }
 
+export function shuffleQuestions(questions, random = Math.random) {
+  const shuffled = Array.isArray(questions) ? questions.slice() : [];
+  for (let i = shuffled.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
+export function formatSourceQuestionPosition(question) {
+  if (!question || question.unit == null || question.number == null) return "";
+  return question.unit + ". Ünite · " + question.number + ". Soru";
+}
+
 export function formatUnitSelection(units, unitIds) {
   const available = Array.isArray(units) ? units : [];
   const selected = new Set(Array.isArray(unitIds) ? unitIds.map(String) : []);

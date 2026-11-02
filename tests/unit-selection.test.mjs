@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import { filterQuestionsByUnits, formatUnitSelection, restoreSession } from "../dist/quiz-core.js";
+import { filterQuestionsByUnits, formatSourceQuestionPosition, formatUnitSelection, restoreSession, shuffleQuestions } from "../dist/quiz-core.js";
 
 const data = JSON.parse((await readFile(new URL("../dist/questions.json", import.meta.url), "utf8")).replace(/^\uFEFF/, ""));
 const questionsById = new Map(data.questions.map((question) => [question.id, question]));
@@ -13,6 +13,24 @@ test("unit selection filters 10, 20, and 50 test questions without modifying sou
   assert.equal(filterQuestionsByUnits(data.questions, data.units.map((unit) => unit.id)).length, 50);
   assert.equal(filterQuestionsByUnits(data.questions, []).length, 0);
   assert.deepEqual(data.questions.map((question) => question.id), originalIds);
+});
+
+test("five selected units are shuffled together across all 50 questions", () => {
+  const selected = filterQuestionsByUnits(data.questions, data.units.map((unit) => unit.id));
+  const shuffled = shuffleQuestions(selected, () => 0.3);
+  assert.equal(shuffled.length, 50);
+  assert.notDeepEqual(shuffled.map((question) => question.id), selected.map((question) => question.id));
+  assert.deepEqual(new Set(shuffled.map((question) => question.id)), new Set(selected.map((question) => question.id)));
+  assert.ok(new Set(shuffled.slice(0, 15).map((question) => question.unit)).size > 1, "early positions cross unit boundaries instead of staying in 10-question blocks");
+});
+
+test("source question position remains tied to its original unit and number after shuffling", () => {
+  const selected = filterQuestionsByUnits(data.questions, data.units.map((unit) => unit.id));
+  const shuffled = shuffleQuestions(selected, () => 0.3);
+  const originalQuestion = shuffled.find((question) => question.id === "u5-test-7");
+  assert.ok(originalQuestion);
+  assert.equal(formatSourceQuestionPosition(originalQuestion), "5. Ünite · 7. Soru");
+  assert.notEqual(shuffled.indexOf(originalQuestion) + 1, originalQuestion.number);
 });
 
 test("restored sessions normalize new multi-unit and legacy single/all configs", () => {

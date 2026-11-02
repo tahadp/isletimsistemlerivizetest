@@ -1,4 +1,4 @@
-import { classifyOption, classifyQuestionMapItem, confirmFreshStart, describeQuestionMapItem, filterQuestionsByUnits, formatUnitSelection, gradeAnswer, gradePendingAnswers, restoreSession, sessionShufflePreferences, shuffleOptionKeys, summarizePendingAnswers, summarizeSession } from "./quiz-core.js";
+import { classifyOption, classifyQuestionMapItem, confirmFreshStart, describeQuestionMapItem, filterQuestionsByUnits, formatSourceQuestionPosition, formatUnitSelection, gradeAnswer, gradePendingAnswers, restoreSession, sessionShufflePreferences, shuffleOptionKeys, shuffleQuestions, summarizePendingAnswers, summarizeSession } from "./quiz-core.js";
 import {
   HISTORY_LIMIT,
   canRevealHistoryAnswer,
@@ -399,15 +399,6 @@ import {
     updateHistoryView();
   }
 
-  function mix(items) {
-    const shuffled = items.slice();
-    for (let i = shuffled.length - 1; i > 0; i -= 1) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    return shuffled;
-  }
-
   function beginSession(questions, config) {
     reviewMode = false;
     wrongReviewIds = [];
@@ -500,7 +491,7 @@ import {
     const position = reviewMode ? wrongReviewIndex : session.index;
     const done = completedCount();
     ui.quizUnit.textContent = unitTitle(question);
-    ui.questionNumber.textContent = "Soru " + (question.number || session.index + 1);
+    ui.questionNumber.textContent = formatSourceQuestionPosition(question) || "Soru " + (session.index + 1);
     ui.prompt.textContent = question.prompt;
     ui.progressText.textContent = reviewMode
       ? "Yanlış " + (position + 1) + " / " + total
@@ -843,7 +834,7 @@ import {
         if (!units.length) return;
         confirmFreshStart(session, () => window.confirm("Devam eden oturumdaki cevaplanmamış sorular kaybolacak. Yeni teste başlamak istiyor musun?"), () => {
           const questions = filteredQuestions();
-          const ordered = ui.shuffle.checked ? mix(questions) : questions;
+          const ordered = ui.shuffle.checked ? shuffleQuestions(questions) : questions;
           beginSession(ordered, { unit: units.length === 1 ? units[0] : "all", units, shuffle: ui.shuffle.checked, shuffleOptions: ui.shuffleOptions.checked });
         });
       });
