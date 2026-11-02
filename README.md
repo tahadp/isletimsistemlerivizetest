@@ -35,7 +35,7 @@ Sınav cevapları ve sonuçları sunucuya gönderilmez. Uygulama soru verilerini
 
 Yanıt kontrolünde doğru seçilen kabul edilmiş yanıt yeşil gösterilir. Yanlış seçilen yanıt kırmızı, diğer kabul edilen seçenekler nötr görünür. Seçenekler karıştırıldığında görünen A–E harfleri yeni sıraya göre atanır; puanlama özgün seçenek kimlikleriyle yapılır.
 
-Eğitim Test ve Sıra Sizde akışları sınav oturumundan ayrıdır; puan veya geçmiş kaydı oluşturmaz. Eğitim Test yanıtı kontrol edince kitap dayanaklı açıklamayı gösterir. Sıra Sizde açık uçlu sorularında kişi kendi yanıtını yazıp kitap yanıtını isteyerek karşılaştırır; otomatik puanlama yapılmaz. Kitabın soru ve yanıt anahtarı uyuşmayan örnekler açık notla işaretlenir.
+Eğitim Test ve Sıra Sizde akışları sınav oturumundan ayrıdır; puan veya geçmiş kaydı oluşturmaz. Eğitim Test tüm kabul edilen cevapları ve kitap dayanaklı açıklamayı doğrudan gösterir. Sıra Sizde sorularında kitap yanıtı ve açıklama doğrudan görünür; otomatik puanlama yapılmaz. Her iki akışta soru haritasıyla sorulara atlanabilir. Kitabın soru ve yanıt anahtarı uyuşmayan örnekler açık notla işaretlenir.
 
 ## Kaynak ve cevap politikası
 

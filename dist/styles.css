@@ -312,6 +312,16 @@ h2 { font-size: 19px; line-height: 1.3; font-weight: 650; }
 .education-card .education-ambiguity { padding: 8px 10px; border: 1px solid #e3c99f; border-radius: 7px; background: #fff8eb; color: #684d26; font-weight: 650; }
 .education-nav { max-width: 100%; }
 .education-nav .button { min-width: 100px; }
+.education-card .education-option { cursor: default; }
+.education-card .education-option:not(.is-correct):hover { background: #fafcfd; }
+.education-card .education-option.is-correct:hover { background: var(--green-pale); }
+.education-map { margin-top: 14px; padding: 14px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); }
+.education-map h2 { margin: 0 0 9px; font-size: 15px; }
+.education-map ol { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 6px; margin: 0; padding: 0; list-style: none; }
+.education-map-item { width: 100%; min-height: 34px; padding: 4px 2px; border: 1px solid #b9c5d0; border-radius: 6px; background: #fff; color: var(--ink); font: inherit; font-size: 12px; font-weight: 650; }
+.education-map-item:hover { border-color: var(--blue); background: var(--blue-pale); }
+.education-map-item:focus-visible { outline: 3px solid #8db4d9; outline-offset: 2px; }
+.education-map-item[aria-current="step"] { outline: 2px solid var(--blue); outline-offset: 1px; }
 
 .question-map { margin-top: 14px; padding: 14px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); }
 .question-map h2 { margin: 0 0 9px; font-size: 15px; }
@@ -326,6 +336,8 @@ h2 { font-size: 19px; line-height: 1.3; font-weight: 650; }
 .question-map-item:hover { border-color: var(--blue); }
 .question-map-item[aria-current="step"] { outline: 2px solid var(--blue); outline-offset: 1px; }
 @media (max-width: 340px) { .question-map { padding: 10px; } .question-map-list { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 5px; } }
+.education-map { overflow: hidden; }
+@media (max-width: 340px) { .education-map { padding: 10px; } .education-map ol { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 5px; } }
 .history-open-button { min-height: 30px; margin-top: 7px; padding: 5px 9px; font-size: 12px; }
 .history-review-card { padding: 22px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
 .history-review-card .section-heading { align-items: flex-start; }

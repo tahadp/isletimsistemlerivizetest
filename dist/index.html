@@ -57,14 +57,10 @@
         <h2 id="education-prompt" tabindex="-1"></h2>
         <p id="education-status" class="hint" role="status" aria-live="polite"></p>
         <div id="education-test-controls">
-          <fieldset id="education-options" class="options-list"><legend class="sr-only">Cevap seçenekleri</legend></fieldset>
-          <button id="education-check-button" class="button primary check-button" type="button">Yanıtı kontrol et</button>
+          <div id="education-options" class="options-list" role="list" aria-label="Eğitim Test seçenekleri"></div>
           <div id="education-feedback" class="feedback hidden" aria-live="polite"></div>
         </div>
         <div id="sira-controls" class="hidden">
-          <label class="field-label" for="sira-response">Yanıtın</label>
-          <textarea id="sira-response" rows="5"></textarea>
-          <button id="sira-answer-button" class="button secondary check-button" type="button">Kitap yanıtını göster</button>
           <div id="sira-answer-panel" class="feedback hidden" aria-live="polite"></div>
         </div>
       </article>
@@ -72,6 +68,10 @@
         <button id="education-previous" class="button secondary" type="button">Önceki</button>
         <button id="education-next" class="button primary" type="button">Sonraki</button>
       </nav>
+      <section id="education-map" class="education-map hidden" aria-labelledby="education-map-heading">
+        <h2 id="education-map-heading">Sorular</h2>
+        <ol id="education-map-list" aria-label="Eğitim sorularına git"></ol>
+      </section>
     </section>
     <section id="history-review-view" class="hidden" aria-labelledby="history-review-heading">
       <div class="history-review-card">

@@ -43,6 +43,22 @@ export function buildTestFeedback(question, selectedKey, optionOrder) {
   };
 }
 
+export function buildEducationTestDetails(question, optionOrder) {
+  const acceptedAnswers = Array.isArray(question && question.acceptedAnswers) ? question.acceptedAnswers : [];
+  const hasConflict = typeof question?.conflictNote === "string" && question.conflictNote.trim().length > 0;
+  const source = question && question.source;
+  return {
+    acceptedLabel: acceptedAnswers.length > 1 ? "Doğru ve kabul edilen cevaplar" : "Doğru cevap",
+    acceptedAnswers: acceptedAnswers.map((key) => answerText(question, key, optionOrder)),
+    bookAnswer: hasConflict && question.bookAnswer ? answerText(question, question.bookAnswer, optionOrder) : "",
+    conflictNote: hasConflict ? question.conflictNote : "",
+    explanation: typeof question?.explanation === "string" ? question.explanation : "",
+    sourceLine: source && source.title
+      ? source.title + (source.pdfPage ? " · PDF s. " + source.pdfPage : "") + (source.bookPage ? " · Kitap s. " + source.bookPage : "")
+      : ""
+  };
+}
+
 export function filterSiraQuestions(questions, unitIds) {
   const selected = new Set(Array.isArray(unitIds) ? unitIds.map(String) : []);
   return Array.isArray(questions)

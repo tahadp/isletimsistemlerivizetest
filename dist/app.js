@@ -1,5 +1,5 @@
 import { classifyOption, classifyQuestionMapItem, confirmFreshStart, describeQuestionMapItem, displayedOptionLabel, filterQuestionsByUnits, formatSourceQuestionPosition, formatUnitSelection, gradeAnswer, gradePendingAnswers, optionTextForSourceKey, restoreSession, sessionShufflePreferences, shuffleOptionKeys, shuffleQuestions, summarizePendingAnswers, summarizeSession } from "./quiz-core.js";
-import { buildTestFeedback, educationPositionLabel, filterSiraQuestions, getSiraAnswerDetails } from "./education-core.js";
+import { buildEducationTestDetails, buildTestFeedback, educationPositionLabel, filterSiraQuestions, getSiraAnswerDetails } from "./education-core.js";
 import {
   HISTORY_LIMIT,
   canRevealHistoryAnswer,
@@ -40,11 +40,10 @@ import {
     educationHeading: byId("education-heading"), educationUnit: byId("education-unit"),
     educationPosition: byId("education-position"), educationPrompt: byId("education-prompt"),
     educationStatus: byId("education-status"), educationTestControls: byId("education-test-controls"),
-    educationOptions: byId("education-options"), educationCheck: byId("education-check-button"),
+    educationOptions: byId("education-options"),
     educationFeedback: byId("education-feedback"), siraControls: byId("sira-controls"),
-    siraResponse: byId("sira-response"), siraAnswerButton: byId("sira-answer-button"),
     siraAnswerPanel: byId("sira-answer-panel"), educationPrevious: byId("education-previous"),
-    educationNext: byId("education-next"),
+    educationNext: byId("education-next"), educationMap: byId("education-map"), educationMapList: byId("education-map-list"),
     historySection: byId("history-section"), historyTotals: byId("history-totals"),
     historyEmpty: byId("history-empty"), historyList: byId("history-list"),
     clearHistory: byId("clear-history-button"),
@@ -664,19 +663,20 @@ import {
     container.append(line);
   }
 
-  function renderEducationTestFeedback(question, selectedKey) {
+  function renderEducationTestFeedback(question) {
     const order = educationSession.optionOrders[question.id];
-    const feedback = buildTestFeedback(question, selectedKey, order);
-    ui.educationFeedback.className = "feedback " + (feedback.correct ? "is-correct" : "is-incorrect");
+    const details = buildEducationTestDetails(question, order);
+    ui.educationFeedback.className = "feedback is-info";
     ui.educationFeedback.replaceChildren();
     const heading = document.createElement("strong");
-    heading.className = "feedback-heading " + (feedback.correct ? "is-correct" : "is-incorrect");
-    heading.textContent = feedback.correct ? "Doğru." : "Yanlış.";
+    heading.className = "feedback-heading";
+    heading.textContent = details.acceptedLabel;
     ui.educationFeedback.append(heading);
-    for (const line of feedback.answerLines) appendEducationLine(ui.educationFeedback, line.label, line.text);
-    appendEducationLine(ui.educationFeedback, "", feedback.conflictNote);
-    appendEducationLine(ui.educationFeedback, "Açıklama", feedback.explanation, "feedback-explanation");
-    appendEducationLine(ui.educationFeedback, "Kaynak", feedback.sourceLine, "source");
+    appendEducationLine(ui.educationFeedback, "", details.acceptedAnswers.join(" · "));
+    appendEducationLine(ui.educationFeedback, "Kitap anahtarı", details.bookAnswer);
+    appendEducationLine(ui.educationFeedback, "", details.conflictNote);
+    appendEducationLine(ui.educationFeedback, "Açıklama", details.explanation, "feedback-explanation");
+    appendEducationLine(ui.educationFeedback, "Kaynak", details.sourceLine, "source");
     ui.educationFeedback.classList.remove("hidden");
   }
 
@@ -700,75 +700,73 @@ import {
     ui.educationPosition.textContent = educationPositionLabel(educationSession.index, educationSession.questions.length, question);
     ui.educationPrompt.textContent = question.prompt || "";
     ui.educationStatus.textContent = isSiraSizde
-      ? "Yanıtını kendin değerlendir; burada puanlama yapılmaz."
-      : "Yanıt ve açıklama yalnız bu eğitim turunda gösterilir; puan veya geçmiş kaydedilmez.";
+      ? "Kitap yanıtı ve açıklama gösterilir; bu eğitim akışı puanlanmaz ve sınav geçmişine eklenmez."
+      : "Doğru ve kabul edilen yanıtlar ile kitap temelli açıklama gösterilir; puan veya geçmiş kaydedilmez.";
     ui.educationTestControls.classList.toggle("hidden", isSiraSizde);
     ui.siraControls.classList.toggle("hidden", !isSiraSizde);
     ui.educationPrevious.disabled = educationSession.index === 0;
     ui.educationNext.disabled = educationSession.index === educationSession.questions.length - 1;
+    ui.educationMap.classList.remove("hidden");
 
     if (isSiraSizde) {
-      ui.siraResponse.value = educationSession.responses[question.id] || "";
-      const revealed = Boolean(educationSession.revealed[question.id]);
-      ui.siraAnswerButton.textContent = revealed ? "Kitap yanıtını gizle" : "Kitap yanıtını göster";
-      ui.siraAnswerPanel.classList.toggle("hidden", !revealed);
-      if (revealed) renderSiraAnswer(question);
+      renderSiraAnswer(question);
       ui.educationOptions.replaceChildren();
       ui.educationFeedback.classList.add("hidden");
+      renderEducationMap();
       return;
     }
 
-    const record = educationSession.answers[question.id] || {};
     const sourceOptions = Array.isArray(question.options) ? question.options : [];
     const order = educationSession.optionOrders[question.id] || sourceOptions.map((option) => option.key);
     const optionsByKey = new Map(sourceOptions.map((option) => [option.key, option]));
+    const accepted = new Set(Array.isArray(question.acceptedAnswers) ? question.acceptedAnswers : []);
     ui.educationOptions.replaceChildren();
-    const legend = document.createElement("legend");
-    legend.className = "sr-only";
-    legend.textContent = "Eğitim test cevap seçenekleri";
-    ui.educationOptions.append(legend);
     for (const key of order) {
       const option = optionsByKey.get(key);
       if (!option) continue;
-      const label = document.createElement("label");
-      label.className = "option";
-      const radio = document.createElement("input");
-      radio.type = "radio";
-      radio.name = "education-answer";
-      radio.value = key;
-      radio.checked = record.selected === key;
-      radio.disabled = Boolean(record.checked);
+      const label = document.createElement("div");
+      label.className = "option education-option";
+      label.setAttribute("role", "listitem");
       const visibleKey = document.createElement("span");
       visibleKey.className = "option-key";
       visibleKey.textContent = displayedOptionLabel(key, order);
       const text = document.createElement("span");
       text.className = "option-text";
       text.textContent = option.text;
-      label.append(radio, visibleKey, text);
-      const optionState = classifyOption(question, key, record.selected, Boolean(record.checked));
-      if (optionState === "selected-correct") {
+      label.append(visibleKey, text);
+      if (accepted.has(key)) {
         label.classList.add("is-correct");
-        addOptionMarker(text, "Doğru cevap", "correct");
-      } else if (optionState === "selected-wrong") {
-        label.classList.add("is-wrong");
-        addOptionMarker(text, "Yanlış", "wrong");
-      } else if (optionState === "accepted-alternative") {
-        label.classList.add("is-accepted");
-        addOptionMarker(text, "Kabul edilen cevap", "accepted");
+        addOptionMarker(text, key === question.bookAnswer ? "Kitap yanıtı · doğru" : "Kabul edilen doğru yanıt", "correct");
       }
-      radio.addEventListener("change", () => {
-        if (record.checked) return;
-        educationSession.answers[question.id] = { selected: radio.value, checked: false };
-        ui.educationCheck.disabled = false;
-        ui.educationStatus.textContent = "Seçimini yaptın. Açıklamayı görmek için yanıtı kontrol et.";
-      });
       ui.educationOptions.append(label);
     }
-    ui.educationFeedback.className = "feedback hidden";
-    ui.educationFeedback.replaceChildren();
-    ui.educationCheck.classList.toggle("hidden", Boolean(record.checked));
-    ui.educationCheck.disabled = !record.selected;
-    if (record.checked) renderEducationTestFeedback(question, record.selected);
+    renderEducationTestFeedback(question);
+    renderEducationMap();
+  }
+
+  function renderEducationMap() {
+    if (!educationSession || !educationSession.questions.length) {
+      ui.educationMap.classList.add("hidden");
+      return;
+    }
+    ui.educationMapList.replaceChildren();
+    const modeLabel = educationSession.mode === "sira-sizde" ? "Sıra Sizde" : "Eğitim Test";
+    educationSession.questions.forEach((question, index) => {
+      const item = document.createElement("li");
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "education-map-item";
+      button.textContent = String(index + 1);
+      button.setAttribute("aria-label", modeLabel + ", " + educationPositionLabel(index, educationSession.questions.length, question));
+      if (index === educationSession.index) button.setAttribute("aria-current", "step");
+      button.addEventListener("click", () => {
+        educationSession.index = index;
+        renderEducationQuestion();
+        ui.educationPrompt.focus();
+      });
+      item.append(button);
+      ui.educationMapList.append(item);
+    });
   }
 
   function startEducationTest() {
@@ -780,7 +778,6 @@ import {
       mode: "test",
       questions: ordered,
       index: 0,
-      answers: {},
       optionOrders: Object.fromEntries(ordered.map((question) => [question.id,
         ui.shuffleOptions.checked ? shuffleOptionKeys(question.options) : question.options.map((option) => option.key)
       ]))
@@ -799,6 +796,7 @@ import {
     ui.educationTestControls.classList.add("hidden");
     ui.siraControls.classList.add("hidden");
     ui.siraAnswerPanel.classList.add("hidden");
+    ui.educationMap.classList.add("hidden");
     ui.educationPrevious.disabled = true;
     ui.educationNext.disabled = true;
     ui.educationHeading.textContent = "Sıra Sizde";
@@ -818,7 +816,7 @@ import {
         ui.educationNext.disabled = true;
         return;
       }
-      educationSession = { mode: "sira-sizde", questions, index: 0, responses: {}, revealed: {} };
+      educationSession = { mode: "sira-sizde", questions, index: 0 };
       renderEducationQuestion();
       ui.educationPrompt.focus();
     } catch {
@@ -1003,28 +1001,6 @@ import {
       ui.unitOptions.addEventListener("change", updateHome);
       ui.educationTestStart.addEventListener("click", startEducationTest);
       ui.siraStart.addEventListener("click", startSiraSizde);
-      ui.educationCheck.addEventListener("click", () => {
-        if (!educationSession || educationSession.mode !== "test") return;
-        const question = educationSession.questions[educationSession.index];
-        const selected = ui.educationOptions.querySelector('input[type="radio"]:checked');
-        if (!selected) {
-          ui.educationStatus.textContent = "Önce bir yanıt seç.";
-          return;
-        }
-        educationSession.answers[question.id] = { selected: selected.value, checked: true };
-        renderEducationQuestion();
-      });
-      ui.siraAnswerButton.addEventListener("click", () => {
-        if (!educationSession || educationSession.mode !== "sira-sizde") return;
-        const question = educationSession.questions[educationSession.index];
-        educationSession.revealed[question.id] = !educationSession.revealed[question.id];
-        renderEducationQuestion();
-      });
-      ui.siraResponse.addEventListener("input", () => {
-        if (!educationSession || educationSession.mode !== "sira-sizde") return;
-        const question = educationSession.questions[educationSession.index];
-        educationSession.responses[question.id] = ui.siraResponse.value;
-      });
       ui.educationPrevious.addEventListener("click", () => {
         if (!educationSession || educationSession.index === 0) return;
         educationSession.index -= 1;

@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { classifyOption } from "../dist/quiz-core.js";
-import { buildTestFeedback, educationPositionLabel, filterSiraQuestions, getSiraAnswerDetails } from "../dist/education-core.js";
+import { buildEducationTestDetails, buildTestFeedback, educationPositionLabel, filterSiraQuestions, getSiraAnswerDetails } from "../dist/education-core.js";
 
 const question = {
   acceptedAnswers: ["A", "E"],
@@ -41,17 +41,32 @@ test("conflicting source feedback shows separate accepted and book answers using
   assert.ok(feedback.answerLines.every((line) => !line.text.includes("A — Kitap yanıtı")));
 });
 
-test("Education Test checked options use correct, wrong, and neutral accepted-alternative states", () => {
+test("ordinary quiz option states remain unchanged", () => {
   assert.equal(classifyOption(question, "A", "A", true), "selected-correct");
   assert.equal(classifyOption(question, "B", "B", true), "selected-wrong");
   assert.equal(classifyOption(question, "E", "B", true), "accepted-alternative");
+});
+
+test("Education Test reveals accepted answers and explanation immediately with shuffled display labels", () => {
+  const details = buildEducationTestDetails(question, ["E", "B", "A"]);
+  assert.equal(details.acceptedLabel, "Doğru ve kabul edilen cevaplar");
+  assert.deepEqual(details.acceptedAnswers, ["C — Kitap yanıtı", "A — Kabul edilen alternatif"]);
+  assert.equal(details.explanation, "Açıklama metni.");
+  assert.equal(details.bookAnswer, "");
+  assert.equal(Object.hasOwn(details, "correct"), false);
+});
+
+test("Education Test keeps book-key and conflict explanation available only for conflict questions", () => {
+  const details = buildEducationTestDetails({ ...question, conflictNote: "Kaynaklarda farklılık var." }, ["E", "B", "A"]);
+  assert.equal(details.bookAnswer, "C — Kitap yanıtı");
+  assert.equal(details.conflictNote, "Kaynaklarda farklılık var.");
 });
 
 test("education position includes both tour position and original unit question number", () => {
   assert.equal(educationPositionLabel(0, 16, { unit: 1, number: 3 }), "1 / 16 · 1. Ünite · 3. Soru");
 });
 
-test("Sıra Sizde filters to selected units and returns the book answer only for explicit reveal", () => {
+test("Sıra Sizde filters selected units and supplies the book answer for immediate display", () => {
   const questions = [
     { id: "s1", unit: 1, type: "sira-sizde", prompt: "Açık soru", answer: "Yanıt", explanation: "Özet.", ambiguityNote: "Kaynaklarda yanıtın kapsamı farklı yorumlanmış.", answerSource: { pdfPage: 4, bookPage: 9 } },
     { id: "s2", unit: 2, type: "sira-sizde", prompt: "Diğer açık soru", answer: "Başka yanıt" },
