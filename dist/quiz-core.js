@@ -29,6 +29,16 @@ export function shuffleOptionKeys(options, random = Math.random) {
   return keys;
 }
 
+export function displayedOptionLabel(sourceKey, optionOrder) {
+  const index = Array.isArray(optionOrder) ? optionOrder.indexOf(sourceKey) : -1;
+  return index >= 0 ? String.fromCharCode(65 + index) : sourceKey;
+}
+
+export function optionTextForSourceKey(options, sourceKey) {
+  const option = Array.isArray(options) ? options.find((item) => item && item.key === sourceKey) : null;
+  return option && typeof option.text === "string" ? option.text : "";
+}
+
 export function sessionShufflePreferences(session) {
   const config = session && session.config && typeof session.config === "object" ? session.config : {};
   return { shuffle: Boolean(config.shuffle), shuffleOptions: Boolean(config.shuffleOptions) };

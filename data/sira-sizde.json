@@ -1,0 +1,318 @@
+{
+  "title": "İşletim Sistemleri — Sıra Sizde",
+  "units": [
+    {
+      "id": 1,
+      "title": "İşletim Sistemlerine Giriş"
+    },
+    {
+      "id": 2,
+      "title": "İşletim Sistemleri Temel Kavramları"
+    },
+    {
+      "id": 3,
+      "title": "İşletim Sistemi Fonksiyonları"
+    },
+    {
+      "id": 4,
+      "title": "İşletim Sistemi Bileşenleri"
+    },
+    {
+      "id": 5,
+      "title": "Kişisel Bilgisayar İşletim Sistemleri"
+    }
+  ],
+  "questions": [
+    {
+      "id": "u1-sira-sizde-1",
+      "unit": 1,
+      "number": 1,
+      "type": "sira-sizde",
+      "prompt": "Sahip olduğunuz masaüstü, dizüstü ve/veya mobil cihazlarınızda hangi işletim sistemlerinin kullanıldığını ve logolarının ne olduğunu söyleyebilir misiniz?",
+      "answer": "Bilgisayarımızın özelliklerini öğrenmenizin birkaç yolu vardır. Bunlar içinden en basit ve hızlı olanına göre makinenizi tanıyalım: Önce bilgisayarımızın en önemli üç özelliğinden biri olan işletim sistemi sürümüne ve daha sonra işlemci model-hızını ve ram miktarımıza bakalım. Söz ettiğimiz bu özellikleri öğrenmek için bilgisayarım simgesine ya da başlat menüsündeki bilgisayarım satırına sağ tıklayınız. Çıkan menünün en altındaki özelliklere basınız. Karşınıza Bilgisayarımızın Sistem Özellikleri penceresi açılır. Açılan ekranda en üstte kullanılan işletim sisteminizin sürümü görünür. Sistem başlığı altında, işlemcinizin markası, modeli ve hızını da görebilirsiniz. Bu bilginin hemen altında bilgisayarınızın ram miktarı varıdır.",
+      "explanation": "Kitap anahtarının yanıtı cihazdaki işletim sistemi sürümü, işlemci ve RAM bilgilerine erişme yöntemini anlatır; OS adı ve logosu örneği vermediğinden cihazınızı inceleyerek tamamlayın.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 12,
+        "bookPage": 5
+      },
+      "answerSource": {
+        "pdfPage": 32,
+        "bookPage": 25
+      },
+      "ambiguityNote": "Kitabın Sıra Sizde 1 yanıtı işletim sistemi sürümünü ve bilgisayar özelliklerini bulma adımlarını veriyor; soruda istenen belirli işletim sistemi adlarını ve logolarını örneklemiyor. Yanıt kitaptaki anahtardan aynen aktarılmıştır."
+    },
+    {
+      "id": "u1-sira-sizde-2",
+      "unit": 1,
+      "number": 2,
+      "type": "sira-sizde",
+      "prompt": "İşletim sistemlerinin gelişmesini sağlayan en büyük atılımlar nelerdir? Kısaca özetleyiniz",
+      "answer": "Bu sorunun mutlak doğu veya tek bir yanıtı olmayabilir; çünkü bireylerin işletim sistemlerine ilişkin beklenti ve ihtiyaçları farklı olabilir. Bu nedenle, bir referans noktası alarak cevap vermek yerinde olacaktır. Hatırlarsanız tarih içerisinde dört temel işletim sistemi neslinden söz etmiştik. Bunlar: I. Nesil İşletim Sistemi (1940-1954) – Vakum Tüpleri II. Nesil İşletim Sistemi (1955-1964) – Transistorlar ve Yığın İşlem (Batch Processing) III. Nesil İşletim Sistemi (1965-1979) – Entegre Devreler ve Çoklu Programlama IV. Nesil İşletim Sistemi (1980-2014) – Kişisel Bilgisayarlar Yukarıdaki bu nesiller, işletim sistemlerini giderek daha verimli, etkili ve kullanıcı dostu yapan atılımlara göre belirlenmiştir. Diğer yandan 2015 yılına gelindiğinde, kuantum bilgisayarlar ve kuantum işletim sistemlerinin daha geniş kitlelerin kullanımına sunulması gündeme gelmiştir. Bu açıdan bakıldığında, kuantum işletim sistemlerinin beşinci nesil işletim sistemleri çağını başlattığını söyleyebiliriz. Kısacası işletim sistemi nesillerine ilişkin dikkat edilmesi gereken iki temel nokta vardır: Bir neslin hangi tarihte başlayıp hangi tarihte sonlandığına ilişkin ilgili kaynaklarda faklı tarihler verilmektedir. Bu nedenle, bu bölümde genelin kabul ettiği tarihler sınır olarak alınabilir.",
+      "explanation": "Kitap, işletim sistemi nesillerini donanım ve kullanım alanlarındaki atılımlarla ilişkilendiriyor; yanıt tek bir kesin sınıflamaya bağlı değil.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 21,
+        "bookPage": 14
+      },
+      "answerSource": {
+        "pdfPage": 32,
+        "bookPage": 25
+      }
+    },
+    {
+      "id": "u1-sira-sizde-3",
+      "unit": 1,
+      "number": 3,
+      "type": "sira-sizde",
+      "prompt": "Bir işletim sisteminin sistem kaynaklarının önemini kısaca açıklayınız?",
+      "answer": "Bir işletim sisteminin üç temel sistem kaynağı vardır: Kesme İstekleri (Interrupt Request-IRQ): Kesmeler işletim sistemlerinin genel bir parçasıdırlar. Kesme istekleri, donanımların sistem işlemcisiyle iletişim kurmalarını sağlar. Her donanımın, özel adresi vardır. Kesme istekleri, bu çerçevede, çevre birimlerinin dikkatini çekmek için kullandığı bir yöntemdir. Bilgisayarın MİB’i, çevre birimlerle olan iletişimleri başlatır ve onların yönetir. Kısacası işlemcinin, normal yürütüm sırasını değiştirmek ve gereksinim duyulan başka bir işi varsa onu yerine getirmek için kesme programları kullanılır. Kesme sürecinde kontrolü kesme programı devralır. Kesmeler; işlemcinin etkinliğini artırır, bir G/Ç işlemi yapılırken, işlemcinin diğer komutları yürütmesine olanak verir ve sonradan çalıştırılmak üzere bir sürecin geçici olarak durdurulmasına sağlar. Doğrudan Bellek Erişimi (Direct Memory Access-DMA): Özellikle disk sürücüleri ve benzeri cihazlar için Doğrudan Bellek Erişim seçeneğinin aktif halde olması sayesinde cihaz gerek duyduğu bilgileri işlemciye uğramadan direk olarak sistem belleğinden elde edebilir. Bu da bilgisayarda belli bir performans artışı sağlar. Doğrudan Bellek Erişimi kanalları, sistem belleğine bazı aygıtların (ses kartı, ethernet kartı gibi) erişimini hızlandırmak için kullanılırlar. Örneğin bir sabit disk denetleyicisi, sabit diskten bazı verileri aldıktan sonra bunları RAM’e depolar. Bu sırada yerel iletişim ağı (ethernet) kartından gelen verilerin de RAM’e depolanması gerekebilir. Bu veriler Doğrudan Bellek Erişimi kanalları aracılığıyla, daha hızlı bir şekilde ve MİB’i meşgul etmeden doğrudan RAM’e ulaştırılırlar. Aksi takdirde farklı donanım adreslerinden gelen veriler önce I/O adresleri üzerinden MİB’e, oradan da RAM’e gönderilmek durumunda kalacaklardır. Doğrudan Bellek Erişimi, kısacası, G/Ç birimleri arasında doğrudan veri değişimlerinin yapılmasıdır. Bunun için işlemci G/Ç modülünü belleğe yazma veya bellekten okuma ile yetkilendirir. Değişim sırasında işlemci sorumluluğu devreder ve bu değişim sırasında işlemci diğer işleri yapabilir. Giriş/Çıkış Adresleri (G/Ç): MİB’in çevre aygıtları ve ses kartı, ethernet kartı gibi devre kartlarıyla iletişim kurmak ve bu aygıtları birbirinden ayırt edebilmek için kullandığı Giriş/Çıkış (Input/Output) adresleri vardır. Bunlara, donanım adresleri veya port adresleri denir. Her kartın mikroişlemci ile haberleşmesi için farklı bir I/O adresi vardır. Kısacası, MİB’in çevresiyle iletişim kurmak için kullandığı iki temel yol vardır: bilgisayarın belleğinin adresleri ve I/O adresleridir. Öte yandan, birden fazla kartın aynı adresi kullanması durumu olursa buna G/Ç adres çakışması denir. İki kartın aynı adresi kullanması durumunda mikroişlemci tarafından gönderilen komutlar, kartlar tarafından doğru algılanmaz. Bu durumsa ya kartların çalışmamasına ya da hatalı çalışmasına neden olur.",
+      "explanation": "Kitap yanıtı üç temel kaynağı (kesme istekleri, doğrudan bellek erişimi ve G/Ç adresleri) tanımlıyor; önem gerekçesini doğrudan ve ayrı biçimde açmıyor.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 24,
+        "bookPage": 17
+      },
+      "answerSource": {
+        "pdfPage": 33,
+        "bookPage": 26
+      },
+      "ambiguityNote": "Kitabın Sıra Sizde 3 yanıtı sistem kaynaklarının türlerini ve işleyişini tanımlıyor; sorudaki önem gerekçesini yalnızca dolaylı olarak destekliyor. Yanıtı hatalı olarak nitelemek yerine bu kapsam farkını belirtiyoruz."
+    },
+    {
+      "id": "u1-sira-sizde-4",
+      "unit": 1,
+      "number": 4,
+      "type": "sira-sizde",
+      "prompt": "Sizce, bir işletim sisteminin en temel işlevi nedir? Kısaca nedenleriyle açıklayınız.",
+      "answer": "Bir işletim sisteminin dört temel işlevi vardır. Bu dört temel işlev işletim sisteminin sorunsuz çalışması açısından aynı derecede önemlidirler. Bu işlevler aşağıda sıralanmışlardır: Dosya ve Klasör Yönetimi: Bilgisayarda bulunan işletim sistemleri, tüm programlar, oyunlar, kullanıcının hazırladığı belgeler vb. dosyalar halinde bilgisayar üzerindeki sabit disk (harddisk) adı verilen fiziksel bir aygıtta saklanır. Bu dosyaları kendi aralarında gruplamak için de klasörler kullanılır. Verilerin bir arada tutulduğu ortamlara dosya denir. Dosya ve klasörleri yönetme; kaynakları saklama ve güvenliğini sağlamayı, bu kaynakları ağ kullanıcılarının kullanımına sunmayı ve yine bu kaynaklardaki değişiklikleri yönetmeyi içerir. Uygulamaların Yönetimi: Kullanıcı bir program çalıştırmak istediğinde, işletim sistemi uygulamanın yerini sabit diskten tespit eder ve uygulamayı RAM’e yükler. Bu işlem, etkileşimli işlem olarak adlandırılır. Etkileşimli işlem; kullanıcılara uygulamaları dinamik biçimde yönetme, çalıştırılan programların sonuçlarını doğrudan elde etme ve her an müdahale edebilme olanağı sağlayan çalışma türüdür. Bu çalışma türünde kullanıcılar, bir işin çalışma süreci boyunca işe ekran ve klavye aracılığıyla her an müdahale edebilirler. Kısacası etkileşimli işlem, ekran başındaki kullanıcının bilgisayara bir komut vermesi ve o komuta bilgisayardan yanıt alması sürecidir. Kullanıcılar program geliştirme, metin dosyaları oluşturma, program derleme ve test etme, veri tabanı sorguları işletme, bilgisayar ağı komutları girme, İnternet servislerini kullanma gibi kısa süreli işlerini etkileşimli işlem olarak yürütürler. Yardımcı Programları Destekleme: İşletim sistemi yardımcı programları, problemleri giderebilmek ve sisteminin sağlıklı işlemesini sürdürebilmek için kullanır. Yardımcı destek programları silinmiş, hasarlı dosyaları bulabilmek, verilerin yedeğini alabilmek vb işlemlerde kullanırlar. Hatırlayacağınız gibi işletim sistemi üzerinde yer alan bazı yazılımlar Sistem Yazılımı olarak adlandırılmaktadır. Örneğin; derleyiciler (compilers), editörler (editors), yararlı programlar (utility), virüs temizleyen programlar, veritabanı yönetim sistemleri (database management system) ve bilgisayar ağı yazılımları (network sofware) birer sistem yazılımlarıdır. Öte yandan, bu yazılımlar işletim sisteminin kendi öz parçaları değildirler.",
+      "explanation": "Kitap birden çok işlev sıralıyor; yanıtınızda donanım kaynaklarının yönetimi ve kullanıcı programlarına ortam sağlama ilişkisini gerekçelendirin.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 28,
+        "bookPage": 21
+      },
+      "answerSource": {
+        "pdfPage": 33,
+        "bookPage": 26
+      }
+    },
+    {
+      "id": "u2-sira-sizde-1",
+      "unit": 2,
+      "number": 1,
+      "type": "sira-sizde",
+      "prompt": "Ekzo çekirdek tabanlı işletim sistemlerinin uygulamada yaygınlaşmama nedenlerini tartışınız?",
+      "answer": "1994 yılında geliştirilen ve hâlâ geliştirilme aşamasında olan ekzo çekirdek, normal çekirdekten çok daha küçüktür. MIT Parallel ve Distributed Operating Systems Group tarafından geliştirilen Ekzo çekirdek, işletim sistemlerinde uçtan uca ilkesinin bir uygulamasıdır. MIT, ExOS olmak üzere pek çok farklı ekzo çekirdek geliştirmiştir. Diğer tarafan University of Cambridge, University of Glasgow, Citrix Systems ve the Swedish Institute of Computer Science tarafından Nemesis isimli bir başka eko çekirdek uygulaması geliştirilmiştir. Ekzoçekirdek, uygulama geliştiricileri için işletim sisteminin temel fonksiyonlarından biri olan donanıma doğrudan erişim sunan bir işletim sistemi çekirdeği mimarisidir. Bellek ve süreç yönetimi gibi temel işlevler dışında tek yaptığı şey, donanımların arayüzlerini güvenli bir biçimde çoklayarak bunları kullanıcı seviyesi uygulamalara sunmaktır. Bu sayede uygulama programcısı, donanım için yazılmış sürücülerin getirdiği sınırlar olmaksızın donanıma ham erişim sağlayabilir. Bu çözüm çok yüksek hızlarda donanım erişimi sağlamasına karşın, dış çekirdek mimarisi uygulamaların programlanmalarının çok zor olmasından dolayı genel bir ilgi görmemiş, özel amaçlarla kullanılmıştır.",
+      "explanation": "Ekzo çekirdeğin donanıma hızlı ve düşük soyutlamalı erişim sunmasına karşılık uygulama geliştirmenin zor olmasını açıklayın.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 40,
+        "bookPage": 33
+      },
+      "answerSource": {
+        "pdfPage": 56,
+        "bookPage": 49
+      }
+    },
+    {
+      "id": "u2-sira-sizde-2",
+      "unit": 2,
+      "number": 2,
+      "type": "sira-sizde",
+      "prompt": "İşletim sisteminin mantıksal yapılarından olan aygıt yönetiminin önemini nedenleriyle tartışınız?",
+      "answer": "Bir işletim sistemi donanım aygıtlarının yönetiminden sorumludur. İşletim sistemleri, genelde donanım aygıtlarını aynı şekilde yönetirler fakat işlemci ve belleğin yönetiminde farklı yaklaşımlar kullanırlar. Aygıt Yöneticisi’nin farklı görevleri vardır. Aygıt Yöneticisi’nin yardımıyla bilgisayardaki hangi aygıtların yüklü olduğu saptanabilir, aygıtlar için sürücü yazılımı güncelleştirilebilir, yazılımın gerektiği şekilde çalışıp çalışmadığı denetlenebilir ve donanım ayarları değiştirilebilir. Aygıt yönetiminin, aygıt bağımlı ve aygıt bağımsız olmak üzere iki bölümü vardır (Şekil 2.5). Aygıt bağımlı bölüm, aygıt sürücüsü (device driver) olarak da adlandırılmaktadır. Kontrolcü ile konuşan, komut gönderen ve cevaplar alan yazılıma aygıt sürücüsü denilir Aygıt sürücü, disk denetleyicisinin düzeltemediği okuma hatalarını düzeltmeye çalışır. Genelde hatalar mümkün oldukça yönetim düzeyinde yönetilir ancak disk denetleyicisi bunu başaramazsa aygıt sürücüsü devreye girer. Aygıt sürücüleri, aynı sınıfa ait aygıtları yönetmek içindir ve aygıta bağımlı kodlar, aygıt sürücülerinde bulunur. Denetleyicilerin kodlarında bulunan yazmaçlar, aygıt sürücüleri tarafından alınır ve sürücüler bu komutların doğru çalışıp çalışmadığını kontrol ederler. Sürücülerde denetleyicilerin kaç yazmacı olduğu ve bu yazmaçların hangi amaçlarla kullanıldığı hakkında bilgiler de bulunmaktadır. İşletim sisteminin, her bir aygıt için kullandığı ayrı bir sürücü vardır. Aygıt yönetiminin bağımsız olan bölümü, aygıt bağımlı bölümün yürüteceği yazılım ortamını temsil eder. Aygıt bağımsız alan, genellikle aygıt yönetiminin küçük bir bölümüdür, büyük bölümüyse sürücülere ayrılmıştır. Aygıt bağımsız alan, sistem çağrı arayüzündeki çağrıları aygıt sürücüsüne iletmektedir. Aygıt yönetiminin aygıt bağımlı ve aygıt bağımsız olmak üzere ikiye ayrılmış olması, bilgisayara yeni bir donanım eklenmesini çok daha kolay hale gelmiştir. İşletim sistemi tasarımcısı, öncelikle aygıtın hangi bölümünün bağımlı ve hangi bölümünün bağımsız olacağını saptar. Bağımlı olan bölüm, aygıt sürücüsü içinde; bağımsız olan bölümse temel işletim sistemi içinde uygulamaya geçer. Bir başka deyişle, aygıt yönetimin bağımsız bölümünün bir aygıta okuma ve/veya yazma işlemlerini yürüten sistem çağrılarını içermektedir. Örneğin, USB sürücüsü kendisiyle ilgili tüm yazılımları içerir. USB bilgisayara bağlanarak sürücüsü yüklendiği zaman kullanıcı tarafından hemen kullanılabilir çünkü aygıt yönetiminin bağımsız olan bölümü işletim sisteminin içinde hazır durumdadır.",
+      "explanation": "Aygıt bağımlı sürücüler ile aygıt bağımsız işletim sistemi bölümünün birlikte çalışmasının yeni donanım eklemeyi nasıl kolaylaştırdığını açıklayın.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 43,
+        "bookPage": 36
+      },
+      "answerSource": {
+        "pdfPage": 56,
+        "bookPage": 49
+      }
+    },
+    {
+      "id": "u2-sira-sizde-3",
+      "unit": 2,
+      "number": 3,
+      "type": "sira-sizde",
+      "prompt": "RAM bellek türlerini örnek vererek tanımlayınız?",
+      "answer": "RAM belleklerin, DRAM bellek ve SRAM bellek olmak üzere iki türü vardır: DRAM bellek (Dynamic RAM, Dinamik RAM), diğer bellek türlerine göre daha ucuz olduğundan kişisel bilgisayarlarda daha çok kullanılan bellektir. Sürekli değişen yapılarından ve düzenli olarak şarj edildikleri için bu belleklere dinamik bellek denilmektedir. DRAM belleklerde bilgileri saklamak için elektrik yükleri kullanılır. Bilgisayarda bellek hücreleri, bir kondansatör ve bir transistörle temsil edilir. Tipik bir kondansatör aralarına yalıtkan madde olan bir çif madde olan plakadan ibarettir ve plakanın birine pozitif yük uygulandığında diğeri negatif olarak yüklenir. Plakaları ayıran yalıtkan zıt yüklerin birbirine karışmasını veya birbirlerini nötrleştirmesini önler. Bir kondansatör üzerindeki yük tek bitlik sayısal bilgi saklayabilir. Bir başka deyişle, kondansatör üzerinde yük varsa bit 1 değerini, yoksa 0 değerini alır. Kuramda, kondansatörün plakaları arasındaki yükün, sonsuza dek kalacağına inanılır ama gerçek hayatta hiçbir yalıtkan mükemmel değildir. Bu nedenle, kondansatör üzerindeki yük zamanla boşalır. Yüklerin sönümlenmesini engellemek için kondansatörü düzenli olarak şarj eden devreler, dinamik bellek yongalarına eklenmiştir. Bu devreler, bilginin kaybolmasını önlemek için her 50 milisaniyede bir kondansatörleri yeniden şarj ederek, bellekteki bilgileri tazeler. Sürekli değişen yapılarından ve düzenli olarak şarj edildikleri için, bu belleklere dinamik bellek denilmektedir. SRAM bellek (Static RAM, Duruk Bellek), elektrik olduğu sürece içinde veri bitlerini saklayan bir RAM bellektir ve bilgisayarın önbelleğinde kullanılırlar. Hafıza hücrelerini temsil etmek için basit bir set/reset flip flop kullanılır. Flip Flop, temel olarak 1 bitlik bilginin tutulduğu ünitedir. Flip Flop, bir bellek hücresi olup çalışma gücü kesilmediği ve dış sinyallerle durumu değişmediği sürece iki kararlı duruma sahiptir. DRAM belleklerden farklı olarak SRAM belleklerde bilgilerin güncellenmesi gerekmemektedir. Bu da SRAM bellekleri hızlı yapan en önemli özelliktir. Öte yanan SRAM bellekler pahalıdırlar.",
+      "explanation": "Kitap DRAM ve SRAM türlerini; yenileme gereksinimi, hız, kullanım ve maliyet farklarıyla tanımlıyor.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 46,
+        "bookPage": 39
+      },
+      "answerSource": {
+        "pdfPage": 57,
+        "bookPage": 50
+      }
+    },
+    {
+      "id": "u2-sira-sizde-4",
+      "unit": 2,
+      "number": 4,
+      "type": "sira-sizde",
+      "prompt": "Türkiye’de geleneksel modeli kullanarak dağıtım yapan e-yayınlara örnek bulur musunuz?",
+      "answer": "Bu sorunun, tek bir doğru cevabı bulunmamaktadır. Öte yandan, diğerlerine göre değişik özellikleri olması nedeniyle, aşağıda sıralanan işletim sitemleri size farklı gelebilirler: Dağıtık (Distributed) İşletim Sistemleri: Dağıtık İşletim Sistemleri, farklı bilgisayarlardaki donanım ve yazılım bileşenleri arasında haberleşme ve iletişimin mesajlaşma yoluyla sağlanabildiği ağlardır. Dağıtık işletim sistemi, bir ağ üzerine kuruludur. Ağ, yerel veya geniş alandaki bilgisayarları bağlamak ve protokoller arası mesaj alışverişi yapmak için kullanılan ortamdır. Ağ birimleri, IP adresleriyle açıkça adreslenmiştir ve görülebilirler. Dağıtık işletim sisteminde kullanıcı, ağın varlığı ve işlevini görmez. Bu sistemler, çok işlemcili olmasına karşın kullanıcı tek bir sanal işlemciyi görür. Dağıtık bir sistem, kullanıcılara tek bir sistem olarak görünen, bağımsız bilgisayarlar bütünü olarak tanımlanabilir. Yazılımla ağdaki bileşenler arası işlevsel uyumluluk ve kullanıcı açısından saydamlık sağlanır. Dağıtık işletim sistemleri, yazılım ve donanım kaynaklarının paylaşılmasına olanak sağlar. Internet, geniş bir dağıtık sistemdir ve kullanıcıları WWW, e-posta, dosya transferi gibi hizmetlerden yararlanırlar. Gerçek Zamanlı (Real-Time) İşletim Sistemleri: Gerçek Zamanlı İşletim Sistemleri, günlük olarak kullanılan işletim sistemlerinden farklıdır. Gerçek Zamanlı İşletim Sistemleri üzerinde çalışan programların belirli bir süre içerisinde görevini bitirmesi gerekmektedir. Bu nedenle, daha çok endüstriyel kontrol sistemlerinde kullanılan bu sistemlerde, zaman kısıtlaması çok önemlidir. Gerçek zamanlı işletim sistemi, uygulama yazan programcılara uygulamaların öncelikleriyle ilgili kontrol olanağı verir. Kısacası gerçek zamanlı işletim sistemleri, olay güdümlüdür ve zamanı paylaşmaya yöneliktir. Gömülü (Embedded) İşletim Sistemleri: Gömülü İşletim Sistemlerinde boyut, bellek ve güç harcama kısıtlamaları vardır. Bu sistemler, ayrıca, özel amaçlı işlevleri içerirler. Gömülü İşletim Sistemleri televizyon, mikrodalga fırın, çamaşır makinesi ve cep telefonları için geliştirilmiş sistemlerdir. PalmOS, WindowsCE, Symbian OS işletim sistemleri de gömülü sistemlerdir. Kütüphane (Library) İşletim Sistemleri: Kütüphane İşletim Sistemi, kütüphane formunda tipik bir işletim sisteminin sağladığı hizmetleri sunar. Bu kütüphaneler, sanal kütüphane işletim sistemi olan uniçekirdeği (unikernel) yapılandırmak için uygulama ve yapılandırma kodlarıyla oluşturulurlar.",
+      "explanation": "Kitabın ilgili anlatısı dağıtık sistemlerde ağ üzerinden WWW, e-posta ve dosya transferi hizmetlerini örnekler. Bu yalnızca konu anlatısından çıkarılmış bir yönlendirmedir; kitap bu soruda belirli bir e-yayın örneği vermiyor.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 51,
+        "bookPage": 44
+      },
+      "answerSource": {
+        "pdfPage": 57,
+        "bookPage": 50
+      },
+      "ambiguityNote": "Kitabın Sıra Sizde Yanıt Anahtarı’ndaki Sıra Sizde 4 metni, e-yayın örneği istemiyle konu bakımından uyuşmuyor; farklı işletim sistemi türlerini anlatıyor. Kitapta bu isteme uygun bir örnek/yanıt verilmediğinden gerçek yanıt uydurulmamıştır."
+    },
+    {
+      "id": "u2-sira-sizde-5",
+      "unit": 2,
+      "number": 5,
+      "type": "sira-sizde",
+      "prompt": "İşletim sistemi türlerinden size en ilginç gelen hangisidir? Nedenleriyle açıklayınız.",
+      "answer": "Özellikle gömülü işletim sistemleri oldukça dikkat çekicidir. Arabalarda, beyaz eşyalarda, televizyonlarda ve diğer birçok cihazda bu tür işletim sistemleri ile karşılaşmak mümkündür. Günümüzde akıllı evlerin çalışma sistemi de bu tür gömülü işletim sistemlerinin merkezi bir ana bilgisayar üzerinden kontrol edilmesi ile mümkündür. Ayrıca USB’den çalıştırılabilen (Portable) işletim sistemleri de boyutları ve taşınabilirlikleri açısından oldukça ilginç işletim sistemleridir.",
+      "explanation": "Bu açık uçlu soruda seçtiğiniz işletim sistemi türünün ayırt edici özelliklerini gerekçelendirin; kitap gömülü ve taşınabilir sistemleri örnekliyor.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 51,
+        "bookPage": 44
+      },
+      "answerSource": {
+        "pdfPage": 57,
+        "bookPage": 50
+      }
+    },
+    {
+      "id": "u3-sira-sizde-1",
+      "unit": 3,
+      "number": 1,
+      "type": "sira-sizde",
+      "prompt": "Kullandığınız programlardan birini düşünerek program, işlem ve iş parçacığı için örnekler vererek aralarındaki farkları söyleyiniz.",
+      "answer": "Bilgisayarınızda kullandığınız programlar, hard diskinizde kayıtlı olan ve yüklenmiş programlardır. Bunlardan herhangi birisini örneğin İnternet tarayıcısını çift tıklayarak açtığınızı düşünelim. Artık ana bellekte çalışır durumda bir işlem olacaktır. İki tarayıcı açtığınızda ise iki ayrı işlem olacaktır. Her bir tarayıcıda birden fazla sayfa açtığınızda her sayfa ise birer iş parçacığı olacaktır.",
+      "explanation": "Bir uygulamanın diskteki programını, çalıştırılınca bellekte oluşan işlemi ve işlem içindeki ayrı işleri örnekleyin.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 62,
+        "bookPage": 55
+      },
+      "answerSource": {
+        "pdfPage": 78,
+        "bookPage": 71
+      }
+    },
+    {
+      "id": "u3-sira-sizde-2",
+      "unit": 3,
+      "number": 2,
+      "type": "sira-sizde",
+      "prompt": "Aşağıdaki köprünün her bir bölümünü bilgisayardaki birer kaynak (örneğin bir bellek alanı veya dosya) olarak düşünelim. Köprü üzerindeki trafiğin tek yönde aktığını düşünürsek, birinci işlem kendi köprü kaynağını kullanırken diğer kaynağı istemekte, yani köprünün diğer bölümüne geçmek istemektedir. Aynı şey karşıdan gelen diğer araba, yani işlem, için de geçerlidir. İşte yaşanan bu durum kilitlenmedir. Bu durumda siz köprü trafik kontrol amiri olsanız kilitlenmeyi nasıl çözerdiniz? İkinci olarak, bu kilitlenmenin yaşanmaması için öncesinde ne tür önlemler alırdınız?",
+      "answer": "Bu tür kilitlenmelerde işletim sistemleri 3 farklı yol izlerler. İlki kilitlenme problemini görmezden gelerek sistemde hiç olmamış gibi davranırlar ki bunu birçok işletim sistemi kullanır. Sorun kendiliğinden çözümlenir. Örneğimizde bu durumda siz trafik kontrol amiri olarak sorunu görmezden gelip çayınızı içmeye devam edersiniz. İşletim sisteminin ikinci izlediği yol ise belirleme ve kurtarmadır. Bunun için paylaşılamayan kaynağı bir işlemden alıp öbürüne verme, kilitlenen işlemi sonlandırma ardından o işlemi baştan başlatma gibi teknikler kullanır. Örneğimizde siz kilitlenmeye neden olan arabaları belirleyerek birini geri çekip diğerine yol vermesini sağlayıp köprüyü sırayla arabalar arasında paylaştırıp yani arabaları belirli bir düzende köprüden geçirip kilitlenmeyi çözebilirsiniz. Üçüncü yol ise işletim sistemi dinamik önlemler alarak kilitlenmeyi önceden engellemeye çalışır. Bunun için kaynakları dikkatli bir şekilde paylaştırma, kaynakların işlemler arası dönüşümlü kullanımı ve sürecin izlenerek düzenlenmesi gibi teknikler kullanır. Trafik kontrol amiri olarak sizin kilitlenmeleri önceden çözmek adına yapacağınız her çözüm bu anlamda birer önlemdir. Ancak dinamik kelimesi aynı zamanda çözüm olsa dahi süreci kontrol edip kilitlenme yaşanması durumu ortaya çıkacağı belirlendiğinde hemen önlem almayı da gerektirir. Bu durumda siz önlemler almış olsanız da köprüdeki trafiği izleyerek kilitlenme oluşturabilecek bir aracı tespit ettiğinizde duruma müdahele ettiğiniz noktada dinamik önlemler almış olmaktasınız.",
+      "explanation": "Kitap üç yaklaşımı açıklar: kilitlenmeyi görmezden gelme, belirleme ve kurtarma, ayrıca önceden veya dinamik olarak önlem alma.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 65,
+        "bookPage": 58
+      },
+      "answerSource": {
+        "pdfPage": 78,
+        "bookPage": 71
+      }
+    },
+    {
+      "id": "u3-sira-sizde-3",
+      "unit": 3,
+      "number": 3,
+      "type": "sira-sizde",
+      "prompt": "Arabanızla bir alışveriş merkezine gittiğinizi ve arabanızı park etmek için kapalı garaja girdiğinizi düşünelim. Bu garajda farklı araba modelleri için farklı boyutlarda yerler ayrılmış olsun. Yukarıdaki 3 bellek yerleşim stratejisine göre arabayı nereye ve nasıl park ederdiniz? En hızlı park edeceğiniz ve en az boş yer bırakarak park edeceğiniz strateji hangisidir?",
+      "answer": "Arabanızı alışveriş merkezinin kapalı garajına park etmek için eğer ilk gördüğünüz ve arabanızın sığacağı yere park ederseniz ilk uyan stratejisini kullanmış olacaksınız. Ancak bulduğunuz bu yer bir kamyon için ayrılmış bir yer de olabilir. Bu durumda sizin arabanız bir kamyon kadar olan yeri işgal edecektir. Eğer tüm garajı gezer ve arabanızın boyutlarına en uygun olanları belirleyerek bunlardan en küçük olanı seçerseniz en iyi uyan stratejisini kullanmış olacaksınız. Burada boş yer kaybı en az olacaktır. Ancak garajın tamamını gezer ve en büyük olan yeri seçip oraya park ederseniz örneğin, bir tırın yerine park ederseniz bu durumda en kötü uyan bellek yerleşim stratejisini seçmiş olacaksınız. Bu stratejilerde görülüğü gibi en hızlı park edebileceğiniz strateji ilk uyan, en az boş yer bırakarak park edeceğiniz ise en iyi uyandır.",
+      "explanation": "İlk uyan yeterli ilk boşluğu seçer; en iyi uyan en küçük uygun boşluğu seçerek artığı azaltır; en kötü uyan en büyük boşluğu seçer.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 70,
+        "bookPage": 63
+      },
+      "answerSource": {
+        "pdfPage": 78,
+        "bookPage": 71
+      }
+    },
+    {
+      "id": "u4-sira-sizde-1",
+      "unit": 4,
+      "number": 1,
+      "type": "sira-sizde",
+      "prompt": "Sanal makineler neden kullanılır?",
+      "answer": "Bilgisayar biliminde, sanal makine, programları gerçek bir bilgisayar sistemindeki gibi çalıştıran yazılım uyarlamasıdır. Yazılımlar üzerlerinde çalıştıkları sanal makinelerin kapasitelerini kullanabilir ve bu makine dışındaki kaynaklara erişemezler. Android işletim sistemindeki Dalvik sanal makinesi bu amaçla kullanılmaktadır. Bunun yanında, sanal makineler sayesinde bir bilgisayar üzerinde birden fazla işletim sistemi aynı anda çalıştırılabilir, kaynak paylaşımı (ör. dosya, ağ) gerçekleştirilebilir. Örneğin, yeni bir işletim sistemini (ör: Ubuntu Linux) denemek için bilgisayarınızın gerçek sabit diski ve donanımı yerine bilgisayar üzerinde kuracağınız bir sanal makineyi kullanabilirsiniz. Bu sayede, bilgisayarınıza hiçbir zarar vermeden bu işletim sistemini kurup, kullanabilirsiniz. Son olarak sanal makinelerin, bilgisayar üzerinde farklı bir donanımı taklit edebilme potansiyeli bulunmaktadır. Örneğin, Android işletim sistemi için mobil uygulama geliştirmek isteyen bir programcı, bilgisayarında sanal bir Android makinesi oluşturabilir. Uygulamasını bu makine üzerinde deneyerek geliştirebilir. Bu sayede, donanım için para harcamak zorunda kalmayacaktır. Silberschatz, A., Galvin, P. B. ve Gagne, G. (2013). Operating system concepts (9. Baskı). Hoboken, NJ: Wiley.",
+      "explanation": "Sanal makineler başka işletim sistemlerini yalıtılmış biçimde denemeye, aynı bilgisayarda birden fazla sistemi çalıştırmaya ve farklı donanımları taklit etmeye yarar.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 83,
+        "bookPage": 76
+      },
+      "answerSource": {
+        "pdfPage": 96,
+        "bookPage": 89
+      }
+    },
+    {
+      "id": "u5-sira-sizde-1",
+      "unit": 5,
+      "number": 1,
+      "type": "sira-sizde",
+      "prompt": "Windows 10 işletim sistemini kurmak için gerekli olan sistem gereksinimlerine https://www.microsof.com/tr-tr/windows/Windows-10-specifications adresinden ulaşabilirsiniz.",
+      "answer": "Windows 10 işletim sistemini kurabilmek için; • İnternet bağlantısı (İnternet servis sağlayıcısı ücreti ödemeniz gerekebilir). • Bir bilgisayar, USB veya harici depolama cihazında indirme için yeterli veri depolama alanı. • Ortam oluşturmak istiyorsanız en az 4 GB’lık boş bir USB veya DVD (ve DVD yazıcı) sahip olmanız gerekmektedir. Windows 10’u yüklemek istediğiniz bilgisayarda şunları denetleyin: • 64 bit veya 32 bit işlemci (CPU). Windows 10’un işlemciniz için uygun olan 64 bit veya 32 bit sürümünü oluşturursunuz. Bilgisayarınızda bunu denetlemek için Bilgisayar Ayarları’ndaki Bilgisayar bilgileri bölümüne veya Denetim Masası’nda Sistem menüsüne gidip Sistem türü’nü bulunuz. Sistem gereksinimleri. Windows 10’u yüklemeden önce sistem gereksinimlerine göz atınız. • Windows 10’u yüklerken aynı dili seçmeniz gerekir. Şu anda kullandığınız dili görmek için Bilgisayar ayarlarından Zaman ve dil veya Denetim Masası’nda Bölge menüsüne gidiniz. • Windows sürümü. Windows’un aynı sürümünü de seçmeniz gerekir. Şu anda hangi sürümü kullandığınızı denetlemek için Bilgisayar ayarlarından Bilgisayar bilgileri bölümüne veya Denetim Masası’nda Sistem menüsüne gidip Windows sürümüne göz atınız. Windows 10 Enterprise burada kullanılamaz. Daha fazla bilgi için Toplu Lisanslama Hizmeti Merkezi sayfasına göz atın. • Microsoft Office ürünleri. Office 365’i içeren yeni bir cihaz satın aldıysanız Windows 10’u yüklemeden önce Oﬀice’i kullanmanızı (yüklemenizi) öneririz. Oﬀice kopyanızı istemek için bkz. Oﬀice 365 Ev, Bireysel veya Üniversite’yi bilgisayarınıza indirip yükleyin. Daha fazla bilgi için bkz. Oﬀice 365 içeren yeni cihazlarda Windows 10’a yükseltme. • Office 2010 veya önceki bir sürümü yüklüyse ve Windows 10’u sıfırdan yüklemek istiyorsanız Oﬀice ürün anahtarınızı bulmanız gerekir. Ürün anahtarınızı bulma ipuçları için bkz. Oﬀice 2010 ürün anahtarınızı bulma veya Oﬀice 2007 programınızın ürün anahtarını giriniz.",
+      "explanation": "Kitaptaki yanıt; kurulum medyası, ağ/depolama gereksinimleri, işlemci türü ve dil/sürüm seçimini dönemin Windows 10 anlatımına göre sıralıyor.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 103,
+        "bookPage": 96
+      },
+      "answerSource": {
+        "pdfPage": 127,
+        "bookPage": 120
+      }
+    },
+    {
+      "id": "u5-sira-sizde-2",
+      "unit": 5,
+      "number": 2,
+      "type": "sira-sizde",
+      "prompt": "MAC OS X EL Capitan işletim sistemini kullanmak için gereken sistem gereksinimlerine https://support.apple.com/tr-tr/HT201475 adresinden erişiniz.",
+      "answer": "OS X El Capitan, aşağıdaki Mac modellerinden ve OS X sürümlerinden birini gerektirir. Ayrıca en az 2 GB belleğiniz ve 8,8 GB saklama alanınız olmalıdır. • iMac (2007 Ortası veya daha yeni modeli) • MacBook (2008 Sonu Alüminyum, 2009 Başı veya daha yeni modeli) • MacBook Pro (2007 Ortası veya daha yeni modeli) • MacBook Air (2008 Sonu veya daha yeni bir sürüm) • Mac mini (2009 Başı veya daha yeni modeli) • Mac Pro (2008 Başı veya daha yeni modeli) • Xserve (2009 Başı) • OS X Yosemite 10.10 • OS X Mavericks 10.9 • OS X Mountain Lion 10.8 • OS X Lion 10.7 • Mac OS X Snow Leopard 10.6.8",
+      "explanation": "Kitabın yanıtı El Capitan ile uyumlu Mac modellerini, önceki OS X sürümlerini, bellek ve saklama alanı gereksinimlerini listeliyor.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 111,
+        "bookPage": 104
+      },
+      "answerSource": {
+        "pdfPage": 127,
+        "bookPage": 120
+      }
+    },
+    {
+      "id": "u5-sira-sizde-3",
+      "unit": 5,
+      "number": 3,
+      "type": "sira-sizde",
+      "prompt": "Ubuntu’nun masaüstü, sunucu ve diğer sürümlerinin güncel sistem gereksinimi bilgilerini Ubuntu’nun web sitesindeki Sistem gereksinimleri https://help.ubuntu.com/community/Installation/SystemRequirements/ adresinden öğrenebilirsiniz.",
+      "answer": "Ubuntu’nun en son sürümü resmî olarak Intel x86 ve AMD64 mimarilerinde Masaüstü (desktop) çeşidiyle; Intel x86, AMD64 ve SPARC mimarilerinde ise Sunucu (server) çeşidiyle yayımlanır. Gerekli minimum sistem gereksinimlerini karşılayamayan eski bilgisayarlar için, resmî olarak tanınan Ubuntu türevlerinden Xubuntu ya da Lubuntu kullanılabilir. Bu türevleri, hafif bir masaüstü ortamı ile geldiklerinden dolayı epey düşük sistem kaynağı tüketirler. Ubuntu Masaüstü Versiyonuna yönelik sistem gereksinimleri şunlardır: • 700 MHz işlemci • 512 MiB RAM (sistem bellek) • 5 GB of hard-disk boşluğu • 1024x768 ekran çözünürlüğü • CD/DVD sürücü veya USB port • İnternet erişimi Ubuntu’nun masaüstü, sunucu ve diğer sürümlerinin güncel sistem gereksinimi bilgileri Ubuntu’nun web sitesindeki System Requirements sayfasından öğrenilebilir.",
+      "explanation": "Kitap, kendi dönemindeki Ubuntu masaüstü için 700 MHz işlemci, 512 MiB RAM, 5 GB disk alanı, 1024×768 ekran, CD/DVD veya USB ve İnternet erişimi bilgilerini verir.",
+      "source": {
+        "title": "İşletim Sistemleri",
+        "pdfPage": 116,
+        "bookPage": 109
+      },
+      "answerSource": {
+        "pdfPage": 128,
+        "bookPage": 121
+      }
+    }
+  ]
+}

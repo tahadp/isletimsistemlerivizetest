@@ -55,7 +55,7 @@
         "A"
       ],
       "bookAnswer": "A",
-      "explanation": "Von Neumann, veri ve programın bellekte tutulduğu bilgisayar iç mimarisidir; işletim sistemi türü değildir.",
+      "explanation": "Von Neumann mimarisi bilgisayarın iç yapısını ve temel birimlerinin çalışma ilişkisini anlatır. Bellek program yönergelerini ve verileri tutar; işletim sistemi ise bu donanım ve yazılım kaynaklarını yönetir. Bu nedenle mimari bir işletim sistemi türü değildir.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 31,
@@ -94,7 +94,7 @@
         "B"
       ],
       "bookAnswer": "B",
-      "explanation": "İşletim sistemi bir program/sistem yazılımıdır; çevre aygıtlarını kontrol eden tek bir dosya olarak tanımlanamaz.",
+      "explanation": "İşletim sistemi bir program ve sistem yazılımıdır; uygulamaların çalışmasını, donanım kaynaklarının denetlenmesini ve kullanıcıya uygun çalışma ortamı sunulmasını sağlar. Çevre aygıtlarını yöneten tek bir dosya değildir; aygıt yönetimi işletim sisteminin birçok bileşeniyle yerine getirilir.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 31,
@@ -133,7 +133,7 @@
         "C"
       ],
       "bookAnswer": "C",
-      "explanation": "Kullanıcı uygulamayı; uygulama işletim sisteminin hizmetlerini; işletim sistemi donanımı kullanır.",
+      "explanation": "Etkileşim zincirinde kullanıcı bir uygulamayı kullanır, uygulama işletim sistemi hizmetlerine başvurur, işletim sistemi de donanımla iletişim kurar. Bu sıralama kullanıcıdan donanıma doğru ilerler; işletim sistemi uygulama ile donanım arasındaki yönetici katmandır.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 31,
@@ -172,7 +172,7 @@
         "D"
       ],
       "bookAnswer": "D",
-      "explanation": "Kitap ilk transistörü 1947 ve Bell Laboratuvarları ile eşleştirir.",
+      "explanation": "Kitap, ilk transistörün 1947’de Bell Laboratuvarlarında geliştirildiğini belirtir. Bu tarih işletim sistemlerinin ilk nesil döneminin sonuna, transistörlerin yaygınlaştığı ikinci neslin başlangıcına denk gelir.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 31,
@@ -211,7 +211,7 @@
         "E"
       ],
       "bookAnswer": "E",
-      "explanation": "Monitör programının işleri otomatik arka arkaya yürütmesi toplu/yığın işlemdir. Çoklu programlama, birden fazla işin bellekte tutulması ve CPU paylaşımıdır.",
+      "explanation": "Monitör programı işleri sıraya alıp bir iş tamamlandıktan sonra diğerini otomatik olarak başlatır; bu çalışma toplu/yığın işlemdir. Çoklu programlamada ise birden fazla iş bellekte tutulur ve işlemci bunlar arasında çalışır; bu iki kavram aynı değildir.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 31,
@@ -250,7 +250,7 @@
         "B"
       ],
       "bookAnswer": "B",
-      "explanation": "Üçüncü neslin temel donanım geçişi transistörden entegre devreyedir. Mesleki ayrışma ve büyük bütçeli müşteriler ikinci nesil bağlamındadır.",
+      "explanation": "Kitabın dönemlendirmesinde üçüncü nesil 1965–1979 aralığıdır ve entegre devrelerin transistörlerin yerini almasıyla tanımlanır. Çoklu programlama da bu dönemin gelişmelerindendir; karttan okutma ve büyük kurumların ilk bilgisayarları daha önceki dönemlerle ilgilidir.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 31,
@@ -291,13 +291,13 @@
         "D"
       ],
       "bookAnswer": "C",
-      "explanation": "KAYNAK ANAHTARI HATASI: Kitap anahtarı c der; fakat c seçeneği III. nesildir ve b ile aynıdır. Ana metin kişisel bilgisayar çağını IV. nesil (1980-2014) diye açıklar. İçeriğe göre doğru seçenek d'dir. Kaynak seçenekleri değiştirilmemiştir.",
+      "explanation": "Kitabın ana metni kişisel bilgisayar dönemini IV. nesil (1980–2014) olarak sınıflandırır. Yanıt anahtarının gösterdiği III. nesil, seçeneklerde iki kez yazılmıştır; dolayısıyla soru ve anahtar kendi içinde çelişir. Konu anlatımındaki bilgiye göre kişisel bilgisayar dönemi IV. nesildir.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 31,
         "bookPage": 24
       },
-      "conflictNote": "Bu kaynak hatalıdır. Kitap anahtarı C, konu anlatımına göre doğru cevap D (IV. nesil) olarak verilmiştir. B ile C aynı seçenek metnini içerir. Puanlamada kaynak hatasından etkilenmemen için B, C ve D kabul edilir; öğrenilmesi gereken bilgi kişisel bilgisayar çağının IV. nesilde başlamasıdır. Kitap: basılı s. 22; PDF s. 29."
+      "conflictNote": "Kaynakta hata var: kitap cevap anahtarı III. nesil ifadesini işaretliyor; konu anlatımı kişisel bilgisayar çağını IV. nesilde başlatıyor. III. nesil aynı metinle iki kez basılmış. Bu nedenle iki tekrarın yanı sıra IV. nesil seçeneği de kabul edilir. Kitap: basılı s. 22; PDF s. 29."
     },
     {
       "id": "u1-test-8",
@@ -331,7 +331,7 @@
         "D"
       ],
       "bookAnswer": "D",
-      "explanation": "Üst sınıflama sistem kaynakları + yapı/bileşenler + işlevlerdir. IRQ/DMA/GÇ ise bunun içindeki sistem kaynakları alt grubudur.",
+      "explanation": "Kitap işletim sisteminin temellerini üç başlıkta toplar: sistem kaynakları, yapı ve bileşenler, işlevler. IRQ, DMA ve G/Ç adresleri sistem kaynaklarının alt örnekleridir; temellerin tamamını tek başlarına oluşturmazlar.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 31,
@@ -370,7 +370,7 @@
         "A"
       ],
       "bookAnswer": "A",
-      "explanation": "Görev yönetimi çalışan görevleri ve ortak kaynak kullanımını düzenler; güvenlik politikası veya dosya saklama farklı başlıklardır.",
+      "explanation": "Görev yönetimi görevlerin oluşturulması, durdurulması ve yeniden başlatılmasını; zamanlamayı ve görevler arası iletişimi düzenler. Bu kapsamda kaynakların görevler arasında ortak kullanımını denetler; kaynak güvenliği, muhasebesi ve dosyada saklanması ayrı yönetim başlıklarıdır.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 31,
@@ -409,7 +409,7 @@
         "E"
       ],
       "bookAnswer": "E",
-      "explanation": "Ünitenin dört temel işlev listesi donanım kontrolü, yardımcı program desteği, uygulama yönetimi ve dosya/klasör yönetimidir. Kütük yönetimi gerçek sorumluluk olsa da bu listede ayrı beşinci başlık değildir.",
+      "explanation": "Ünitenin dört temel işlevi dosya ve klasör yönetimi, uygulama yönetimi, yardımcı program desteği ve donanım kontrolüdür. Kütük yönetimi işletim sisteminin bileşenlerinden biridir; ancak kitap bu dört temel işlev listesinde onu ayrı bir başlık olarak vermez.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 31,
@@ -449,13 +449,13 @@
         "E"
       ],
       "bookAnswer": "A",
-      "explanation": "Kitabın mikroişlemci tanımı, elektronik işlemleri yürüten çekirdek ile anakarta bağlantıyı sağlayan dış yüzeyi birlikte içerir.",
+      "explanation": "Mikroişlemcinin işlemci çekirdeğinde işlemleri yürüten elektronik devreler bulunur; dış yüzey çekirdeğin anakarta bağlanmasını sağlar. Kabul edilen iki ifade de çekirdek ve yüzey yapısını tarif eder: biri bağlantı görevini açıkça belirtir, diğeri bu görevi yanlışlamadan yüzey bilgisini verir. Kitabın yanıt anahtarı bağlantı görevini açıkça söyleyen ifadeyi seçer.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 55,
         "bookPage": 48
       },
-      "conflictNote": "Kitap anahtarı A. E seçeneği aynı çekirdek ve bağlantı yüzeyi tanımını yalnız dış sözcüğünü kullanmadan verir; yanlış bir özellik eklemez. Bu nedenle A ve E tam doğru kabul edilir. Kitap: basılı s. 29; PDF s. 36."
+      "conflictNote": "Kitap anahtarı çekirdek ve dış yüzeyi birlikte tanımlayan ifadeyi işaretliyor. Dış sözcüğü kullanılmasa da aynı çekirdek ve bağlantı yüzeyi tanımı başka bir seçenekte de bulunuyor. Bu nedenle iki seçenek kabul edilir. Kitap: basılı s. 29; PDF s. 36."
     },
     {
       "id": "u2-test-2",
@@ -489,7 +489,7 @@
         "B"
       ],
       "bookAnswer": "B",
-      "explanation": "Bu ünitenin dörtlü sınıflaması monolitik, mikro, ekzo ve hibrittir. Makro çekirdek bu listede yoktur.",
+      "explanation": "Kitap çekirdek mimarilerini tek parça (monolitik), mikro, ekzo ve hibrit olarak sıralar. Makro çekirdek bu sınıflamada yer almaz; diğer adlandırmalar listelenen dört yaklaşıma karşılık gelir.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 55,
@@ -528,7 +528,7 @@
         "C"
       ],
       "bookAnswer": "C",
-      "explanation": "Monolitik çekirdek çok sayıda temel hizmeti aynı çekirdek alanında taşır. “Küçük bir mikroçekirdeği vardır” başka bir mimarinin tanımıdır; modüler olabilmesi monolitikliği bozmaz.",
+      "explanation": "Monolitik çekirdekte işletim sisteminin önemli hizmetleri çekirdek içinde çalışır. Küçük bir çekirdek bırakıp diğer hizmetleri dışarı çıkarma yaklaşımı mikro çekirdeğin özelliğidir; bu nedenle küçük mikro çekirdeği olması monolitik yapıyı tanımlamaz.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 55,
@@ -567,7 +567,7 @@
         "D"
       ],
       "bookAnswer": "D",
-      "explanation": "Kitap MIT Parallel ve Distributed Operating Systems Group'u ekzo çekirdek geliştirme çalışmasıyla ilişkilendirir.",
+      "explanation": "Kitap, MIT Parallel and Distributed Operating Systems Group’un ekzo çekirdek geliştirdiğini belirtir. Ekzo çekirdek donanıma düşük düzeyde erişim sunar ve kaynakları güvenli biçimde uygulamalara açar; mikro çekirdekten farklı bir tasarım yaklaşımıdır.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 55,
@@ -606,7 +606,7 @@
         "E"
       ],
       "bookAnswer": "E",
-      "explanation": "Kalıcı ve salt okunur genel bellek tanımı ROM'dur. RAM/önbellek güç kaybında veriyi korumaz; PROM ise programlanabilir özel türdür.",
+      "explanation": "ROM, programların kalıcı biçimde tutulduğu ve normal çalışma sırasında yalnızca okunabilen bellek türüdür. RAM çalışırken okunup yazılır ve güç kesilince içeriği kaybolur; PROM ise üretimden sonra bir kez programlanabilen özel ROM türüdür.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 55,
@@ -645,13 +645,13 @@
         "A"
       ],
       "bookAnswer": "A",
-      "explanation": "KAYNAK TERİM KARIŞIKLIĞI: Kitap anahtarı a/EPROM verir. Aynı kitabın kenar tanımı ve elektrikle yazma-silme açıklaması bu tanımı EEPROM için kullanır; EPROM UV ile silinir. EEPROM seçeneklerde yoktur. Sınav anahtarını a olarak bil; teknik karşılığın EEPROM olduğunu ayrı öğren.",
+      "explanation": "Kitabın yanıt anahtarı EPROM terimini verir. Ancak kitapta küçük veriyi kalıcı saklama ve elektrikle yazıp silme şeklinde açıklanan yonga EEPROM’dur; EPROM ise morötesi ışıkla silinir. EEPROM seçeneklerde bulunmadığından soru terim bakımından çelişkilidir.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 55,
         "bookPage": 48
       },
-      "conflictNote": "Kitap anahtarı A (EPROM) olarak korunmuştur. Kitabın kenar tanımında ve elektrikle silme açıklamasında teknik karşılık EEPROM olur; EEPROM seçeneklerde bulunmuyor. Yeni seçenek eklenmedi. Bu terim çelişkisi nedeniyle kaynak anahtarıyla puanlanır. Kitap: basılı s. 29; PDF s. 36."
+      "conflictNote": "Kitap cevap anahtarı EPROM’u işaretliyor. Kitabın elektrikle silme açıklamasındaki teknik karşılık ise EEPROM’dur; EEPROM seçeneklerde yok. Bu terim çelişkisi nedeniyle puanlama kaynak anahtarına göre yapılır. Kitap: basılı s. 29; PDF s. 36."
     },
     {
       "id": "u2-test-7",
@@ -685,7 +685,7 @@
         "B"
       ],
       "bookAnswer": "B",
-      "explanation": "Flash, kitabın karşılaştırmasında EEPROM'un bloklar hâlinde işlem yapan özel uygulamasıdır.",
+      "explanation": "Flash bellek, EEPROM’un bloklar hâlinde silme ve yazma işlemi yapan özel bir uygulaması olarak açıklanır. EPROM’dan farklı olarak silme işlemi elektrikle yapılabilir; bu nedenle özel uygulama olarak Flash bellek eşleşir.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 55,
@@ -724,7 +724,7 @@
         "C"
       ],
       "bookAnswer": "C",
-      "explanation": "Kitabın tarih bilgisine göre ilk akıllı kart Fransa'da geliştirilmiştir (Michel Ugon/1979).",
+      "explanation": "Kitap akıllı kart işletim sistemlerinin ilk olarak Fransa’da geliştirildiğini belirtir. Bu soruda diğer seçeneklerdeki ülkeler, kaynağın verdiği başlangıç yeri değildir.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 55,
@@ -763,7 +763,7 @@
         "D"
       ],
       "bookAnswer": "D",
-      "explanation": "Kullanıcının birden fazla işlemi aynı anda ilerletebilmesi çoklu görevdir. Çoklu CPU, çoklu kullanıcı ve dağıtıklık başka ölçütlerdir.",
+      "explanation": "Çoklu görev işletim sistemleri kullanıcının birden fazla işlemi eş zamanlı olarak ilerletmesini sağlar. Çoklu işlemci işlemci sayısını, çoklu kullanıcı kullanıcı sayısını, dağıtık sistem ise birden fazla bilgisayarın birlikte çalışmasını anlatır.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 55,
@@ -802,7 +802,7 @@
         "E"
       ],
       "bookAnswer": "E",
-      "explanation": "TV ve beyaz eşya gibi özel amaçlı aygıtlar gömülü sistem örneğidir; güç/bellek/boyut sınırlamaları tipiktir.",
+      "explanation": "Gömülü işletim sistemleri belirli bir aygıtın içinde, o aygıtın sınırlı ve özel işlevlerini yürütmek üzere kullanılır. Televizyon, mikrodalga fırın ve çamaşır makinesi gibi ürünler bu tür sistemlere örnektir.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 55,
@@ -841,7 +841,7 @@
         "C"
       ],
       "bookAnswer": "C",
-      "explanation": "Masaüstü görünümünü değiştirme bu bölümde sayılan temel zorunlu hizmetlerden değildir. Kaynak b ve e seçeneklerinde “Program çalıştırma” ifadesini tekrarlar; bu tekrar korunmuştur.",
+      "explanation": "Kitap işletim sistemi işlevleri arasında program çalıştırmayı, G/Ç işlemlerini, dosya sistemini işletmeyi, sistemler arası iletişimi ve hata tespitini sayar. Masaüstü görünümünü değiştirme bu temel işlevler listesinde yer almaz. Soruda program çalıştırma ifadesinin iki kez geçmesi seçeneklerdeki tekrar hatasıdır; içerik bakımından beklenen ayrım değişmez.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 77,
@@ -880,7 +880,7 @@
         "B"
       ],
       "bookAnswer": "B",
-      "explanation": "Aygıt sürücüsü, donanıma özgü aygıt bağımlı birimdir. Aygıt bağımsız bölüm ortak hizmeti sunar.",
+      "explanation": "Aygıt sürücüsü belirli donanıma özgü kod içerdiği için aygıt bağımlı birimdir. Aygıt bağımsız birim ortak G/Ç isteklerini ilgili sürücüye iletir; ekran kartıyla doğrudan iletişim kuran sürücü ise bağımlı kısımdır.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 77,
@@ -919,7 +919,7 @@
         "D"
       ],
       "bookAnswer": "D",
-      "explanation": "Kitabın sınıflamasına göre d: modem yalnız girdi değildir, veri alır ve gönderir. Kitap web kamerasını çift yönlü grupta gösterir; pratikte kamera veri yakalama bakımından girdi olarak sınıflanabilir. Özgün sorunun beklenen anahtarı d'dir.",
+      "explanation": "Kitabın sınıflamasında modem hem veri alır hem gönderir; bu yüzden onu yalnızca girdi aygıtı saymak yanlıştır. Fare yalnız girdi, ekran ve yazıcı yalnız çıktı örnekleridir. Kitap web kamerasını da hem giriş hem çıkış grubunda sayar; açıklama bu kaynak sınıflamasını izler.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 77,
@@ -958,7 +958,7 @@
         "C"
       ],
       "bookAnswer": "C",
-      "explanation": "Çalışan işlem G/Ç isterse, olayın bitmesini beklediği için beklemede/bloke duruma geçer. G/Ç tamamlandığında hazır olur.",
+      "explanation": "İşlem çalışırken G/Ç isteği gönderirse işlemci işini bekletip isteği yürütür; işlem G/Ç tamamlanana kadar bekleyen duruma geçer. İstek bittiğinde yeniden çalıştırılmak üzere hazır kuyruğuna alınabilir.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 77,
@@ -997,7 +997,7 @@
         "B"
       ],
       "bookAnswer": "B",
-      "explanation": "Kitap programın çalışan örneğini işlem, örnekteki alt işi iş parçacığı diye açıklar. Soru italik/kalın ifadelerini karıştırır; program-işlem-thread ayrımı değişmez.",
+      "explanation": "Programın ana belleğe alınarak çalışan örneği bir işlemdir; bu örneğin içindeki daha küçük çalışma birimi bir iş parçacığıdır. Dosyayı açan kelime işlem programı işlem, metin biçimini değiştirme ise iş parçacığı düzeyindeki iştir. Soru açıklamasında italik ve kalın ifadeleri farklı geçtiğinden burada kitap anahtarındaki süreç/iş parçacığı ayrımı esas alınır.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 77,
@@ -1036,7 +1036,7 @@
         "A"
       ],
       "bookAnswer": "A",
-      "explanation": "1 + 5 signal - 6 başarılı wait = 0. Sıfıra ulaşınca bu modelde sonraki wait bekletir.",
+      "explanation": "Kitaba göre sinyal semafor değerini bir artırır, bekle işlemi bir azaltır. Başlangıçtaki 1’e beş sinyal eklenince değer 6 olur; ardından altı bekle değeri 0’a indirir. Semafor 0 iken yeni bir bekle isteği işlemi bekletir.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 77,
@@ -1075,7 +1075,7 @@
         "E"
       ],
       "bookAnswer": "E",
-      "explanation": "Bölümleme ve sayfalama birlikte kullanılabilir. Diğer seçenekler taban, çerçeve, sabit sayfa ve değişken bölüm tanımlarını doğru verir.",
+      "explanation": "Sayfalamada mantıksal bellek sabit uzunlukta sayfalara, fiziksel bellek eşit uzunlukta çerçevelere ayrılır; bölümleme değişken uzunluklu bölümler kullanır. Bu yöntemler birlikte kullanılabilir. Dolayısıyla “birlikte kullanılamaz” ifadesi yanlıştır.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 77,
@@ -1114,7 +1114,7 @@
         "D"
       ],
       "bookAnswer": "D",
-      "explanation": "En büyük boşluk 60 KB'dır; tüm alanları tarayıp bunu seçmek worst-fit/en kötü uyandır. İlk ve en iyi uyan, 24 KB'lık ilk alana sığardı.",
+      "explanation": "En kötü uyan stratejisi tüm boş alanları tarar ve yeterli olanların en büyüğünü seçer; soruda 4 numaralı alan bu koşula karşılık gelir. İlk uyan ilk yeterli alanı, en iyi uyan ise yeterli alanlardan en küçüğünü seçer.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 77,
@@ -1153,7 +1153,7 @@
         "A"
       ],
       "bookAnswer": "A",
-      "explanation": "UFS, kitabın tablosunda UNIX/BSD/Solaris ailesidir. Windows için FAT, NTFS ve ReFS verilir.",
+      "explanation": "Kitabın tablosunda Windows için FAT, NTFS ve ReFS; Mac OS için HFS+; Linux için Ext ailesi; Unix için UFS verilir. Bu nedenle Windows–UFS eşleştirmesi yanlıştır; UFS Unix, BSD ve Solaris ile ilişkilendirilir.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 77,
@@ -1192,7 +1192,7 @@
         "E"
       ],
       "bookAnswer": "E",
-      "explanation": "EXT2 Linux ailesi örneğidir; verilen diğer dört sistem Windows tablosunda bulunur.",
+      "explanation": "Kitabın dosya sistemi tablosunda Windows için FAT türleri, NTFS ve ReFS yer alır. EXT2 ise Linux ailesindeki dosya sistemidir; bu yüzden Windows’un kullandığı seçeneklerden değildir.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 77,
@@ -1231,7 +1231,7 @@
         "A"
       ],
       "bookAnswer": "A",
-      "explanation": "Bellek, kontrol, ALU, veri yolu ve G/Ç mimarinin donanım bileşenleridir. Grafik arayüz işletim sistemi/kullanıcı etkileşimi düzeyindedir.",
+      "explanation": "Von Neumann mimarisinde bellek, kontrol birimi, aritmetik-mantık birimi ve veri yolu gibi bilgisayarın iç donanım birimleri ele alınır. Grafik arayüz ise kullanıcı ile işletim sisteminin etkileşim biçimidir; temel donanım birimi değildir.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 95,
@@ -1270,7 +1270,7 @@
         "E"
       ],
       "bookAnswer": "E",
-      "explanation": "Veri ve yönergelerin taşınmasını ve yürütme sırasını kontrol birimi düzenler. ALU aritmetik/mantık hesabını yapar.",
+      "explanation": "Kontrol birimi yönergelerin bellekten alınması ve yürütülme sırasının denetlenmesinden sorumludur. Aritmetik-mantık birimi hesaplama ve mantıksal işlemleri yapar; veri yolu ise birimler arasında veri taşır.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 95,
@@ -1309,7 +1309,7 @@
         "A"
       ],
       "bookAnswer": "A",
-      "explanation": "Çalışma yetkisini göstermek için mod biti kontrol edilir. Kitap 0 çekirdek, 1 kullanıcı gösterimini kullanır.",
+      "explanation": "İşlemcideki mod biti, o anda yürütülen kodun kullanıcı ya da çekirdek yetkisiyle çalıştığını gösterir. Kitabın kullandığı gösterimde 0 çekirdek modunu, 1 kullanıcı modunu belirtir; sistem çağrısı gerektiğinde kontrol çekirdek moduna geçer.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 95,
@@ -1348,7 +1348,7 @@
         "B"
       ],
       "bookAnswer": "B",
-      "explanation": "Olayı bildirip CPU'nun ilgisini isteyen sinyal kesmedir. Trap, yazılım hatası veya hizmet isteği bağlamında ayrı açıklanır.",
+      "explanation": "Kesme, donanımın veya yazılımın bir olayı işlemciye bildirip dikkat istemesini sağlayan sinyaldir. İşlemci olağan yürütümü geçici olarak durdurup kesme işleyicisini çalıştırabilir; bu tanım bir bit ya da yönergeyi anlatmaz.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 95,
@@ -1387,7 +1387,7 @@
         "D"
       ],
       "bookAnswer": "D",
-      "explanation": "MS-DOS kaynakta basit yapılı sistem örneğidir; sınırlı modülerlik ve koruma sorunları anlatılır.",
+      "explanation": "MS-DOS, kitapta basit yapılı işletim sistemi örneği olarak verilir. Bu yaklaşımda birçok işlev çekirdekte toplanır; yüksek performans sağlayabilse de tasarım ve bakım güçlüğü gibi sakıncaları vardır.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 95,
@@ -1426,7 +1426,7 @@
         "B"
       ],
       "bookAnswer": "B",
-      "explanation": "Kitabın tarihsel mikro çekirdek örneği Mach'tir.",
+      "explanation": "Kitap, mikro çekirdek yaklaşımıyla geliştirilen ilk işletim sistemi olarak seksenli yılların ortalarında geliştirilen Mach’ı gösterir. Mikro çekirdek yalnız yürütme için gerekli temel işlevleri çekirdekte tutar, diğer hizmetleri ayrı süreçlerde çalıştırır.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 95,
@@ -1465,7 +1465,7 @@
         "C"
       ],
       "bookAnswer": "C",
-      "explanation": "Mesajlaşma, bu ünitenin beş katman listesinde ayrı katman değildir; mikro çekirdeğin hizmetler arası iletişim mekanizmasıdır.",
+      "explanation": "Kitabın örnek katmanları kullanıcı arayüzü, dosya yönetim sistemi, G/Ç sistemi, bellek yönetimi ve çekirdektir. Mesajlaşma, mikro çekirdekli sistemde hizmetlerin iletişim mekanizmasıdır; bu beşli listede ayrı bir katman değildir.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 95,
@@ -1504,7 +1504,7 @@
         "C"
       ],
       "bookAnswer": "C",
-      "explanation": "Hizmetler arası isteklerin çekirdek mesajlaşması ve alan geçişleri üzerinden yürütülmesi ek sistem yükü doğurur.",
+      "explanation": "Mikro çekirdekte dosya sistemi gibi hizmetler çekirdek dışında çalışır ve çekirdekle mesajlaşarak istek iletir. Bu mesajlaşma ve geçişler ek işlem yükü yarattığı için performansı düşürebilir; küçük çekirdeğin düzenlenebilir olması ise avantajdır.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 95,
@@ -1543,7 +1543,7 @@
         "D"
       ],
       "bookAnswer": "D",
-      "explanation": "Kaynağın beklediği modül yorumlayıcıdır: dosya biçimini tanıyıp uygun yürütme yolunu sağlar. Kaynaktaki uzantı örnekleri farklı türler içerebilir.",
+      "explanation": "Yorumlayıcılar, işletim sisteminin yürütebildiği dosya biçimlerini tanıyan ve programları çalıştırmaya yarayan modüllerdir. Kitap Windows için .exe ve Linux için .sh gibi biçim örnekleri verir; bellek, süreç ve G/Ç yönetimi bu dosya biçimlerini belirlemez.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 95,
@@ -1582,7 +1582,7 @@
         "E"
       ],
       "bookAnswer": "E",
-      "explanation": "Kitap Android yürütme ortamında Dalvik'i temel bileşen olarak açıklar. Bu sürüm döneminin anlatımıdır.",
+      "explanation": "Dalvik, kitapta Android işletim sisteminin uygulamalarını çalıştırdığı sanal makine olarak açıklanır. Sanal makine uygulamalara bir çalışma ortamı sunar; bu nedenle Android ile eşleşir.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 95,
@@ -1621,7 +1621,7 @@
         "B"
       ],
       "bookAnswer": "B",
-      "explanation": "Mac OS X ürün bütünü kapalı kaynak sınıfındadır; Darwin gibi açık bileşenler içermesi bu genel sınıflamayı değiştirmez. Diğer seçenekler açık kaynak aile/dağıtım örnekleridir.",
+      "explanation": "Kitap Mac OS X’i kapalı kaynak işletim sistemi örneği olarak sınıflandırır; kaynak kodu bütünü kullanıcılara açık değildir. Ubuntu, Linux, Pardus ve Debian ise açık kaynak örnekleri olarak listelenir.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 126,
@@ -1660,7 +1660,7 @@
         "D"
       ],
       "bookAnswer": "D",
-      "explanation": "Kaynağın kişisel bilgisayar/masaüstü bağlamındaki cevabı Windows'tur. Soru tüm aygıt türlerine ve her tarihe genellenmemelidir.",
+      "explanation": "Kitabın bu sorudaki kapsamı kişisel bilgisayar işletim sistemleridir; seçenekler Windows, Mac OS ve Linux dağıtımlarını karşılaştırır. Bu kapsamda kitap Windows’u en yaygın seçenek olarak verir; soru bunu her aygıt ve dönem için evrensel bir oran olarak söylemez.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 126,
@@ -1700,13 +1700,13 @@
         "D"
       ],
       "bookAnswer": "A",
-      "explanation": "KAYNAK TARİH ÇELİŞKİSİ: Anahtar a/1982 der. Aynı ünitenin ana metni ve özeti 1982'yi duyuru, 1985'i ilk piyasaya çıkış olarak ayırır. Soru “piyasaya girmiştir” dediğinden içeriğe göre d/1985 doğrudur. Kitabın verdiği anahtar ayrıca korunmuştur.",
+      "explanation": "Kitabın anlatımında 1982 Windows’un duyurulduğu, geliştirme sürecinden sonra 1985’te ilk kez piyasaya sürüldüğü yıldır. Soru piyasaya çıkış yılını sorar; cevap anahtarında 1982 yazdığı için kitap içi çelişki vardır. 1985, anlatıdaki piyasaya sürülme bilgisine karşılık gelir.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 126,
         "bookPage": 119
       },
-      "conflictNote": "Kitap anahtarı A (1982); aynı kitabın anlatımında 1982 duyuru, 1985 piyasaya çıkış yılıdır. Soru piyasaya girişi sorduğu için içerik cevabı D (1985). Kaynak hatasından etkilenmemen için A ve D kabul edilir. Kitap: basılı s. 92; PDF s. 99."
+      "conflictNote": "Kitap cevap anahtarı 1982 yılını işaretliyor; aynı kitabın anlatımında 1982 duyuru, 1985 piyasaya çıkış yılıdır. Soru piyasaya çıkışı sorduğu için her iki yıl kabul edilir. Kitap: basılı s. 92; PDF s. 99."
     },
     {
       "id": "u5-test-4",
@@ -1740,7 +1740,7 @@
         "D"
       ],
       "bookAnswer": "D",
-      "explanation": "Windows kapalı kaynak bir Microsoft ürünüdür; GNU lisansı ona ait bir özellik değildir. Diğer seçenekler kitabın Windows 10 özellikleri arasındadır.",
+      "explanation": "Windows 10, kitapta Microsoft’un ürünü ve kapalı kaynak sistem olarak anlatılır; GNU lisansına sahip değildir. Dokunmatik kullanıma uygunluk, farklı platformlarla çalışma ve birden fazla pencereyi kullanma ise verilen özellikler arasındadır.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 126,
@@ -1779,7 +1779,7 @@
         "C"
       ],
       "bookAnswer": "C",
-      "explanation": "Windows 10'da Başlat menüsünün geri gelmesi, Windows 8'in başlangıç ekranına göre öne çıkan farktır.",
+      "explanation": "Windows 8 başlangıçta Başlat ekranını öne çıkarırken Windows 10 Başlat menüsünü geri getirmiştir. İlk açılışta görülen temel fark bu menü düzenidir; dosya gezgini ya da ağ ayarları değildir.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 126,
@@ -1818,7 +1818,7 @@
         "E"
       ],
       "bookAnswer": "E",
-      "explanation": "Kitaptaki Windows 10 ile gelen tarayıcı Microsoft Edge'dir.",
+      "explanation": "Kitap Windows 10 ile birlikte gelen yerleşik web tarayıcısını Microsoft Edge olarak adlandırır. Explorer başka bir Microsoft tarayıcısının adıdır; Safari, Chrome ve Firefox ise diğer seçeneklerdir.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 126,
@@ -1857,7 +1857,7 @@
         "C"
       ],
       "bookAnswer": "C",
-      "explanation": "İlk Macintosh/Mac OS 1984; OS X 10.0 ise 2001'dir. Soru ilk Mac OS'u sorar.",
+      "explanation": "Kitabın tarihçesine göre Macintosh bilgisayarlar için geliştirilen ilk Mac OS sürümü Apple tarafından 1984’te sunulmuştur. Mac OS X adı ise daha sonraki seriyi ifade eder; kitap OS X 10.0’ın 2001’de çıktığını ayrıca belirtir.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 126,
@@ -1896,7 +1896,7 @@
         "C"
       ],
       "bookAnswer": "C",
-      "explanation": "Üstte menü çubuğu vardır. Launchpad uygulama listesi/başlatma ortamıdır; ekranın üst menü çubuğu değildir. Dock, Spotlight ve FaceTime görevleri diğer seçeneklerde doğru verilmiştir.",
+      "explanation": "Kitapta masaüstünün üstünde menü çubuğu, altında Dock bulunur; Spotlight arama, FaceTime ise sesli ve görüntülü görüşme için kullanılır. Launchpad uygulamaların listelendiği ve başlatıldığı yerdir, masaüstünün üst menü çubuğu değildir.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 126,
@@ -1935,7 +1935,7 @@
         "E"
       ],
       "bookAnswer": "E",
-      "explanation": "Ubuntu'nun başlangıç yılı 2004'tür.",
+      "explanation": "Kitap Ubuntu’nun 2004’te piyasaya girdiğini bildirir. Altı aylık düzenli sürüm aralığı ve iki yılda bir yayımlanan LTS sürümleri de Ubuntu tarihçesinde verilen bilgiler arasındadır.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 126,
@@ -1974,7 +1974,7 @@
         "A"
       ],
       "bookAnswer": "A",
-      "explanation": "Ubuntu'nun ayırt edici kaynak özelliği açık kaynak olmasıdır; Edge/Microsoft lisansı veya varsayılan MS Office ile tanımlanmaz.",
+      "explanation": "Ubuntu, kitapta açık kaynak kodlu bir işletim sistemi olarak tanımlanır; kaynak kodunun açık olması uyarlama ve özelleştirmeyi mümkün kılar. Bu özellik onu Microsoft lisansı, Edge tarayıcısı veya Microsoft Office ile tanımlamaz.",
       "source": {
         "title": "İşletim Sistemleri",
         "pdfPage": 126,

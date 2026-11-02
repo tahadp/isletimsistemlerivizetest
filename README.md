@@ -1,6 +1,6 @@
 # İşletim Sistemleri Vize Testi
 
-İlk beş üniteden **50 özgün çoktan seçmeli soru, 250 seçenek**. Sıra Sizde soruları dahil değildir. Telefonda ve masaüstünde çalışır; ünite seçimi, karışık sıra, açıklamalı yanıtlar ve yanlışları tekrar çözme özellikleri vardır. Geçmişten eski oturumları salt okunur inceleyebilir, soruları görebilir ve yanlış sorular arasında gezebilirsiniz. Kabul edilen yanıtlar ve açıklama, yalnız kontrol edilmiş sorularda görünür.
+İlk beş üniteden **50 özgün çoktan seçmeli soru, 250 seçenek** ve eğitim modunda **16 Sıra Sizde sorusu** içerir. Telefonda ve masaüstünde çalışır; ünite seçimi, karışık sıra, açıklamalı yanıtlar ve yanlışları tekrar çözme özellikleri vardır. Geçmişten eski oturumları salt okunur inceleyebilir, soruları görebilir ve yanlış sorular arasında gezebilirsiniz. Kabul edilen yanıtlar ve açıklama, yalnız kontrol edilmiş sorularda görünür.
 
 ## Çalıştırma
 
@@ -31,9 +31,11 @@ Aktif test oturumu ve geçmiş yalnızca bu tarayıcının `localStorage` alanı
 
 Eski sürümden kalan yalnızca toplam sonuç içeren kayıtların soru ayrıntısı yoktur. Böyle bir kayıt ancak aynı kimlikli geçerli oturum hâlâ varsa ayrıntılı açılır; aksi durumda uygulama soru yanıtlarının kaydedilmediğini bildirir.
 
-Test sonuçları ağ üzerinden gönderilmez. Uygulama soru verisini `questions.json` dosyasından GET isteğiyle yükler; sonuçlar için POST veya telemetri isteği yapmaz. Tarayıcı depolaması kullanılamadığında veya kayıtlı veri bozuk olduğunda uygulama çalışmaya devam eder ve bir uyarı gösterir.
+Sınav cevapları ve sonuçları sunucuya gönderilmez. Uygulama soru verilerini `questions.json` ve eğitimde `sira-sizde.json` dosyalarından GET isteğiyle yükler. Yalnız sayfa ziyareti Cloudflare Web Analytics ile ölçülür; ziyaretçi sayısı sitede gösterilmez. Tarayıcı depolaması kullanılamadığında veya kayıtlı veri bozuk olduğunda uygulama çalışmaya devam eder ve bir uyarı gösterir.
 
-Yanıt kontrolünde doğru seçilen kabul edilmiş yanıt yeşil gösterilir. Yanlış seçilen yanıt kırmızı, diğer kabul edilen seçenekler nötr görünür.
+Yanıt kontrolünde doğru seçilen kabul edilmiş yanıt yeşil gösterilir. Yanlış seçilen yanıt kırmızı, diğer kabul edilen seçenekler nötr görünür. Seçenekler karıştırıldığında görünen A–E harfleri yeni sıraya göre atanır; puanlama özgün seçenek kimlikleriyle yapılır.
+
+Eğitim Test ve Sıra Sizde akışları sınav oturumundan ayrıdır; puan veya geçmiş kaydı oluşturmaz. Eğitim Test yanıtı kontrol edince kitap dayanaklı açıklamayı gösterir. Sıra Sizde açık uçlu sorularında kişi kendi yanıtını yazıp kitap yanıtını isteyerek karşılaştırır; otomatik puanlama yapılmaz. Kitabın soru ve yanıt anahtarı uyuşmayan örnekler açık notla işaretlenir.
 
 ## Kaynak ve cevap politikası
 
@@ -41,7 +43,7 @@ Ana kaynak Anadolu Üniversitesi İşletim Sistemleri kitabının ilk beş ünit
 
 Kitap anahtarı `bookAnswer`, kabul edilen seçenekler `acceptedAnswers` alanındadır. Kaynakta çelişen anahtar ve içerik cevapları birlikte kabul edilir; aynı metinli kabul edilen seçenekler de eşit değerlendirilir. Alternatifler ve gerekçe yalnız cevabı kontrol ettikten sonra gösterilir. Seçeneklerde bulunmayan teknik karşılık yeni seçenek olarak eklenmez, açıklamada belirtilir. Tarihsel sorular kaynak kitabın dönemiyle değerlendirilir.
 
-`data/source-questions.json` taşınabilir kaynak kopyasıdır. `data/answer-overrides.json` denetlenmiş cevap kararlarını içerir. `data/provenance.json` aktarım kaynaklarını ve doğrulama bilgilerini içerir. Python 3 ile soru verisini yeniden oluşturmak için:
+`data/source-questions.json` test sorularının taşınabilir kaynak kopyasıdır. `data/sira-sizde.json` kitapta yer alan açık uçlu soru ve yanıtları içerir. `data/answer-overrides.json` denetlenmiş cevap kararlarını içerir. `data/provenance.json` test aktarım kaynaklarını ve doğrulama bilgilerini içerir. Python 3 ile iki soru dosyasını yeniden oluşturmak için:
 
 ```sh
 python scripts/build_questions.py

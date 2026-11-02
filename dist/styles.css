@@ -102,6 +102,10 @@ h2 { font-size: 19px; line-height: 1.3; font-weight: 650; }
 .unit-choice { min-width: 0; min-height: 42px; align-items: flex-start; padding: 9px 10px; border: 1px solid var(--line); border-radius: 7px; background: #fff; font-size: 13px; }
 .unit-choice span { min-width: 0; overflow-wrap: anywhere; }
 .unit-choice:focus-within { outline: 3px solid #8db4d9; outline-offset: 2px; }
+.education-entry { margin-top: 14px; }
+.education-entry h2 { margin: 0; }
+.education-intro { margin: 6px 0 0; color: var(--muted); font-size: 13px; }
+.education-entry-actions { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 13px; }
 .select-control, textarea {
   width: 100%;
   min-height: 44px;
@@ -246,6 +250,7 @@ h2 { font-size: 19px; line-height: 1.3; font-weight: 650; }
   .shell { width: calc(100% - 24px); padding: 20px 0 30px; }
   .setup-card, .question-card { padding: 17px; }
   .unit-options { grid-template-columns: 1fr; }
+  .education-toolbar h1 { font-size: 20px; }
   .page-title { font-size: 23px; }
   #question-prompt { font-size: 19px; }
   .quiz-toolbar { align-items: flex-start; gap: 10px; }
@@ -297,6 +302,16 @@ h2 { font-size: 19px; line-height: 1.3; font-weight: 650; }
 
 .history-item { position: relative; padding-right: 66px; }
 .history-delete-button { position: absolute; top: 7px; right: 7px; min-height: 28px; padding: 4px 8px; font-size: 12px; }
+.education-toolbar { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin: 2px 1px 14px; }
+.education-toolbar h1 { margin: 0 0 2px; font-size: 22px; line-height: 1.3; font-weight: 650; }
+.education-toolbar .eyebrow { margin: 0; }
+.education-card #education-prompt { margin: 0 0 13px; font-size: 20px; line-height: 1.45; font-weight: 600; white-space: pre-wrap; }
+.education-card #education-status { margin: 0 0 12px; }
+.education-card .options-list { margin-top: 8px; }
+.education-card textarea { display: block; min-height: 120px; resize: vertical; line-height: 1.5; }
+.education-card .education-ambiguity { padding: 8px 10px; border: 1px solid #e3c99f; border-radius: 7px; background: #fff8eb; color: #684d26; font-weight: 650; }
+.education-nav { max-width: 100%; }
+.education-nav .button { min-width: 100px; }
 
 .question-map { margin-top: 14px; padding: 14px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); }
 .question-map h2 { margin: 0 0 9px; font-size: 15px; }

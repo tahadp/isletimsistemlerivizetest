@@ -10,6 +10,8 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "data" / "source-questions.json"
 OVERRIDES = ROOT / "data" / "answer-overrides.json"
 OUTPUT = ROOT / "dist" / "questions.json"
+SIRA_SOURCE = ROOT / "data" / "sira-sizde.json"
+SIRA_OUTPUT = ROOT / "dist" / "sira-sizde.json"
 
 
 def strip_markup(value: str) -> str:
@@ -51,6 +53,10 @@ def main() -> None:
     result = {"title": source["title"], "units": source["units"], "questions": questions}
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    sira = json.loads(SIRA_SOURCE.read_text(encoding="utf-8"))
+    if not isinstance(sira.get("questions"), list) or not sira["questions"]:
+        raise ValueError("Sıra Sizde source must contain questions")
+    SIRA_OUTPUT.write_text(json.dumps(sira, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":

@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { gradeAnswer, restoreSession, sessionShufflePreferences, shuffleOptionKeys, summarizeSession } from '../dist/quiz-core.js';
+import { displayedOptionLabel, gradeAnswer, optionTextForSourceKey, restoreSession, sessionShufflePreferences, shuffleOptionKeys, summarizeSession } from '../dist/quiz-core.js';
 const readJson = async (name) => JSON.parse((await readFile(new URL(name, import.meta.url), 'utf8')).replace(/^\uFEFF/, ''));
 const data = await readJson('../dist/questions.json');
 const questions = data.questions;
@@ -64,6 +64,35 @@ test('Option shuffling changes only display order and saved order survives resto
   assert.equal(restored.config.shuffleOptions, true);
   assert.deepEqual(sessionShufflePreferences(restored), { shuffle: true, shuffleOptions: true });
   assert.deepEqual(restored.optionOrders[question.id], shuffled);
+  assert.deepEqual(question.acceptedAnswers.map((key) => displayedOptionLabel(key, restored.optionOrders[question.id])), ['A', 'B', 'C']);
+  assert.equal(displayedOptionLabel(question.bookAnswer, restored.optionOrders[question.id]), 'B');
+  assert.equal(gradeAnswer(question, question.acceptedAnswers[0]), true);
+});
+
+test('Displayed A-E labels map back to source option keys for checked and restored answers', () => {
+  const question = byId.get('u2-test-1');
+  const order = ['E', 'D', 'C', 'B', 'A'];
+  const restored = restoreSession({
+    questionIds: [question.id], optionOrders: { [question.id]: order },
+    answers: { [question.id]: { selected: 'E', checked: true } },
+    config: { shuffleOptions: true }
+  }, byId);
+  assert.equal(displayedOptionLabel('E', restored.optionOrders[question.id]), 'A');
+  assert.equal(restored.answers[question.id].selected, 'E');
+  assert.equal(restored.answers[question.id].correct, question.acceptedAnswers.includes('E'));
+  assert.deepEqual(question.acceptedAnswers.map((key) => displayedOptionLabel(key, order)), ['E', 'A']);
+  assert.equal(displayedOptionLabel(question.bookAnswer, order), 'E');
+});
+
+test('History review preserves selected and accepted choice text without exposing source keys', () => {
+  const question = byId.get('u1-test-7');
+  const selectedText = optionTextForSourceKey(question.options, 'B');
+  const acceptedText = question.acceptedAnswers.map((key) => optionTextForSourceKey(question.options, key));
+  assert.ok(selectedText);
+  assert.ok(acceptedText.every(Boolean));
+  assert.equal(selectedText, question.options.find((option) => option.key === 'B').text);
+  assert.equal(acceptedText.length, 3);
+  assert.equal(optionTextForSourceKey(question.options, 'Z'), '');
 });
 
 test('Restored home shuffle controls reflect legacy and saved session preferences', () => {
