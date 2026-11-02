@@ -45,6 +45,22 @@ export function describeQuestionMapItem(position, unitTitle, sourceNumber, state
   };
 }
 
+export function filterQuestionsByUnits(questions, unitIds) {
+  const selected = new Set(Array.isArray(unitIds) ? unitIds.map(String) : []);
+  return Array.isArray(questions)
+    ? questions.filter((question) => question && question.type === "test" && selected.has(String(question.unit)))
+    : [];
+}
+
+export function formatUnitSelection(units, unitIds) {
+  const available = Array.isArray(units) ? units : [];
+  const selected = new Set(Array.isArray(unitIds) ? unitIds.map(String) : []);
+  const titles = available.filter((unit) => selected.has(String(unit.id))).map((unit) => unit.title);
+  if (!titles.length) return "Ünite seçilmedi";
+  if (titles.length === available.length) return "Tüm üniteler";
+  return titles.length === 1 ? titles[0] : titles.join(" + ");
+}
+
 export function summarizeSession(questionIds, answers = {}) {
   const ids = Array.isArray(questionIds) ? questionIds : [];
   let completed = 0;
@@ -114,6 +130,17 @@ export function restoreSession(saved, questionsById) {
   const config = saved.config && typeof saved.config === "object" && !Array.isArray(saved.config)
     ? saved.config
     : {};
+  const validUnitIds = [...new Set([...questionsById.values()].map((question) => String(question.unit)))].sort((a, b) => Number(a) - Number(b));
+  const storedUnitIds = Array.isArray(config.units)
+    ? config.units
+    : config.unit === "all" || config.unit == null
+      ? validUnitIds
+      : [config.unit];
+  const validUnits = new Set(validUnitIds);
+  const unitIds = [...new Set(storedUnitIds
+    .filter((unitId) => typeof unitId === "string" || typeof unitId === "number")
+    .map(String)
+    .filter((unitId) => validUnits.has(unitId)))].sort((a, b) => Number(a) - Number(b));
   const sourceOptionOrders = saved.optionOrders && typeof saved.optionOrders === "object" && !Array.isArray(saved.optionOrders)
     ? saved.optionOrders
     : {};
@@ -133,7 +160,8 @@ export function restoreSession(saved, questionsById) {
     originalIds,
     optionOrders,
     config: {
-      unit: typeof config.unit === "string" || typeof config.unit === "number" ? String(config.unit) : "all",
+      unit: unitIds.length === 1 ? unitIds[0] : "all",
+      units: unitIds,
       shuffle: Boolean(config.shuffle),
       shuffleOptions: Boolean(config.shuffleOptions)
     }

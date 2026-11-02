@@ -1,4 +1,4 @@
-import { classifyOption, classifyQuestionMapItem, confirmFreshStart, describeQuestionMapItem, gradeAnswer, gradePendingAnswers, restoreSession, shuffleOptionKeys, summarizePendingAnswers, summarizeSession } from "./quiz-core.js";
+import { classifyOption, classifyQuestionMapItem, confirmFreshStart, describeQuestionMapItem, filterQuestionsByUnits, formatUnitSelection, gradeAnswer, gradePendingAnswers, restoreSession, shuffleOptionKeys, summarizePendingAnswers, summarizeSession } from "./quiz-core.js";
 import {
   HISTORY_LIMIT,
   canRevealHistoryAnswer,
@@ -18,7 +18,8 @@ import {
   const views = ["loading-view", "home-view", "quiz-view", "results-view", "history-review-view", "error-view"];
   const ui = {
     app: byId("app"), loading: byId("loading-view"), homeButton: byId("home-button"),
-    unitFilter: byId("unit-filter"), shuffle: byId("shuffle"), shuffleOptions: byId("shuffle-options"), start: byId("start-button"),
+    unitOptions: byId("unit-options"), selectAllUnits: byId("select-all-units"), clearUnits: byId("clear-units"),
+    shuffle: byId("shuffle"), shuffleOptions: byId("shuffle-options"), start: byId("start-button"),
     resume: byId("resume-button"), questionTotal: byId("question-total"), filterHint: byId("filter-hint"),
     quizUnit: byId("quiz-unit"), progressText: byId("progress-text"), progressTrack: byId("progress-track"),
     questionNumber: byId("question-number"), questionStatus: byId("question-status"),
@@ -143,16 +144,33 @@ import {
     const units = Array.isArray(data.units) ? data.units.slice().sort((a, b) => Number(a.id) - Number(b.id)) : [];
     unitsById = new Map(units.map((unit) => [Number(unit.id), unit]));
     for (const unit of units) {
-      const option = document.createElement("option");
-      option.value = String(unit.id);
-      option.textContent = unit.title;
-      ui.unitFilter.append(option);
+      const label = document.createElement("label");
+      label.className = "check-label unit-choice";
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.name = "unit-selection";
+      checkbox.value = String(unit.id);
+      checkbox.checked = true;
+      const title = document.createElement("span");
+      title.textContent = unit.title;
+      label.append(checkbox, title);
+      ui.unitOptions.append(label);
     }
   }
 
+  function selectedUnitIds() {
+    return [...ui.unitOptions.querySelectorAll('input[name="unit-selection"]:checked')].map((checkbox) => checkbox.value);
+  }
+
+  function setSelectedUnits(unitIds) {
+    const selected = new Set(Array.isArray(unitIds) ? unitIds.map(String) : []);
+    ui.unitOptions.querySelectorAll('input[name="unit-selection"]').forEach((checkbox) => {
+      checkbox.checked = selected.has(checkbox.value);
+    });
+  }
+
   function filteredQuestions() {
-    const selectedUnit = ui.unitFilter.value;
-    return data.questions.filter((question) => question.type === "test" && (selectedUnit === "all" || String(question.unit) === selectedUnit));
+    return filterQuestionsByUnits(data.questions, selectedUnitIds());
   }
 
   function updateHistoryView() {
@@ -370,11 +388,12 @@ import {
     else byId("history-heading").focus();
   }
   function updateHome() {
+    const units = selectedUnitIds();
     const count = filteredQuestions().length;
-    ui.questionTotal.textContent = count + " soru";
+    ui.questionTotal.textContent = count + " soru · " + units.length + " ünite";
     ui.start.disabled = count === 0;
     ui.start.classList.toggle("is-disabled", count === 0);
-    ui.filterHint.textContent = count ? "" : "Bu ünite için test sorusu bulunmuyor.";
+    ui.filterHint.textContent = units.length ? units.length + " ünite seçildi; " + count + " soru hazır." : "Başlamak için en az bir ünite seç.";
     ui.resume.classList.toggle("hidden", !session);
     ui.resume.textContent = session && session.status === "complete" ? "Son oturumu incele" : "Devam et";
     updateHistoryView();
@@ -410,7 +429,16 @@ import {
       startedAt: new Date().toISOString(),
       historySuppressed: false,
       noHistory: Boolean(config.noHistory),
-      config: { unit: config.unit || "all", shuffle: Boolean(config.shuffle), shuffleOptions: Boolean(config.shuffleOptions) }
+      config: {
+        unit: Array.isArray(config.units) && config.units.length === 1 ? String(config.units[0]) : config.unit || "all",
+        units: Array.isArray(config.units)
+          ? [...new Set(config.units.map(String))]
+          : config.unit && config.unit !== "all"
+            ? [String(config.unit)]
+            : [...new Set(questions.map((question) => String(question.unit)))],
+        shuffle: Boolean(config.shuffle),
+        shuffleOptions: Boolean(config.shuffleOptions)
+      }
     };
     saveSession();
     renderQuestion();
@@ -428,10 +456,13 @@ import {
   }
 
   function historyUnit() {
-    const configUnit = session && session.config ? String(session.config.unit) : "all";
-    if (configUnit === "all") return "Tüm üniteler";
-    const unit = unitsById.get(Number(configUnit));
-    return unit ? unit.title : "Ünite " + configUnit;
+    const units = Array.isArray(data.units) ? data.units : [];
+    const selected = session && session.config && Array.isArray(session.config.units)
+      ? session.config.units
+      : session && session.config && session.config.unit !== "all"
+        ? [String(session.config.unit)]
+        : units.map((unit) => String(unit.id));
+    return formatUnitSelection(units, selected);
   }
 
   function answerRecord(question) {
@@ -759,7 +790,7 @@ import {
         return record && record.checked && !record.correct;
       })
       .map((id) => questionById.get(id));
-    if (wrong.length) beginSession(wrong, { unit: session.config.unit, shuffle: false, shuffleOptions: session.config.shuffleOptions, optionOrders: session.optionOrders, noHistory: true });
+    if (wrong.length) beginSession(wrong, { unit: session.config.unit, units: session.config.units, shuffle: false, shuffleOptions: session.config.shuffleOptions, optionOrders: session.optionOrders, noHistory: true });
   }
 
   function returnToFirstUnansweredOrStart() {
@@ -787,6 +818,7 @@ import {
       questionById = new Map(data.questions.map((question) => [question.id, question]));
       populateUnits();
       session = loadSavedSession();
+      if (session && session.config && Array.isArray(session.config.units)) setSelectedUnits(session.config.units);
       historyEntries = loadHistory();
       if (session && shouldRecordHistory(session) && completedCount() > 0 && !historyEntries.some((entry) => entry.id === session.historyId)) {
         recordHistory();
@@ -794,12 +826,22 @@ import {
       updateHome();
       showView("home-view");
 
-      ui.unitFilter.addEventListener("change", updateHome);
+      ui.unitOptions.addEventListener("change", updateHome);
+      ui.selectAllUnits.addEventListener("click", () => {
+        setSelectedUnits(data.units.map((unit) => String(unit.id)));
+        updateHome();
+      });
+      ui.clearUnits.addEventListener("click", () => {
+        setSelectedUnits([]);
+        updateHome();
+      });
       ui.start.addEventListener("click", () => {
+        const units = selectedUnitIds();
+        if (!units.length) return;
         confirmFreshStart(session, () => window.confirm("Devam eden oturumdaki cevaplanmamış sorular kaybolacak. Yeni teste başlamak istiyor musun?"), () => {
           const questions = filteredQuestions();
           const ordered = ui.shuffle.checked ? mix(questions) : questions;
-          beginSession(ordered, { unit: ui.unitFilter.value, shuffle: ui.shuffle.checked, shuffleOptions: ui.shuffleOptions.checked });
+          beginSession(ordered, { unit: units.length === 1 ? units[0] : "all", units, shuffle: ui.shuffle.checked, shuffleOptions: ui.shuffleOptions.checked });
         });
       });
       ui.resume.addEventListener("click", returnToFirstUnansweredOrStart);
@@ -831,7 +873,12 @@ import {
       ui.wrongReviewReturn.addEventListener("click", returnToResults);
       ui.review.addEventListener("click", returnToFirstUnansweredOrStart);
       ui.newRound.addEventListener("click", () => {
-        ui.unitFilter.value = session && session.config ? session.config.unit : "all";
+        const units = session && session.config && Array.isArray(session.config.units)
+          ? session.config.units
+          : session && session.config && session.config.unit !== "all"
+            ? [String(session.config.unit)]
+            : data.units.map((unit) => String(unit.id));
+        setSelectedUnits(units);
         ui.shuffle.checked = Boolean(session && session.config && session.config.shuffle);
         ui.shuffleOptions.checked = Boolean(session && session.config && session.config.shuffleOptions);
         updateHome();

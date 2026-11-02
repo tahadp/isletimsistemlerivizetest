@@ -21,7 +21,11 @@
       <h1 class="page-title">İşletim Sistemleri</h1>
       <section class="setup-card" aria-labelledby="setup-heading">
         <div class="section-heading"><div><h2 id="setup-heading">Test seç</h2></div><span id="question-total" class="subtle"></span></div>
-        <div class="filters"><label class="field-label" for="unit-filter">Ünite</label><select id="unit-filter" class="select-control"><option value="all">Tüm üniteler</option></select></div>
+        <fieldset id="unit-filter" class="unit-filter">
+          <legend class="field-label">Üniteler</legend>
+          <div class="unit-selection-actions"><button id="select-all-units" class="text-button" type="button">Tümünü seç</button><button id="clear-units" class="text-button" type="button">Seçimi temizle</button></div>
+          <div id="unit-options" class="unit-options"></div>
+        </fieldset>
         <label class="check-label shuffle-label"><input type="checkbox" id="shuffle"><span>Karışık sırayla</span></label>
         <label class="check-label shuffle-label"><input type="checkbox" id="shuffle-options"><span>Seçenekleri karıştır</span></label>
         <div class="setup-actions"><button id="start-button" class="button primary" type="button">Başla</button><button id="resume-button" class="button secondary hidden" type="button">Devam et</button></div>
