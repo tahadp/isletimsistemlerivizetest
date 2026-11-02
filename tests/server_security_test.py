@@ -62,10 +62,10 @@ class StaticServerSecurityTests(unittest.TestCase):
         self.assertEqual(status, 200)
         csp = headers["content-security-policy"]
         self.assertIn("default-src 'self'", csp)
-        self.assertIn("script-src 'self'", csp)
+        self.assertIn("script-src 'self' https://static.cloudflareinsights.com", csp)
         self.assertIn("style-src 'self'", csp)
         self.assertNotIn("unsafe-inline", csp)
-        self.assertIn("connect-src 'self'", csp)
+        self.assertIn("connect-src 'self' https://cloudflareinsights.com", csp)
         self.assertIn("object-src 'none'", csp)
         self.assertIn("frame-ancestors 'none'", csp)
         self.assertIn("base-uri 'none'", csp)

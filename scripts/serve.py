@@ -24,8 +24,9 @@ CHARSET_TYPES = {
     ".json": "application/json; charset=utf-8",
 }
 CSP_POLICY = (
-    "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; "
-    "font-src 'self'; connect-src 'self'; object-src 'none'; frame-ancestors 'none'; "
+    "default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; "
+    "style-src 'self'; img-src 'self' data:; font-src 'self'; "
+    "connect-src 'self' https://cloudflareinsights.com; object-src 'none'; frame-ancestors 'none'; "
     "base-uri 'none'; form-action 'self'"
 )
 SECURITY_HEADERS = (
